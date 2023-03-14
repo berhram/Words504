@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.hfad.words504'
-    compileSdk 32
+    namespace 'com.team504.words504'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.hfad.words504"
+        applicationId "com.team504.words504"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 

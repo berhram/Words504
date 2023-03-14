@@ -1,4 +1,4 @@
-package com.hfad.words504
+package words504.words504.words504
 
 import org.junit.Test
 
