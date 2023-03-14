@@ -4,13 +4,13 @@ plugins {
 }
 
 android {
-    namespace 'com.hfad.words504'
-    compileSdk 32
+    namespace 'ru.easycode.words504'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.hfad.words504"
+        applicationId "ru.easycode.words504"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
