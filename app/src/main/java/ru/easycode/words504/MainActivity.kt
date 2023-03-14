@@ -1,4 +1,4 @@
-package com.hfad.words504
+package ru.easycode.words504
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
