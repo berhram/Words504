@@ -12,5 +12,5 @@ task clean(type: Delete) {
 ext {
     retrofitVersion = '2.9.0'
     converterGsonVersion = '2.9.0'
-    okhttpIntercepVersion = '4.15.1'
+    okhttpInterceptorVersion = '4.15.1'
 }
