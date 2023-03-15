@@ -10,6 +10,7 @@ task clean(type: Delete) {
 }
 
 ext {
-    retrofitVersion ='2.9.0'
-    gsonVersion ='2.9.0'
+    retrofitVersion = '2.9.0'
+    gsonVersion = '2.9.0'
+    okhttpIntercepVersion = '5.0.0-alpha.1'
 }
