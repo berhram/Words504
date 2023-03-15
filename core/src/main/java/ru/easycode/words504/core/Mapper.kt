@@ -1,8 +1,8 @@
 package ru.easycode.words504.core
 
-interface Mapper<S, R> {
+interface Mapper<S:Any, R:Any> {
 
     fun map(source: S): R
 
-    interface Unit<S>: Mapper<S, kotlin.Unit>
+    interface Unit<S : Any>: Mapper<S, kotlin.Unit>
 }
