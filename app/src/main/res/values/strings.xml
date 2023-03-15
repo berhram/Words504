@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Words504</string>
+    <string name="button_test">start test</string>
 </resources>
