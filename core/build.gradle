@@ -36,4 +36,5 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'com.google.android.material:material:1.8.0'
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
+    implementation 'junit:junit:4.12'
 }
