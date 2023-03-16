@@ -13,4 +13,5 @@ ext {
     retrofitVersion = '2.9.0'
     converterGsonVersion = '2.9.0'
     okhttpInterceptorVersion = '4.10.0'
+    lifeCycleVersion = '2.6.0'
 }
