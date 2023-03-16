@@ -24,10 +24,8 @@ class ProvideSerializationGsonTest( )  {
 
     @Test
     fun readEmptyJson(){
-        var fakeData = FakeSerializedObject("")
         val actual = provideSerializationGson.fromJson("{\"id\":\"\"}",FakeSerializedObject::class.java)
         val expected = FakeSerializedObject("")
         assertEquals(expected,actual)
-
     }
 }
