@@ -1,13 +1,17 @@
 package ru.easycode.words504
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.test.StandardTestDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import ru.easycode.words504.presentation.DispatchersList
 
 abstract class BaseTest {
-    protected class TestDispatchersList : DispatchersList {
-        override fun io(): CoroutineDispatcher = StandardTestDispatcher()
+    @OptIn(ExperimentalCoroutinesApi::class)
+    protected class TestDispatchersList(
+        private val dispatcher: CoroutineDispatcher = UnconfinedTestDispatcher(),
+    ) : DispatchersList {
+        override fun io(): CoroutineDispatcher = dispatcher
 
-        override fun ui(): CoroutineDispatcher = StandardTestDispatcher()
+        override fun ui(): CoroutineDispatcher = dispatcher
     }
 }
