@@ -8,19 +8,18 @@ interface ProvideSharedPreferences {
     fun sharedPreferences(): SharedPreferences
 
     abstract class SharedPref(
+        val context: Context,
         val name: String,
-        val visibility: Int,
-        val context: Context
+        val visibility: Int = Context.MODE_PRIVATE,
     )
 
     class Release(context: Context) : SharedPref(
-        "release",
-        Context.MODE_PRIVATE,
-        context
+        context,
+        "release"
     )
+
     class Debug(context: Context) : SharedPref(
-        "debug",
-        Context.MODE_PRIVATE,
-        context
+        context,
+        "debug"
     )
 }
