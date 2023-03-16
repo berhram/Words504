@@ -20,17 +20,17 @@ class SomeViewModelTest : BaseTest() {
         viewModel.translate("example")
         assertEquals("example-translated", viewModel.result)
     }
-}
 
-class SomeViewModel(
-    private val dispatchers: DispatchersList,
-) : ViewModel() {
-    var result: String = ""
+    private class SomeViewModel(
+        private val dispatchers: DispatchersList,
+    ) : ViewModel() {
+        var result: String = ""
 
-    fun translate(word: String) {
-        viewModelScope.launch(dispatchers.io()) {
-            withContext(dispatchers.ui()) {
-                result = "$word-translated"
+        fun translate(word: String) {
+            viewModelScope.launch(dispatchers.io()) {
+                withContext(dispatchers.ui()) {
+                    result = "$word-translated"
+                }
             }
         }
     }
