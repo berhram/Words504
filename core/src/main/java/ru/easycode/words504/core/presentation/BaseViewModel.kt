@@ -9,11 +9,11 @@ import ru.easycode.words504.presentation.DispatchersList
 abstract class BaseViewModel(
     private val dispatchers: DispatchersList
 ) : ViewModel() {
-    protected fun <T> handle(io: suspend () -> T, ui: () -> Unit) =
+    protected fun <T> handle(io: suspend () -> T, ui: (result: T) -> Unit) =
         viewModelScope.launch(dispatchers.io()) {
-            io.invoke()
+            val result = io.invoke()
             withContext(dispatchers.ui()) {
-                ui.invoke()
+                ui.invoke(result)
             }
         }
 }
