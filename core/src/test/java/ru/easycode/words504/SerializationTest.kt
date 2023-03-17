@@ -14,33 +14,18 @@ class SerializationTest() {
     private val serialization = Serialization.Base(gson)
 
     @Test
-    fun readEmptyString() {
-        val actual = serialization.toJson(FakeSerializedObject(""))
-        val expected = "{\"id\":\"\"}"
-        assertEquals(expected, actual)
-    }
-
-    @Test
-    fun readEmptyObject() {
-        val actual =
-            serialization.fromJson("{\"id\":\"\"}", FakeSerializedObject::class.java)
-        val expected = FakeSerializedObject("")
-        assertEquals(expected, actual)
-    }
-
-    @Test
     fun `test deserialize object`() {
         val actual =
             serialization.fromJson("{\"id\":\"777\"}", FakeSerializedObject::class.java)
-        val expected = "{\"id\":\"777\"}"
-        assertNotEquals(actual, expected)
+        val expected = FakeSerializedObject("777")
+        assertEquals(expected, actual)
     }
 
     @Test
     fun `test serialize object`() {
         val actual =
-            serialization.toJson(FakeSerializedObject("id:777"))
+            serialization.toJson(FakeSerializedObject("777"))
         val expected = "{\"id\":\"777\"}"
-        assertNotEquals(actual, expected)
+        assertEquals(expected, actual)
     }
 }
