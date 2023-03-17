@@ -31,10 +31,9 @@ android {
 }
 
 dependencies {
-
     api 'androidx.core:core-ktx:1.9.0'
     api 'androidx.appcompat:appcompat:1.6.1'
     api 'com.google.android.material:material:1.8.0'
-    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
-    implementation "junit:junit:$rootProject.junitTest"
+    api "com.google.code.gson:gson:$rootProject.gsonVersion"
+    api "junit:junit:$rootProject.junitTest"
 }

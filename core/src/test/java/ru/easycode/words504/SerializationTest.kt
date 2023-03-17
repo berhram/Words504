@@ -29,7 +29,7 @@ class SerializationTest() {
     }
 
     @Test
-    fun readRightObject() {
+    fun `test deserialize object`() {
         val actual =
             serialization.fromJson("{\"id\":\"777\"}", FakeSerializedObject::class.java)
         val expected = "{\"id\":\"777\"}"
@@ -37,7 +37,7 @@ class SerializationTest() {
     }
 
     @Test
-    fun readRightString() {
+    fun `test serialize object`() {
         val actual =
             serialization.toJson(FakeSerializedObject("id:777"))
         val expected = "{\"id\":\"777\"}"
