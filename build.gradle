@@ -15,5 +15,6 @@ ext {
     okhttpInterceptorVersion = '4.10.0'
     gsonVersion = '2.10.1'
     lifeCycleVersion = '2.6.0'
-    junitTest = '4.13.2'
+    junitTest = '4.12'
 }
+
