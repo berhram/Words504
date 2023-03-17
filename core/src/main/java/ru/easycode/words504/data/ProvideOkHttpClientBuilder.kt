@@ -12,10 +12,12 @@ interface ProvideOkHttpClientBuilder {
         private val timeOutSeconds: Long = 60L
     ): ProvideOkHttpClientBuilder {
 
+        private val timeUnit: TimeUnit = TimeUnit.SECONDS
+
         override fun httpClientBuilder() = OkHttpClient.Builder()
             .addInterceptor(provideInterceptor.interceptor())
-            .connectTimeout(timeOutSeconds, TimeUnit.SECONDS)
-            .readTimeout(timeOutSeconds, TimeUnit.SECONDS)
+            .connectTimeout(timeOutSeconds, timeUnit)
+            .readTimeout(timeOutSeconds, timeUnit)
     }
 
     class Base(
