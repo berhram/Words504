@@ -17,3 +17,4 @@ ext {
     lifeCycleVersion = '2.6.0'
     junitTest = '4.12'
 }
+
