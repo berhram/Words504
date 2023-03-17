@@ -48,7 +48,6 @@ dependencies {
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
-    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpInterceptorVersion"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
 }
