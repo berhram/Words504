@@ -14,4 +14,6 @@ ext {
     converterGsonVersion = '2.9.0'
     okhttpInterceptorVersion = '4.10.0'
     gsonVersion = '2.10.1'
+    lifeCycleVersion = '2.6.0'
 }
+
