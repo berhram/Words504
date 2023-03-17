@@ -14,8 +14,8 @@ interface ProvideInterceptor {
         }
     }
 
-    class Debug : Abstract(HttpLoggingInterceptor.Level.NONE)
+    class Debug : Abstract(HttpLoggingInterceptor.Level.BODY)
 
-    class Release : Abstract(HttpLoggingInterceptor.Level.BODY)
+    class Release : Abstract(HttpLoggingInterceptor.Level.NONE)
 
 }
