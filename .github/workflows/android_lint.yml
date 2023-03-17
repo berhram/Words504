@@ -15,6 +15,6 @@ jobs:
       - name: ktlint
         uses: ScaCap/action-ktlint@v1
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           android: true
