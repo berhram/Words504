@@ -1,14 +1,15 @@
 package ru.easycode.words504.data
 
 interface SimpleStorage : StringStorage {
-    class Base(private val provideSharedPref: ProvideSharedPreferences) : SimpleStorage {
+    class Base(provideSharedPref: ProvideSharedPreferences) : SimpleStorage {
+
+        private val sharedPreferences = provideSharedPref.sharedPreferences()
         override fun read(key: String, default: String): String {
-            val outputString = provideSharedPref.sharedPreferences().getString(key, default)
-            return outputString ?: ""
+            return sharedPreferences.getString(key, default)!!
         }
 
         override fun save(key: String, value: String) {
-            provideSharedPref.sharedPreferences().edit().putString(key, value).apply()
+            sharedPreferences.edit().putString(key, value).apply()
         }
     }
 
