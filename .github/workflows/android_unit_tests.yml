@@ -15,8 +15,5 @@ jobs:
           distribution: 'temurin'
           java-version: '11'
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Run Unit Tests
-        run: ./gradlew testDebugUnitTest
+        run: ./gradlew test
