@@ -9,14 +9,14 @@ interface ProvideOkHttpClientBuilder {
 
     abstract class Abstract(
         private val provideInterceptor: ProvideInterceptor,
-        private val timeOutProperty: TimeUnit = TimeUnit.SECONDS,
-        private val timeOutSeconds: Long = 60L
+        private val timeOutUnit: TimeUnit = TimeUnit.SECONDS,
+        private val timeOut: Long = 60L
     ): ProvideOkHttpClientBuilder {
 
         override fun httpClientBuilder() = OkHttpClient.Builder()
             .addInterceptor(provideInterceptor.interceptor())
-            .connectTimeout(timeOutSeconds, timeOutProperty)
-            .readTimeout(timeOutSeconds, timeOutProperty)
+            .connectTimeout(timeOut, timeOutUnit)
+            .readTimeout(timeOut, timeOutUnit)
     }
 
     class Base(
