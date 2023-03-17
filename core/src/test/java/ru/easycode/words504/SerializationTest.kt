@@ -16,7 +16,7 @@ class SerializationTest() {
     @Test
     fun `test deserialize object`() {
         val actual =
-            serialization.fromJson("{\"id\":\"777\"}", FakeSerializedObject::class.java)
+            serialization.fromJson("{\"id\":\"\"}", FakeSerializedObject::class.java)
         val expected = FakeSerializedObject("777")
         assertEquals(expected, actual)
     }
