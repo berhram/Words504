@@ -1,17 +1,16 @@
 package ru.easycode.words504.data
 
 import com.google.gson.Gson
-import java.util.Objects
 
-interface ProvideSerializationGson {
+interface ProvideSerialization {
 
-    fun toJson(str: Any): String
+    fun toJson(src: Any): String
 
     fun <T> fromJson(json: String, obj: Class<T>): T
 
-    class Base(private val gson: Gson = Gson()) : ProvideSerializationGson {
-        override fun toJson(str: Any): String {
-            return gson.toJson(str)
+    class Base(private val gson: Gson = Gson()) : ProvideSerialization {
+        override fun toJson(src: Any): String {
+            return gson.toJson(src)
         }
 
         override fun <T> fromJson(json: String, obj: Class<T>): T {
