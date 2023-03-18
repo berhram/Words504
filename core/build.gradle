@@ -38,4 +38,6 @@ dependencies {
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
     api "junit:junit:$rootProject.junitTest"
+    api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    api "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
 }
