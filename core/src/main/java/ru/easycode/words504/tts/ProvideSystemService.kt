@@ -4,14 +4,19 @@ import android.content.Context
 
 interface ProvideSystemService {
 
-    fun <T: Any> provideService(context: Context): T
+    fun <T : Any> provideService(): T
 
-    abstract class Abstract<K: Any>(
-        private val serviceName: String
+    abstract class Abstract(
+        private val context: Context,
+        private val serviceName: String,
     ) : ProvideSystemService {
-        override fun <K: Any> provideService(context: Context): K =
-            context.applicationContext.getSystemService(serviceName) as K
+
+        private val service by lazy {
+            context.applicationContext.getSystemService(serviceName)
+        }
+
+        override fun <K : Any> provideService(): K = service as K
     }
 
-    class AudioManager : Abstract<AudioManager>(Context.AUDIO_SERVICE)
+    class AudioManager(private val context: Context) : Abstract(context, Context.AUDIO_SERVICE)
 }
