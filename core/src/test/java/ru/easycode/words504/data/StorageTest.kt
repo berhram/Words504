@@ -21,7 +21,6 @@ class StorageTest {
         storage = Storage.Base(fakeSimpleStorage, fakeObjectStorage)
     }
 
-
     @Test
     fun `test read from SimpleStorage empty`() {
         val actual = storage.read(fakeKey, fakeDefaultString)
@@ -60,7 +59,6 @@ class StorageTest {
         val expected = fakeClass
         assertEquals(expected, actual)
     }
-
 
     private class FakeSimpleStorage : SimpleStorage {
         private var string = ""
