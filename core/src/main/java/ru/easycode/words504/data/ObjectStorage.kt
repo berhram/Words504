@@ -17,7 +17,7 @@ interface ObjectStorage {
         }
 
         override fun <T : Any> read(key: String, default: T): T {
-            val defaultJson = serialization.toJson(default as Any)
+            val defaultJson = serialization.toJson(default)
             val json = stringStorage.read(key, defaultJson)
             return serialization.fromJson(json, default::class.java)
         }
