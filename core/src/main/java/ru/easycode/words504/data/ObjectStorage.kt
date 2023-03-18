@@ -2,27 +2,24 @@ package ru.easycode.words504.data
 
 interface ObjectStorage {
 
-    fun save(key: String, src: Any)
+    fun save(key: String, obj: Any)
 
-    fun <T> read(key: String, default: T, clazz: Class<T>): T
+    fun <T> read(key: String, default: Any, clazz: Class<T>): T
 
     class Base(
         private val serialization: Serialization,
         private val stringStorage: StringStorage,
     ) : ObjectStorage {
 
-        override fun save(key: String, src: Any) {
-            val json = serialization.toJson(src)
+        override fun save(key: String, obj: Any) {
+            val json = serialization.toJson(obj)
             stringStorage.save(key, json)
         }
 
-        override fun <T> read(key: String, default: T, clazz: Class<T>): T {
-            return try {
-                val json = stringStorage.read(key, default.toString())
-                serialization.fromJson(json, clazz)
-            } catch (e: Exception) {
-                default
-            }
+        override fun <T> read(key: String, default: Any, clazz: Class<T>): T {
+            val defaultJson = serialization.toJson(default)
+            val json = stringStorage.read(key, defaultJson)
+            return serialization.fromJson(json, clazz)
         }
     }
 }
