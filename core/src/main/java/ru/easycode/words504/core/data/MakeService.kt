@@ -7,7 +7,7 @@ interface MakeService {
     fun <T> service(clazz: Class<T>): T
 
     abstract class Abstract(
-        private val retrofitBuilder: ProvideRetrofitBuilder,
+        private val retrofitBuilder: ProvideRetrofitBuilder
     ) : MakeService {
 
         private val retrofit by lazy {
