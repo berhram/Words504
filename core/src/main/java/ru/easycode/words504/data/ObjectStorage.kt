@@ -4,7 +4,7 @@ interface ObjectStorage {
 
     fun save(key: String, obj: Any)
 
-    fun <T> read(key: String, default: Any, clazz: Class<T>): T
+    fun <T : Any> read(key: String, default: T, clazz: Class<T>): T
 
     class Base(
         private val serialization: Serialization,
@@ -16,10 +16,10 @@ interface ObjectStorage {
             stringStorage.save(key, json)
         }
 
-        override fun <T> read(key: String, default: Any, clazz: Class<T>): T {
-            val defaultJson = serialization.toJson(default)
+        override fun <T : Any> read(key: String, default: T, clazz: Class<T>): T {
+            val defaultJson = serialization.toJson(default as Any)
             val json = stringStorage.read(key, defaultJson)
-            return serialization.fromJson(json, clazz)
+            return serialization.fromJson(json, default::class.java)
         }
     }
 }
