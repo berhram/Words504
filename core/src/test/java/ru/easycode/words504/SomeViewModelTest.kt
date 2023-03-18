@@ -1,20 +1,18 @@
 package ru.easycode.words504
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runTest
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
 import org.junit.Test
+import ru.easycode.words504.core.presentation.BaseViewModel
 import ru.easycode.words504.presentation.DispatchersList
 
 class SomeViewModelTest : BaseTest() {
 
-    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `test translate`() = runTest {
+    fun `test translate`() = runBlocking {
         val dispatchers = TestDispatchersList()
         val viewModel = SomeViewModel(dispatchers)
         viewModel.translate("example")
@@ -23,7 +21,8 @@ class SomeViewModelTest : BaseTest() {
 
     private class SomeViewModel(
         private val dispatchers: DispatchersList,
-    ) : ViewModel() {
+    ) : BaseViewModel(dispatchers) {
+
         var result: String = ""
 
         fun translate(word: String) {

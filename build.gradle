@@ -16,5 +16,5 @@ ext {
     gsonVersion = '2.10.1'
     lifeCycleVersion = '2.6.0'
     junitTest = '4.12'
+    kotlinxCoroutinesTest = '1.6.4'
 }
-
