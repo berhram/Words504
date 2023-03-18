@@ -4,7 +4,7 @@ import ru.easycode.words504.data.ProvideRetrofitBuilder
 
 interface MakeService {
 
-    fun <T> service(clazz: Class<T>): T
+    fun <T : Any> service(clazz: Class<T>): T
 
     abstract class Abstract(
         private val retrofitBuilder: ProvideRetrofitBuilder
@@ -16,7 +16,7 @@ interface MakeService {
                 .build()
         }
 
-        override fun <T> service(clazz: Class<T>): T = retrofit.create(clazz)
+        override fun <T : Any> service(clazz: Class<T>): T = retrofit.create(clazz)
 
         protected open fun baseUrl(): String = "https://api-free.deepl.com/v2/"
     }
