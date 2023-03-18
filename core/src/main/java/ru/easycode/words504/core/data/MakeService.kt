@@ -22,4 +22,5 @@ interface MakeService {
 
     class Dictionary(retrofitBuilder: ProvideRetrofitBuilder) :
         Abstract(retrofitBuilder, "https://api-free.deepl.com/v2/")
+
 }
