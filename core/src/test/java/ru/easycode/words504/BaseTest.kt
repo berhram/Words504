@@ -18,7 +18,7 @@ abstract class BaseTest {
     }
 
     protected class FakeSimpleStorage : SimpleStorage {
-        private var map = mutableMapOf<String, String>()
+        private val map = mutableMapOf<String, String>()
         override fun read(key: String, default: String): String =
             map.getOrDefault(key, default)
 
@@ -28,7 +28,7 @@ abstract class BaseTest {
     }
 
     protected class FakeObjectStorage : ObjectStorage {
-        private var map = mutableMapOf<Any, Any>()
+        private val map = mutableMapOf<Any, Any>()
 
         override fun save(key: String, obj: Any) {
             map[key] = obj
