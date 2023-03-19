@@ -31,13 +31,14 @@ android {
 }
 
 dependencies {
-    api 'androidx.core:core-ktx:1.9.0'
-    api 'androidx.appcompat:appcompat:1.6.1'
-    api 'com.google.android.material:material:1.8.0'
+    api "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    api "androidx.appcompat:appcompat:$rootProject.appcompatVersion"
+    api "com.google.android.material:material:$rootProject.materialVersion"
     api "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpInterceptorVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
-    api "junit:junit:$rootProject.junitTest"
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
+    testImplementation "junit:junit:$rootProject.junitTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
 }
