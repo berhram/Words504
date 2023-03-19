@@ -31,7 +31,7 @@ class StorageTest : BaseTest() {
     }
 
     @Test
-    fun `save to SimpleStorage`() {
+    fun `save string to Storage`() {
         storage.save(fakeKey, fakeDefaultString)
 
         val actual = fakeSimpleStorage.read(fakeKey, newFakeDefault)
@@ -47,7 +47,7 @@ class StorageTest : BaseTest() {
     }
 
     @Test
-    fun `save to ObjectStorage`() {
+    fun `save object to Storage`() {
         storage.save(fakeKey, 1)
 
         val actual = fakeObjectStorage.read(fakeKey, 0)
