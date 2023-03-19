@@ -24,34 +24,34 @@ class StorageTest : BaseTest() {
     }
 
     @Test
-    fun `test read from SimpleStorage empty`() {
+    fun `read string when Storage is empty`() {
         val actual = storage.read(fakeKey, fakeDefaultString)
         val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     @Test
-    fun `test save and read from SimpleStorage`() {
+    fun `save to SimpleStorage`() {
         storage.save(fakeKey, fakeDefaultString)
 
-        val actual = storage.read(fakeKey, newFakeDefault)
+        val actual = fakeSimpleStorage.read(fakeKey, newFakeDefault)
         val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     @Test
-    fun `test read from ObjectStorage empty`() {
+    fun `read object when Storage is empty`() {
         val actual = storage.read(fakeKey, fakeDefaultString)
         val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     @Test
-    fun `test save and read from ObjectStorage`() {
-        storage.save(fakeKey, fakeDefaultString)
+    fun `save to ObjectStorage`() {
+        storage.save(fakeKey, 1)
 
-        val actual = storage.read(fakeKey, newFakeDefault)
-        val expected = fakeDefaultString
+        val actual = fakeObjectStorage.read(fakeKey, 0)
+        val expected = 1
         assertEquals(expected, actual)
     }
 }
