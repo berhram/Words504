@@ -18,12 +18,12 @@ abstract class BaseTest {
     }
 
     protected class FakeSimpleStorage : SimpleStorage {
-        private var hashMap = hashMapOf<String, String>()
+        private var map = mutableMapOf<String, String>()
         override fun read(key: String, default: String): String =
-            hashMap.getOrDefault(key, default)
+            map.getOrDefault(key, default)
 
         override fun save(key: String, value: String) {
-            hashMap[key] = value
+            map[key] = value
         }
     }
 
