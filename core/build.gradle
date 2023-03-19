@@ -39,5 +39,6 @@ dependencies {
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
+    testImplementation "junit:junit:$rootProject.junitTest"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
 }
