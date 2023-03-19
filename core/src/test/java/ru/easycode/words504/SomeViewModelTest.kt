@@ -17,7 +17,7 @@ class SomeViewModelTest : BaseTest() {
     }
 
     private class SomeViewModel(
-        private val dispatchers: DispatchersList
+        dispatchers: DispatchersList
     ) : BaseViewModel(dispatchers) {
 
         var result: String = ""
