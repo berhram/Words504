@@ -13,10 +13,14 @@ interface MediaLevel {
     ) : MediaLevel {
 
         private val manager by lazy {
-            context.applicationContext.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         }
 
-        override fun isLowLevel() = 30 >= 100 * manager.getStreamVolume(streamType) /
+        override fun isLowLevel() = THRESHOLD >= 100 * manager.getStreamVolume(streamType) /
                 manager.getStreamMaxVolume(streamType)
+
+        companion object  {
+            private const val THRESHOLD = 30
+        }
     }
 }
