@@ -37,8 +37,8 @@ dependencies {
     api "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttpInterceptorVersion"
     api "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
     api "com.google.code.gson:gson:$rootProject.gsonVersion"
-    api "junit:junit:$rootProject.junitTest"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
     api "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     api "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
+    api "junit:junit:$rootProject.junitTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
 }

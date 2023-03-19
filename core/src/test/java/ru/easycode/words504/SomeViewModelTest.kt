@@ -1,9 +1,6 @@
 package ru.easycode.words504
 
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.core.presentation.BaseViewModel
@@ -20,17 +17,12 @@ class SomeViewModelTest : BaseTest() {
     }
 
     private class SomeViewModel(
-        private val dispatchers: DispatchersList,
+        private val dispatchers: DispatchersList
     ) : BaseViewModel(dispatchers) {
 
         var result: String = ""
 
-        fun translate(word: String) {
-            viewModelScope.launch(dispatchers.io()) {
-                withContext(dispatchers.ui()) {
-                    result = "$word-translated"
-                }
-            }
-        }
+        fun translate(word: String) =
+            handle({ word }, { result = "$word-translated" })
     }
 }
