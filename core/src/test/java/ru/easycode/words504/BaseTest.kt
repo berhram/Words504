@@ -14,4 +14,12 @@ abstract class BaseTest {
 
         override fun ui(): CoroutineDispatcher = dispatcher
     }
+
+    protected class TestMap() {
+        var testMap = mutableMapOf<Any, Any>("" to "")
+    }
+
+    protected class TestHashMap() {
+        var testHashMap = hashMapOf("" to "")
+    }
 }

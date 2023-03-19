@@ -1,13 +1,14 @@
 package ru.easycode.words504.data
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import java.util.*
+import ru.easycode.words504.BaseTest
 
-class StorageTest {
+class StorageTest : BaseTest() {
     private lateinit var fakeKey: String
     private lateinit var fakeDefaultString: String
+    private lateinit var newFakeDefault: String
     private lateinit var fakeSimpleStorage: FakeSimpleStorage
     private lateinit var fakeObjectStorage: FakeObjectStorage
     private lateinit var storage: Storage
@@ -16,6 +17,7 @@ class StorageTest {
     fun setUp() {
         fakeKey = "some key"
         fakeDefaultString = "fake string"
+        newFakeDefault = "new default fake string"
         fakeSimpleStorage = FakeSimpleStorage()
         fakeObjectStorage = FakeObjectStorage()
         storage = Storage.Base(fakeSimpleStorage, fakeObjectStorage)
@@ -30,60 +32,50 @@ class StorageTest {
 
     @Test
     fun `test save and read from SimpleStorage`() {
-        val string = "some string"
 
-        storage.save(fakeKey, string)
+        storage.save(fakeKey, fakeDefaultString)
 
-        val actual = storage.read(fakeKey, fakeDefaultString)
-        val expected = string
+        val actual = storage.read(fakeKey, newFakeDefault)
+        val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     @Test
     fun `test read from ObjectStorage empty`() {
-        val fakeDefaultClass = FakeClass(1, "1")
 
-        val actual = storage.read(fakeKey, fakeDefaultClass)
-        val expected = fakeDefaultClass
+        val actual = storage.read(fakeKey, fakeDefaultString)
+        val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     @Test
     fun `test save and read from ObjectStorage`() {
-        val fakeDefaultClass = FakeClass(1, "1")
-        val fakeClass = FakeClass(2, "2")
 
-        storage.save(fakeKey, fakeClass)
+        storage.save(fakeKey, fakeDefaultString)
 
-        val actual = storage.read(fakeKey, fakeDefaultClass)
-        val expected = fakeClass
+        val actual = storage.read(fakeKey, newFakeDefault)
+        val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
 
     private class FakeSimpleStorage : SimpleStorage {
-        private var string = ""
-
+        val hashMap = TestHashMap().testHashMap
         override fun read(key: String, default: String): String =
-            string.ifEmpty { default }
+            hashMap.getOrDefault(key, default)
 
         override fun save(key: String, value: String) {
-            string = value
+            hashMap[key] = value
         }
     }
 
     private class FakeObjectStorage : ObjectStorage {
-        var fakeClass = FakeClass(0, "")
+        var map = TestMap().testMap
 
         override fun save(key: String, obj: Any) {
-            fakeClass = obj as FakeClass
+            map[key] = obj
         }
 
         override fun <T : Any> read(key: String, default: T): T =
-            if (Objects.equals(fakeClass, FakeClass(0, "")))
-                default
-            else fakeClass as T
-
+            map.getOrDefault(key, default) as T
     }
-
-    private data class FakeClass(private var id: Int, private var data: String)
 }
