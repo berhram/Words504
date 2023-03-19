@@ -3,6 +3,8 @@ package ru.easycode.words504
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import ru.easycode.words504.data.ObjectStorage
+import ru.easycode.words504.data.SimpleStorage
 import ru.easycode.words504.presentation.DispatchersList
 
 abstract class BaseTest {
@@ -15,11 +17,24 @@ abstract class BaseTest {
         override fun ui(): CoroutineDispatcher = dispatcher
     }
 
-    protected class TestMap() {
-        var testMap = mutableMapOf<Any, Any>("" to "")
+    protected class FakeSimpleStorage : SimpleStorage {
+        private var hashMap = hashMapOf<String, String>()
+        override fun read(key: String, default: String): String =
+            hashMap.getOrDefault(key, default)
+
+        override fun save(key: String, value: String) {
+            hashMap[key] = value
+        }
     }
 
-    protected class TestHashMap() {
-        var testHashMap = hashMapOf("" to "")
+    protected class FakeObjectStorage : ObjectStorage {
+        private var map = mutableMapOf<Any, Any>()
+
+        override fun save(key: String, obj: Any) {
+            map[key] = obj
+        }
+
+        override fun <T : Any> read(key: String, default: T): T =
+            map.getOrDefault(key, default) as T
     }
 }

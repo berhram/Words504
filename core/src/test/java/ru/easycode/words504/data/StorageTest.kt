@@ -54,25 +54,4 @@ class StorageTest : BaseTest() {
         val expected = fakeDefaultString
         assertEquals(expected, actual)
     }
-
-    private class FakeSimpleStorage : SimpleStorage {
-        val hashMap = TestHashMap().testHashMap
-        override fun read(key: String, default: String): String =
-            hashMap.getOrDefault(key, default)
-
-        override fun save(key: String, value: String) {
-            hashMap[key] = value
-        }
-    }
-
-    private class FakeObjectStorage : ObjectStorage {
-        var map = TestMap().testMap
-
-        override fun save(key: String, obj: Any) {
-            map[key] = obj
-        }
-
-        override fun <T : Any> read(key: String, default: T): T =
-            map.getOrDefault(key, default) as T
-    }
 }
