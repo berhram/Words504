@@ -16,5 +16,11 @@ ext {
     gsonVersion = '2.10.1'
     lifeCycleVersion = '2.6.0'
     junitTest = '4.12'
+    kotlinxCoroutinesTest = '1.6.4'
+    coreKtxVersion = '1.9.0'
+    appcompatVersion = '1.6.1'
+    materialVersion = '1.8.0'
+    constraintlayoutVersion = '2.1.4'
+    extJunitVersion = '1.1.5'
+    espressoCoreVersion = '3.5.1'
 }
-
