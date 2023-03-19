@@ -52,8 +52,8 @@ def getDeeplApiKey() {
     def apiKey = System.getenv("DEEPL_API_KEY")
     if (apiKey == null || apiKey.length() == 0) {
         def properties = new Properties()
-        file("keys.properties").withInputStream { properties.load(it) }
-        apiKey = properties.deeplApiKey
+        rootProject.file("local.properties").withInputStream { properties.load(it) }
+        apiKey = properties.DEEPL_API_KEY
     }
     return apiKey
 }
