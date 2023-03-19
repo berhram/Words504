@@ -1,5 +1,6 @@
 package ru.easycode.words504.core.domain
 
+import java.net.UnknownHostException
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -7,8 +8,6 @@ import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
 import ru.easycode.words504.core.data.HandleError
-import java.net.UnknownHostException
-
 
 class HandleDomainErrorTest {
 
@@ -40,7 +39,6 @@ class HandleDomainErrorTest {
 
     @Test
     fun test_receiving_too_many_requests_exception() {
-
         val response = Response.error<Int>(401, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
@@ -50,7 +48,6 @@ class HandleDomainErrorTest {
 
     @Test
     fun test_receiving_limit_exceeded_exception() {
-
         val response = Response.error<Int>(402, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
@@ -60,7 +57,6 @@ class HandleDomainErrorTest {
 
     @Test
     fun test_receiving_service_temporary_exception() {
-
         val response = Response.error<Int>(403, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
@@ -70,7 +66,6 @@ class HandleDomainErrorTest {
 
     @Test
     fun test_receiving_unknown_http_exception() {
-
         val response = Response.error<Int>(700, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
@@ -78,18 +73,15 @@ class HandleDomainErrorTest {
         assertEquals(expectedDomainError.javaClass, actual.javaClass)
     }
 
-
     private class FakeHandleHttp : HandleError<Response<*>, DomainError> {
 
-
-        override fun handle(errorSource: Response<*>): DomainError {
-            return when (errorSource.code()) {
-                401 -> TooManyRequestsError(errorSource)
-                402 -> TranslationLimitExceededError(errorSource)
-                403 -> ServiceTemporaryError(errorSource)
-                else -> UnknownHttpError(errorSource)
+        override fun handle(source: Response<*>): DomainError {
+            return when (source.code()) {
+                401 -> TooManyRequestsError(source)
+                402 -> TranslationLimitExceededError(source)
+                403 -> ServiceTemporaryError(source)
+                else -> UnknownHttpError(source)
             }
         }
     }
-
 }

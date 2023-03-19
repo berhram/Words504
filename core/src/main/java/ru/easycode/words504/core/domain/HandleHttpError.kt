@@ -5,12 +5,12 @@ import ru.easycode.words504.core.data.HandleError
 
 class HandleHttpError : HandleError<Response<*>, DomainError> {
 
-    override fun handle(errorSource: Response<*>): DomainError =
-        when (errorSource.code()) {
-            TOO_MANY_REQUESTS_CODE -> TooManyRequestsError(errorSource)
-            TRANSLATION_LIMIT_EXCEEDED_CODE -> TranslationLimitExceededError(errorSource)
-            in SERVICE_ERRORS_CODES_RANGE -> ServiceTemporaryError(errorSource)
-            else -> UnknownHttpError(errorSource)
+    override fun handle(source: Response<*>): DomainError =
+        when (source.code()) {
+            TOO_MANY_REQUESTS_CODE -> TooManyRequestsError(source)
+            TRANSLATION_LIMIT_EXCEEDED_CODE -> TranslationLimitExceededError(source)
+            in SERVICE_ERRORS_CODES_RANGE -> ServiceTemporaryError(source)
+            else -> UnknownHttpError(source)
         }
 
     companion object {
