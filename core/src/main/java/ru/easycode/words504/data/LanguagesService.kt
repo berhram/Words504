@@ -5,8 +5,8 @@ import retrofit2.http.Query
 
 interface LanguagesService {
 
-    @GET("languages?type=target HTTP/2")
+    @GET("languages")
     suspend fun getLanguages(
         @Query("type") type: String
-    ): LanguagesCloud
+    ): LanguageCloud
 }
