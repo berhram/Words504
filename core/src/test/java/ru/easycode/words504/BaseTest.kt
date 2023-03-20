@@ -28,7 +28,7 @@ abstract class BaseTest {
     }
 
     protected class FakeObjectStorage : ObjectStorage {
-        private val map = mutableMapOf<Any, Any>()
+        private val map = mutableMapOf<String, Any>()
 
         override fun save(key: String, obj: Any) {
             map[key] = obj
