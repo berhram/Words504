@@ -7,8 +7,6 @@ interface LanguagesService {
 
     @GET("languages?type=target HTTP/2")
     suspend fun getLanguages(
-        @Query("language") language: String,
-        @Query("name") name: String,
-        @Query("supports_formality") supports_formality: Boolean
+        @Query("type") type: String
     ): LanguagesCloud
 }
