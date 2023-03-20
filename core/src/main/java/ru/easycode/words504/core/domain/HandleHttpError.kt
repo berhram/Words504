@@ -7,10 +7,10 @@ class HandleHttpError : HandleError<Response<*>, Throwable> {
 
     override fun handle(source: Response<*>): Throwable =
         when (source.code()) {
-            TOO_MANY_REQUESTS_CODE ->  TooManyRequestsError(source)
-            TRANSLATION_LIMIT_EXCEEDED_CODE ->  TranslationLimitExceededError(source)
-            in SERVICE_ERRORS_CODES_RANGE ->  ServiceTemporaryError(source)
-            else ->  UnknownHttpError(source)
+            TOO_MANY_REQUESTS_CODE -> TooManyRequestsError(source)
+            TRANSLATION_LIMIT_EXCEEDED_CODE -> TranslationLimitExceededError(source)
+            in SERVICE_ERRORS_CODES_RANGE -> ServiceTemporaryError(source)
+            else -> UnknownHttpError(source)
         }
 
     companion object {

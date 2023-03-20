@@ -9,6 +9,7 @@ import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
 
+
 class HandleDomainErrorTest {
 
     private lateinit var domainErrorHandler: HandleDomainError

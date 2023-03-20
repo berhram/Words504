@@ -1,10 +1,10 @@
 package ru.easycode.words504.core.domain
 
-import java.net.ConnectException
-import java.net.UnknownHostException
 import retrofit2.HttpException
 import retrofit2.Response
 import ru.easycode.words504.core.data.HandleError
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 class HandleDomainError(
     private val httpError: HandleError<Response<*>, Throwable>
@@ -12,8 +12,8 @@ class HandleDomainError(
 
     override fun handle(source: Exception): Throwable =
         when (source) {
-            is UnknownHostException ->  NoInternetConnectionError(NO_INTERNET_MESSAGE)
-            is ConnectException ->  RefusedConnectionError(CONNECTION_REFUSED_MESSAGE)
+            is UnknownHostException -> NoInternetConnectionError(NO_INTERNET_MESSAGE)
+            is ConnectException -> RefusedConnectionError(CONNECTION_REFUSED_MESSAGE)
             is HttpException -> httpError.handle(source.response()!!)
             else -> ServiceUnavailableError(SERVICE_UNAVAILABLE_MESSAGE)
         }
