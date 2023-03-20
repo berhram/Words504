@@ -7,15 +7,15 @@ import retrofit2.Response
 import ru.easycode.words504.core.data.HandleError
 
 class HandleDomainError(
-    private val httpError: HandleError<Response<*>, DomainError>
-) : HandleError<Exception, DomainError> {
+    private val httpError: HandleError<Response<*>, Throwable>
+) : HandleError<Exception, Throwable> {
 
-    override fun handle(source: Exception): DomainError =
+    override fun handle(source: Exception): Throwable =
         when (source) {
-            is UnknownHostException -> throw NoInternetConnectionError(NO_INTERNET_MESSAGE)
-            is ConnectException -> throw RefusedConnectionError(CONNECTION_REFUSED_MESSAGE)
+            is UnknownHostException ->  NoInternetConnectionError(NO_INTERNET_MESSAGE)
+            is ConnectException ->  RefusedConnectionError(CONNECTION_REFUSED_MESSAGE)
             is HttpException -> httpError.handle(source.response()!!)
-            else -> throw ServiceUnavailableError(SERVICE_UNAVAILABLE_MESSAGE)
+            else -> ServiceUnavailableError(SERVICE_UNAVAILABLE_MESSAGE)
         }
 
     companion object {
