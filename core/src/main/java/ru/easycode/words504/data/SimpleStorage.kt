@@ -1,5 +1,7 @@
 package ru.easycode.words504.data
 
+import ru.easycode.words504.data.providers.preferences.ProvideSharedPreferences
+
 interface SimpleStorage : StringStorage {
     class Base(provideSharedPref: ProvideSharedPreferences) : SimpleStorage {
 
