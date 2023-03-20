@@ -33,7 +33,7 @@ class HandleDomainErrorTest {
     fun test_receiving_refused_connection_exception() {
         exceptionThrown = ConnectException()
         val actual = domainErrorHandler.handle(exceptionThrown)
-        val expectedDomainError = RefusedConnectionError("Connection was refused")
+        val expectedDomainError = RefusedConnectionError("Connection was refused by server")
         assertEquals(expectedDomainError, actual)
     }
 

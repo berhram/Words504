@@ -20,7 +20,7 @@ class HandleDomainError(
 
     companion object {
         private const val NO_INTERNET_MESSAGE = "No internet connection"
-        private const val CONNECTION_REFUSED_MESSAGE = "Connection was refused"
+        private const val CONNECTION_REFUSED_MESSAGE = "Connection was refused by server"
         private const val SERVICE_UNAVAILABLE_MESSAGE = "Service is unavailable"
     }
 }
