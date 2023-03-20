@@ -10,7 +10,7 @@ interface LanguagesCloud {
         @SerializedName("name")
         private val name: String,
         @SerializedName("supports_formality")
-        private val supports_formality: Boolean,
+        private val supports_formality: Boolean
     ) : LanguagesCloud {
 
         fun isLanguageEnglish(): Boolean {
