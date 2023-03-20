@@ -1,12 +1,12 @@
 package ru.easycode.words504.core.domain
 
+import java.net.ConnectException
+import java.net.UnknownHostException
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Before
 import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
-import java.net.ConnectException
-import java.net.UnknownHostException
 
 class HandleDomainErrorTest {
 
