@@ -5,14 +5,20 @@ import retrofit2.Response
 
 interface DomainError
 
-class ServiceUnavailableError : Exception(), DomainError
+data class ServiceUnavailableError(override val message: String) : Exception(), DomainError
 
-class NoInternetConnectionError : Exception(), DomainError
+data class NoInternetConnectionError(override val message: String) : Exception(), DomainError
 
-class TooManyRequestsError(response: Response<*>) : HttpException(response), DomainError
+data class RefusedConnectionError(override val message: String) : Exception(), DomainError
 
-class TranslationLimitExceededError(response: Response<*>) : HttpException(response), DomainError
+data class TooManyRequestsError(private val response: Response<*>) : HttpException(response),
+    DomainError
 
-class UnknownHttpError(response: Response<*>) : HttpException(response), DomainError
+data class TranslationLimitExceededError(private val response: Response<*>) :
+    HttpException(response), DomainError
 
-class ServiceTemporaryError(response: Response<*>) : HttpException(response), DomainError
+data class UnknownHttpError(private val response: Response<*>) : HttpException(response),
+    DomainError
+
+data class ServiceTemporaryError(private val response: Response<*>) : HttpException(response),
+    DomainError

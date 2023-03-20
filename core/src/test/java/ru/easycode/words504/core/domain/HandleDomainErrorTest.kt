@@ -1,13 +1,13 @@
 package ru.easycode.words504.core.domain
 
-import java.net.UnknownHostException
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.easycode.words504.core.data.HandleError
+import java.net.ConnectException
+import java.net.UnknownHostException
 
 class HandleDomainErrorTest {
 
@@ -17,7 +17,7 @@ class HandleDomainErrorTest {
     @Before
     fun setup() {
         domainErrorHandler = HandleDomainError(
-            httpError = FakeHandleHttp()
+            httpError = HandleHttpError()
         )
     }
 
@@ -25,63 +25,59 @@ class HandleDomainErrorTest {
     fun test_receiving_no_internet_connection_exception() {
         exceptionThrown = UnknownHostException()
         val actual = domainErrorHandler.handle(exceptionThrown)
-        val expectedDomainError = NoInternetConnectionError()
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
+        val expectedDomainError = NoInternetConnectionError("No internet connection")
+        assertEquals(expectedDomainError, actual)
+    }
+
+    @Test()
+    fun test_receiving_refused_connection_exception() {
+        exceptionThrown = ConnectException()
+        val actual = domainErrorHandler.handle(exceptionThrown)
+        val expectedDomainError = RefusedConnectionError("Connection was refused")
+        assertEquals(expectedDomainError, actual)
     }
 
     @Test
     fun test_receiving_service_unavailable_exception() {
         exceptionThrown = Exception()
         val actual = domainErrorHandler.handle(exceptionThrown)
-        val expectedDomainError = ServiceUnavailableError()
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
+        val expectedDomainError = ServiceUnavailableError("Service is unavailable")
+        assertEquals(expectedDomainError, actual)
     }
 
     @Test
     fun test_receiving_too_many_requests_exception() {
-        val response = Response.error<Int>(401, "errorBody".toResponseBody())
+        val response = Response.error<Int>(429, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
         val expectedDomainError = TooManyRequestsError(response)
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
+        assertEquals(expectedDomainError, actual)
     }
 
     @Test
     fun test_receiving_limit_exceeded_exception() {
-        val response = Response.error<Int>(402, "errorBody".toResponseBody())
+        val response = Response.error<Int>(456, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
         val expectedDomainError = TranslationLimitExceededError(response)
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
+        assertEquals(expectedDomainError, actual)
     }
 
     @Test
     fun test_receiving_service_temporary_exception() {
-        val response = Response.error<Int>(403, "errorBody".toResponseBody())
+        val response = Response.error<Int>(500, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
         val expectedDomainError = ServiceTemporaryError(response)
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
+        assertEquals(expectedDomainError, actual)
     }
 
     @Test
     fun test_receiving_unknown_http_exception() {
-        val response = Response.error<Int>(700, "errorBody".toResponseBody())
+        val response = Response.error<Int>(800, "errorBody".toResponseBody())
         exceptionThrown = HttpException(response)
         val actual = domainErrorHandler.handle(exceptionThrown)
         val expectedDomainError = UnknownHttpError(response)
-        assertEquals(expectedDomainError.javaClass, actual.javaClass)
-    }
-
-    private class FakeHandleHttp : HandleError<Response<*>, DomainError> {
-
-        override fun handle(source: Response<*>): DomainError {
-            return when (source.code()) {
-                401 -> TooManyRequestsError(source)
-                402 -> TranslationLimitExceededError(source)
-                403 -> ServiceTemporaryError(source)
-                else -> UnknownHttpError(source)
-            }
-        }
+        assertEquals(expectedDomainError, actual)
     }
 }
