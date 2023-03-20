@@ -21,7 +21,7 @@ class HandleDomainErrorTest {
         )
     }
 
-    @Test()
+    @Test
     fun test_receiving_no_internet_connection_exception() {
         exceptionThrown = UnknownHostException()
         val actual = domainErrorHandler.handle(exceptionThrown)
@@ -29,7 +29,7 @@ class HandleDomainErrorTest {
         assertEquals(expectedDomainError, actual)
     }
 
-    @Test()
+    @Test
     fun test_receiving_refused_connection_exception() {
         exceptionThrown = ConnectException()
         val actual = domainErrorHandler.handle(exceptionThrown)
