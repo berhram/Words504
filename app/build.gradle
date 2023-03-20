@@ -15,6 +15,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "DEEPL_API_KEY", "\"${getDeeplApiKey()}\""
     }
 
     buildTypes {
@@ -44,4 +46,14 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.extJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoCoreVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
+}
+
+def getDeeplApiKey() {
+    def apiKey = System.getenv("DEEPL_API_KEY")
+    if (apiKey == null || apiKey.length() == 0) {
+        def properties = new Properties()
+        rootProject.file("local.properties").withInputStream { properties.load(it) }
+        apiKey = properties.DEEPL_API_KEY
+    }
+    return apiKey
 }
