@@ -6,5 +6,9 @@ interface TTSCommunication {
 
     interface Update : Communication.Update<List<String>>
 
-    class Base : Communication.Abstract<List<String>>(), Update
+    interface Observe: Communication.Observe<List<String>>
+
+    interface Mutable:Update,Observe
+
+    class Base : Communication.Abstract<List<String>>(), Mutable
 }
