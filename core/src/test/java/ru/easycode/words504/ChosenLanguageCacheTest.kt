@@ -1,3 +1,4 @@
+
 package ru.easycode.words504
 
 import org.junit.Assert.assertEquals
