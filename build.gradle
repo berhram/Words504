@@ -23,4 +23,5 @@ ext {
     constraintlayoutVersion = '2.1.4'
     extJunitVersion = '1.1.5'
     espressoCoreVersion = '3.5.1'
+    ktlint = "0.48.2"
 }
