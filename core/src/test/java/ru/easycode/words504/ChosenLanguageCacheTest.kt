@@ -35,7 +35,6 @@ class ChosenLanguageCacheTest : BaseTest() {
         assertEquals(expected, actual)
     }
 
-
     companion object {
         private const val FAKE_KEY = "fake key"
         private const val KEY = "ChosenLanguageKey"
