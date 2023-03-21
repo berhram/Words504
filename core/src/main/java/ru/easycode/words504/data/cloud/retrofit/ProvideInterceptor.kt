@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.providers.retrofit
+package ru.easycode.words504.data.cloud.retrofit
 
 import okhttp3.logging.HttpLoggingInterceptor
 

@@ -1,6 +1,6 @@
 package ru.easycode.words504.core.data
 
-import ru.easycode.words504.data.providers.retrofit.ProvideRetrofitBuilder
+import ru.easycode.words504.data.cloud.retrofit.ProvideRetrofitBuilder
 
 interface MakeService {
 

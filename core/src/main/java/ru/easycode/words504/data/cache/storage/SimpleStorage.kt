@@ -1,6 +1,6 @@
-package ru.easycode.words504.data
+package ru.easycode.words504.data.cache.storage
 
-import ru.easycode.words504.data.providers.preferences.ProvideSharedPreferences
+import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 
 interface SimpleStorage : StringStorage {
     class Base(provideSharedPref: ProvideSharedPreferences) : SimpleStorage {
@@ -13,5 +13,4 @@ interface SimpleStorage : StringStorage {
             sharedPreferences.edit().putString(key, value).apply()
         }
     }
-
 }
