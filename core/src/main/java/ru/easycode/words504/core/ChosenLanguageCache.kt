@@ -2,20 +2,20 @@ package ru.easycode.words504.core
 
 import ru.easycode.words504.data.ObjectStorage
 
-interface SaveOrReadLanguage {
+interface ChosenLanguageCache {
     interface Read {
-        fun <T : Any> read(default: T): T
+        fun read(default: LanguageCache): LanguageCache
     }
 
     interface Save {
-        fun save(obj: Any)
+        fun save(language: LanguageCache)
     }
 
     interface Mutable : Read, Save
 
     class Base(private val objectStorage: ObjectStorage) : Mutable {
-        override fun <T : Any> read(default: T): T = objectStorage.read(LANGUAGE_KEY, default)
-        override fun save(obj: Any) = objectStorage.save(LANGUAGE_KEY, obj)
+        override fun read(default: LanguageCache) = objectStorage.read(LANGUAGE_KEY, default)
+        override fun save(language: LanguageCache) = objectStorage.save(LANGUAGE_KEY, language)
 
         companion object {
             private const val LANGUAGE_KEY = "ChosenLanguageKey"

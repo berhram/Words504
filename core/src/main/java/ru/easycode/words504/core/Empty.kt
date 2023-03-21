@@ -1,5 +1,5 @@
 package ru.easycode.words504.core
 
-interface Empty : SaveOrReadLanguage {
+interface Empty {
     fun isEmpty(): Boolean
 }
