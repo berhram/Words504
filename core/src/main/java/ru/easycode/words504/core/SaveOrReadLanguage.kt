@@ -20,7 +20,5 @@ interface SaveOrReadLanguage {
         companion object {
             private const val LANGUAGE_KEY = "ChosenLanguageKey"
         }
-
     }
-
 }
