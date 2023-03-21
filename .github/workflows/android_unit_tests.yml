@@ -17,3 +17,5 @@ jobs:
 
       - name: Run Unit Tests
         run: ./gradlew test
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
