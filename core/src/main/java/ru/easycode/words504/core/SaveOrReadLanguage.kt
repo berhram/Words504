@@ -2,7 +2,7 @@ package ru.easycode.words504.core
 
 import ru.easycode.words504.data.ObjectStorage
 
-interface ChosenLanguage {
+interface SaveOrReadLanguage {
     interface Read {
         fun <T : Any> read(default: T): T
     }
@@ -20,6 +20,7 @@ interface ChosenLanguage {
         companion object {
             private const val LANGUAGE_KEY = "ChosenLanguageKey"
         }
+
     }
 
 }
