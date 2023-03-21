@@ -10,13 +10,11 @@ interface LanguageCloud {
         @SerializedName("language")
         private val languageCode: String,
         @SerializedName("name")
-        private val name: String,
-        @SerializedName("supports_formality")
-        private val supportsFormality: Boolean
+        private val name: String
     ) : LanguageCloud {
 
         override fun isLanguageEnglish(): Boolean {
-            return languageCode == "EN-GB" || languageCode == "EN-US"
+            return languageCode.lowercase().startsWith("en")
         }
     }
 }
