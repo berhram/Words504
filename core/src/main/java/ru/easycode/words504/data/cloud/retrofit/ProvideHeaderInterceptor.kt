@@ -7,6 +7,8 @@ interface ProvideHeaderInterceptor : ProvideInterceptor {
         private val headerValue: String
     ) : ProvideHeaderInterceptor {
 
-        override fun interceptor(): HeaderInterceptor = HeaderInterceptor.Base(headerName, headerValue)
+        override fun interceptor(): HeaderInterceptor {
+            return HeaderInterceptor.Base(headerName, headerValue)
+        }
     }
 }
