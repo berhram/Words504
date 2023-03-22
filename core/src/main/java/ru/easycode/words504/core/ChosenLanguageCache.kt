@@ -2,7 +2,6 @@ package ru.easycode.words504.core
 
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 
-
 interface ChosenLanguageCache {
     interface Read : ru.easycode.words504.core.Read<LanguageCache>
     interface Save : ru.easycode.words504.core.Save<LanguageCache>
