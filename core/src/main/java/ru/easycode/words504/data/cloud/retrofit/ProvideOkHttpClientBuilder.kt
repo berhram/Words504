@@ -24,7 +24,7 @@ interface ProvideOkHttpClientBuilder {
             .addInterceptor(provideInterceptor.interceptor())
     }
 
-    abstract class MultipleInterceptorsBuilder(
+    abstract class MultipleInterceptors(
         private vararg val interceptorProviders: ProvideInterceptor
     ) : Abstract() {
         override fun httpClientBuilder(): OkHttpClient.Builder {
@@ -38,5 +38,5 @@ interface ProvideOkHttpClientBuilder {
 
     class Base(
         vararg provideInterceptor: ProvideInterceptor
-    ) : MultipleInterceptorsBuilder(*provideInterceptor)
+    ) : MultipleInterceptors(*provideInterceptor)
 }
