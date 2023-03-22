@@ -1,4 +1,6 @@
-package ru.easycode.words504.data
+package ru.easycode.words504.data.cache.storage
+
+import ru.easycode.words504.data.cache.serialization.Serialization
 
 interface ObjectStorage {
 
