@@ -4,19 +4,17 @@ import com.pinterest.ktlint.core.Rule
 import com.pinterest.ktlint.core.RuleProvider
 import com.pinterest.ktlint.test.lint
 import org.intellij.lang.annotations.Language
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 
 abstract class BaseTest(rule: Rule) {
 
     private val provider = setOf(RuleProvider { rule })
 
     protected fun assertNoLintErrors(@Language("kotlin") code: String) {
-        val expected = true
-        assertEquals(expected, provider.lint(code).isEmpty())
+        assertTrue(provider.lint(code).isEmpty())
     }
 
     protected fun assertLintErrors(@Language("kotlin") code: String) {
-        val expected = true
-        assertEquals(expected, provider.lint(code).isNotEmpty())
+        assertTrue(provider.lint(code).isNotEmpty())
     }
 }
