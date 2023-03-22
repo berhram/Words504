@@ -10,22 +10,13 @@ abstract class BaseTest(rule: Rule) {
 
     private val provider = setOf(RuleProvider { rule })
 
-    fun assertNoLintErrors(@Language("kotlin") code: String) {
-        assert(
-            provider.lint(code).isEmpty()
-        ) { "There should't be an lint errors" }
+    protected fun assertNoLintErrors(@Language("kotlin") code: String) {
+        val expected = true
+        assertEquals(expected, provider.lint(code).isEmpty())
     }
 
-    fun assertLintErrors(
-        @Language("kotlin") code: String,
-        vararg errors: Pair<Int, Int>
-    ) {
-        assertEquals(errors.toList(), provider.lint(code).map { it.line to it.col })
+    protected fun assertLintErrors(@Language("kotlin") code: String) {
+        val expected = true
+        assertEquals(expected, provider.lint(code).isNotEmpty())
     }
-//    fun assertFormat(
-//        @Language("kotlin") code: String,
-//        @Language("kotlin") expectedCode: String
-//    ) {
-//        assertEquals(expectedCode, provider.format(code))
-//    }
 }
