@@ -6,7 +6,6 @@ import ru.easycode.words504.core.ChosenLanguageCache
 import ru.easycode.words504.core.LanguageCache
 
 class ChosenLanguageCacheTest : BaseTest() {
-
     private val objectStorage = FakeObjectStorage()
     private val chosenLanguageCache = ChosenLanguageCache.Base(objectStorage)
     private val emptyLanguage = LanguageCache.Base("", "")
@@ -36,7 +35,7 @@ class ChosenLanguageCacheTest : BaseTest() {
     }
 
     companion object {
+        private const val KEY: String = "ChosenLanguageKey"
         private const val FAKE_KEY = "fake key"
-        private const val KEY = "ChosenLanguageKey"
     }
 }

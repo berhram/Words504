@@ -7,16 +7,15 @@ interface ChosenLanguageCache {
     interface Save : ru.easycode.words504.core.Save<LanguageCache>
     interface Mutable : Read, Save
 
-    class Base(private val objectStorage: ObjectStorage) : Mutable {
+    class Base(
+        private val objectStorage: ObjectStorage,
+        private val languageKey: String = "ChosenLanguageKey"
+    ) : Mutable {
         override fun read(): LanguageCache {
             val defaultLanguage = LanguageCache.Base("", "")
-            return objectStorage.read(LANGUAGE_KEY, defaultLanguage)
+            return objectStorage.read(languageKey, defaultLanguage)
         }
 
-        override fun save(data: LanguageCache) = objectStorage.save(LANGUAGE_KEY, data)
-
-        companion object {
-            private const val LANGUAGE_KEY = "ChosenLanguageKey"
-        }
+        override fun save(data: LanguageCache) = objectStorage.save(languageKey, data)
     }
 }
