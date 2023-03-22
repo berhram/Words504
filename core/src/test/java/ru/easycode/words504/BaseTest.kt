@@ -3,8 +3,8 @@ package ru.easycode.words504
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
-import ru.easycode.words504.data.ObjectStorage
-import ru.easycode.words504.data.SimpleStorage
+import ru.easycode.words504.data.cache.storage.ObjectStorage
+import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.presentation.DispatchersList
 
 abstract class BaseTest {

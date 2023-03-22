@@ -1,4 +1,4 @@
-package ru.easycode.words504.data
+package ru.easycode.words504.data.cache.serialization
 
 import com.google.gson.Gson
 
@@ -16,5 +16,3 @@ interface Serialization {
             gson.fromJson(json, clazz)
     }
 }
-
-

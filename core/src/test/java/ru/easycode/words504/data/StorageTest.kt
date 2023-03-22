@@ -4,6 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
+import ru.easycode.words504.data.cache.storage.Storage
 
 class StorageTest : BaseTest() {
     private lateinit var fakeKey: String
