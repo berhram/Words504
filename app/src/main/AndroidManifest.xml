@@ -3,6 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+
+    <queries>
+        <intent>
+            <action
+                android:name="android.speech.RecognitionService" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -17,6 +25,7 @@
         <activity
             android:name=".recognition.TestVoiceRecognitionActivity"
             android:exported="false">
+
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

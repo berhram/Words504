@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Words504</string>
     <string name="button_test">start test</string>
+    <string name="listening">Listening...</string>
+    <string name="speak">Speak</string>
+    <string name="result">Here will be the result</string>
 </resources>
