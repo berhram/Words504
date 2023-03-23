@@ -35,5 +35,3 @@ class EncapsulationRule : Rule("encapsulation-rule") {
     private fun KtModifierKeywordToken.isViolating() =
         this == KtTokens.PUBLIC_KEYWORD || this == KtTokens.INTERNAL_KEYWORD
 }
-
-
