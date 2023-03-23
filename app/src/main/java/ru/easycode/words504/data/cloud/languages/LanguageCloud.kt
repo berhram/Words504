@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.language
+package ru.easycode.words504.data.cloud.languages
 
 import com.google.gson.annotations.SerializedName
 

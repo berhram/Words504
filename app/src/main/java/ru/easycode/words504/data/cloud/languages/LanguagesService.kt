@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.language
+package ru.easycode.words504.data.cloud.languages
 
 import retrofit2.Response
 import retrofit2.http.GET
