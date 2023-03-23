@@ -2,9 +2,8 @@ package ru.easycode.words504
 
 import com.google.gson.Gson
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import ru.easycode.words504.data.Serialization
+import ru.easycode.words504.data.cache.serialization.Serialization
 
 
 class SerializationTest() {

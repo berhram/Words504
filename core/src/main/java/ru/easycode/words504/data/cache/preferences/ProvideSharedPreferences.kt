@@ -1,4 +1,4 @@
-package ru.easycode.words504.data
+package ru.easycode.words504.data.cache.preferences
 
 import android.content.Context
 import android.content.SharedPreferences

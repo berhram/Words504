@@ -16,11 +16,16 @@ interface MediaLevel {
             context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
         }
 
-        override fun isLowLevel() = THRESHOLD >= 100 * manager.getStreamVolume(streamType) /
-                manager.getStreamMaxVolume(streamType)
+        override fun isLowLevel(): Boolean {
+            val maxLevel = manager.getStreamMaxVolume(streamType)
+            val currentLevel = manager.getStreamVolume(streamType)
 
-        companion object  {
+            return THRESHOLD >= HUNDRED_PERCENT * currentLevel / maxLevel
+        }
+
+        companion object {
             private const val THRESHOLD = 30
+            private const val HUNDRED_PERCENT = 100
         }
     }
 }

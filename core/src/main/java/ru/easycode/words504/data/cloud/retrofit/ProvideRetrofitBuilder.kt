@@ -1,4 +1,4 @@
-package ru.easycode.words504.data
+package ru.easycode.words504.data.cloud.retrofit
 
 import retrofit2.Retrofit
 
@@ -6,7 +6,7 @@ interface ProvideRetrofitBuilder {
 
     fun provideRetrofitBuilder(): Retrofit.Builder
 
-    abstract class Abstract(
+    class Base(
         private val provideConverterFactory: ProvideConverterFactory,
         private val httpClientBuilder: ProvideOkHttpClientBuilder
     ) : ProvideRetrofitBuilder {
@@ -14,12 +14,4 @@ interface ProvideRetrofitBuilder {
             .addConverterFactory(provideConverterFactory.converterFactory())
             .client(httpClientBuilder.httpClientBuilder().build())
     }
-
-    class Base(
-        provideConverterFactory: ProvideConverterFactory,
-        httpClientBuilder: ProvideOkHttpClientBuilder
-    ) : Abstract(
-        provideConverterFactory,
-        httpClientBuilder
-    )
 }
