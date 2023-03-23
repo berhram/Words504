@@ -20,4 +20,4 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--keep class ru.easycode.words504.core.LanguageCache
+-keep class ru.easycode.words504.core.LanguageCache {*;}
