@@ -11,7 +11,7 @@ interface LanguagesCacheDataSource {
 
     class Base(
         private val objectStorage: ObjectStorage,
-        private val languagesKey: String = "LanguagesKey",
+        private val languagesKey: String = "LanguagesKey"
     ) : LanguagesCacheDataSource, Mutable {
 
         override fun read(): List<LanguageCache> {

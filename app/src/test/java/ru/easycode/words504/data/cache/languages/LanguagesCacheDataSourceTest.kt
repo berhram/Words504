@@ -19,9 +19,11 @@ class LanguagesCacheDataSourceTest : BaseTest() {
 
     @Test
     fun `test save and read not empty`() {
-        cacheDataSource.save(listOf(
-            LanguageCache.Base("ru", "russian"),
-            LanguageCache.Base("ch", "chinese"))
+        cacheDataSource.save(
+            listOf(
+                LanguageCache.Base("ru", "russian"),
+                LanguageCache.Base("ch", "chinese")
+            )
         )
         val expected = listOf<LanguageCache>(
             LanguageCache.Base("ru", "russian"),
