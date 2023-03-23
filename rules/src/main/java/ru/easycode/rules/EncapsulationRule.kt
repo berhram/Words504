@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.com.intellij.lang.ASTNode
 import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
 import org.jetbrains.kotlin.psi.KtClass
-import org.jetbrains.kotlin.psi.allConstructors
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifierTypeOrDefault
 
@@ -17,20 +16,18 @@ class EncapsulationRule : Rule("encapsulation-rule") {
     ) {
         if (node.psi is KtClass) {
             val properties = (node.psi as KtClass).getProperties()
-            val constructors = (node.psi as KtClass).allConstructors
+            val constructor = (node.psi as KtClass).primaryConstructor
             properties.forEach {
                 if (it.visibilityModifierTypeOrDefault().isViolating()) emit(
                     it.startOffset, "Property ${it.name} must be private or protected", false
                 )
             }
-            constructors.forEach {
-                it.valueParameters.forEach { param ->
-                    if (param.visibilityModifierTypeOrDefault().isViolating()) emit(
-                        param.startOffset,
-                        "Constructor argument ${param.name} must be private or protected",
-                        false
-                    )
-                }
+            constructor?.valueParameters?.filter { it.hasValOrVar() }?.forEach { param ->
+                if (param.visibilityModifierTypeOrDefault().isViolating()) emit(
+                    param.startOffset,
+                    "Constructor argument ${param.name} must be private or protected",
+                    false
+                )
             }
         }
     }
