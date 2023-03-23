@@ -12,14 +12,14 @@ class ChosenLanguageCacheTest : BaseTest() {
     private val testLanguage = LanguageCache.Base(FAKE_KEY, "en")
 
     @Test
-    fun empty_data() {
+    fun `empty data`() {
         val actual = chosenLanguageCache.read().isEmpty()
         val excepted = true
         assertEquals(excepted, actual)
     }
 
     @Test
-    fun save_language() {
+    fun `save language`() {
         chosenLanguageCache.save(testLanguage)
         val actual = objectStorage.read(KEY, emptyLanguage)
         val expected = testLanguage
@@ -27,7 +27,7 @@ class ChosenLanguageCacheTest : BaseTest() {
     }
 
     @Test
-    fun read_language() {
+    fun `read language`() {
         chosenLanguageCache.save(testLanguage)
         val actual = chosenLanguageCache.read()
         val expected = testLanguage
