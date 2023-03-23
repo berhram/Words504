@@ -18,16 +18,22 @@ class EncapsulationRule : Rule("encapsulation-rule") {
             val properties = (node.psi as KtClass).getProperties()
             val constructor = (node.psi as KtClass).primaryConstructor
             properties.forEach {
-                if (it.visibilityModifierTypeOrDefault().isViolating()) emit(
-                    it.startOffset, "Property ${it.name} must be private or protected", false
-                )
+                if (it.visibilityModifierTypeOrDefault().isViolating()) {
+                    emit(
+                        it.startOffset,
+                        "Property ${it.name} must be private or protected",
+                        false
+                    )
+                }
             }
             constructor?.valueParameters?.filter { it.hasValOrVar() }?.forEach { param ->
-                if (param.visibilityModifierTypeOrDefault().isViolating()) emit(
-                    param.startOffset,
-                    "Constructor argument ${param.name} must be private or protected",
-                    false
-                )
+                if (param.visibilityModifierTypeOrDefault().isViolating()) {
+                    emit(
+                        param.startOffset,
+                        "Constructor argument ${param.name} must be private or protected",
+                        false
+                    )
+                }
             }
         }
     }
