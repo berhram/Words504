@@ -11,7 +11,7 @@ import ru.easycode.words504.data.cloud.retrofit.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.retrofit.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.retrofit.ProvideRetrofitBuilder
 
-//TODO: Remove before the release
+// TODO: Remove before the release
 class LanguagesServiceCallTest {
 
     @Test
