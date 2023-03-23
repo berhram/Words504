@@ -2,7 +2,7 @@ package ru.easycode.words504.languages
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.easycode.words504.data.language.LanguageCloud
+import ru.easycode.words504.data.cloud.languages.LanguageCloud
 
 class LanguageCloudModelTest {
 
