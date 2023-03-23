@@ -2,9 +2,10 @@ package ru.easycode.rules
 
 import com.pinterest.ktlint.core.Rule
 import org.jetbrains.kotlin.com.intellij.lang.ASTNode
+import org.jetbrains.kotlin.lexer.KtModifierKeywordToken
 import org.jetbrains.kotlin.lexer.KtTokens
-import org.jetbrains.kotlin.psi.KtParameter
-import org.jetbrains.kotlin.psi.KtProperty
+import org.jetbrains.kotlin.psi.KtClass
+import org.jetbrains.kotlin.psi.allConstructors
 import org.jetbrains.kotlin.psi.psiUtil.startOffset
 import org.jetbrains.kotlin.psi.psiUtil.visibilityModifierTypeOrDefault
 
@@ -14,26 +15,28 @@ class EncapsulationRule : Rule("encapsulation-rule") {
         autoCorrect: Boolean,
         emit: (offset: Int, errorMessage: String, canBeAutoCorrected: Boolean) -> Unit
     ) {
-        node.psi?.let { element ->
-            val visibility = when (element) {
-                is KtParameter -> element.visibilityModifierTypeOrDefault()
-                is KtProperty -> element.visibilityModifierTypeOrDefault()
-                else -> return
-            }
-            val name = when (element) {
-                is KtParameter -> element.name
-                is KtProperty -> element.name
-                else -> return
-            }
-            if (visibility == KtTokens.PUBLIC_KEYWORD || visibility == KtTokens.INTERNAL_KEYWORD) {
-                emit(
-                    element.startOffset,
-                    "Property $name must be private or protected",
-                    false
+        if (node.psi is KtClass) {
+            val properties = (node.psi as KtClass).getProperties()
+            val constructors = (node.psi as KtClass).allConstructors
+            properties.forEach {
+                if (it.visibilityModifierTypeOrDefault().isViolating()) emit(
+                    it.startOffset, "Property ${it.name} must be private or protected", false
                 )
+            }
+            constructors.forEach {
+                it.valueParameters.forEach { param ->
+                    if (param.visibilityModifierTypeOrDefault().isViolating()) emit(
+                        param.startOffset,
+                        "Constructor argument ${param.name} must be private or protected",
+                        false
+                    )
+                }
             }
         }
     }
+
+    private fun KtModifierKeywordToken.isViolating() =
+        this == KtTokens.PUBLIC_KEYWORD || this == KtTokens.INTERNAL_KEYWORD
 }
 
 
