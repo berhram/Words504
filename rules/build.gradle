@@ -26,7 +26,7 @@ sourceSets {
 
 version "1.0"
 
-archivesBaseName = "rules.jar"
+jar.archiveFileName = "rules.jar"
 
 dependencies {
     implementation "com.pinterest.ktlint:ktlint-core:$rootProject.ktlint"

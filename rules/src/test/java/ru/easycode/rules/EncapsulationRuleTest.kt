@@ -2,6 +2,8 @@ package ru.easycode.rules
 
 import org.junit.Test
 
+//todo check tests on ci
+
 class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
 
     @Test
