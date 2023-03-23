@@ -1,10 +1,11 @@
-package ru.easycode.words504.core.domain
+package ru.easycode.words504.languages.domain
 
 import java.net.ConnectException
 import java.net.UnknownHostException
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.easycode.words504.core.data.HandleError
+import ru.easycode.words504.core.HandleError
+
 
 class HandleDomainError(
     private val httpError: HandleError<Response<*>, Throwable>

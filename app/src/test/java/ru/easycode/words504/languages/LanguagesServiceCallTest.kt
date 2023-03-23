@@ -3,13 +3,12 @@ package ru.easycode.words504.languages
 import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
 import org.junit.Test
-import ru.easycode.words504.core.data.MakeService
-import ru.easycode.words504.data.cloud.AuthHeaderInterceptorProvider
-import ru.easycode.words504.data.cloud.languages.LanguagesService
-import ru.easycode.words504.data.cloud.retrofit.ProvideConverterFactory
-import ru.easycode.words504.data.cloud.retrofit.ProvideLoggingInterceptor
-import ru.easycode.words504.data.cloud.retrofit.ProvideOkHttpClientBuilder
-import ru.easycode.words504.data.cloud.retrofit.ProvideRetrofitBuilder
+import ru.easycode.words504.data.MakeService
+import ru.easycode.words504.languages.data.cloud.LanguagesService
+import ru.easycode.words504.data.cloud.ProvideConverterFactory
+import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
+import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
+import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 
 // TODO: Remove before the release
 class LanguagesServiceCallTest {

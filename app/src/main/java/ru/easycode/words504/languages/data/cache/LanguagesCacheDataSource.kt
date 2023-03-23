@@ -1,6 +1,5 @@
-package ru.easycode.words504.data.cache.languages
+package ru.easycode.words504.languages.data.cache
 
-import ru.easycode.words504.core.LanguageCache
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 
 interface LanguagesCacheDataSource {

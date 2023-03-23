@@ -1,4 +1,4 @@
-package ru.easycode.words504.core
+package ru.easycode.words504.languages.data.cache
 
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 

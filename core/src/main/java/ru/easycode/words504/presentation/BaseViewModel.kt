@@ -1,10 +1,9 @@
-package ru.easycode.words504.core.presentation
+package ru.easycode.words504.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import ru.easycode.words504.presentation.DispatchersList
 
 abstract class BaseViewModel(
     private val dispatchers: DispatchersList

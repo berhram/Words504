@@ -1,4 +1,4 @@
-package ru.easycode.words504.core.domain
+package ru.easycode.words504.languages.domain
 
 import retrofit2.HttpException
 import retrofit2.Response

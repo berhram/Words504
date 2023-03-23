@@ -1,7 +1,6 @@
-package ru.easycode.words504.core.presentation
+package ru.easycode.words504.presentation
 
 import ru.easycode.words504.core.Screen
-import ru.easycode.words504.presentation.Communication
 
 interface NavigationCommunication {
 

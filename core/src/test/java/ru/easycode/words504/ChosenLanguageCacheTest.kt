@@ -2,8 +2,8 @@ package ru.easycode.words504
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.easycode.words504.core.ChosenLanguageCache
-import ru.easycode.words504.core.LanguageCache
+import ru.easycode.words504.languages.data.cache.ChosenLanguageCache
+import ru.easycode.words504.languages.data.cache.LanguageCache
 
 class ChosenLanguageCacheTest : BaseTest() {
     private val objectStorage = FakeObjectStorage()

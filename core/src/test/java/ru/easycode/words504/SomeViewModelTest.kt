@@ -3,7 +3,7 @@ package ru.easycode.words504
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.easycode.words504.core.presentation.BaseViewModel
+import ru.easycode.words504.presentation.BaseViewModel
 import ru.easycode.words504.presentation.DispatchersList
 
 class SomeViewModelTest : BaseTest() {

@@ -4,7 +4,8 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.BaseTest
-import ru.easycode.words504.core.LanguageCache
+import ru.easycode.words504.languages.data.cache.LanguageCache
+import ru.easycode.words504.languages.data.cache.LanguagesCacheDataSource
 
 class LanguagesCacheDataSourceTest : BaseTest() {
 

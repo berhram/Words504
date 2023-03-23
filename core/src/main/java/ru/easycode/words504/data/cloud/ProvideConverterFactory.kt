@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.cloud.retrofit
+package ru.easycode.words504.data.cloud
 
 import retrofit2.Converter
 import retrofit2.converter.gson.GsonConverterFactory

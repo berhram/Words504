@@ -1,4 +1,4 @@
-package ru.easycode.words504.core.sl
+package ru.easycode.words504.sl
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
