@@ -12,10 +12,14 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
+      - name: build rules
+        run: ./gradlew rules:jar
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
       - name: ktlint
-        uses: ScaCap/action-ktlint@1.5.1
+        uses: berhram/action-ktlint-android@v1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
-          android: true
           fail_on_error: true
+          custom_rule_path: rules/build/libs/rules.jar

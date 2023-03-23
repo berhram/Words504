@@ -40,7 +40,6 @@ android {
 dependencies {
 
     implementation project(path: ':core')
-    implementation project(path: ':rules')
 
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
     testImplementation "junit:junit:$rootProject.junitTest"
