@@ -3,12 +3,13 @@ package ru.easycode.words504.languages
 import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
 import org.junit.Test
-import ru.easycode.words504.data.MakeService
+import ru.easycode.words504.data.cloud.MakeService
 import ru.easycode.words504.languages.data.cloud.LanguagesService
 import ru.easycode.words504.data.cloud.ProvideConverterFactory
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
+import ru.easycode.words504.languages.data.cloud.LanguagesMakeService
 
 // TODO: Remove before the release
 class LanguagesServiceCallTest {
@@ -30,7 +31,7 @@ class LanguagesServiceCallTest {
             baseClientBuilder
         )
         val retrofitBuilder = ProvideRetrofitBuilder.Base(converterFactory, clientBuilder)
-        val service = MakeService.Dictionary(retrofitBuilder).service(LanguagesService::class.java)
+        val service = LanguagesMakeService(retrofitBuilder).service(LanguagesService::class.java)
         val result = service.getLanguages().execute()
         println(result)
     }

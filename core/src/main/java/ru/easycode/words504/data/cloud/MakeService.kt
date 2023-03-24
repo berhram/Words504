@@ -1,6 +1,4 @@
-package ru.easycode.words504.data
-
-import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
+package ru.easycode.words504.data.cloud
 
 interface MakeService {
 
@@ -20,6 +18,4 @@ interface MakeService {
         override fun <T : Any> service(clazz: Class<T>): T = retrofit.create(clazz)
     }
 
-    class Dictionary(retrofitBuilder: ProvideRetrofitBuilder) :
-        Abstract(retrofitBuilder, "https://api-free.deepl.com/v2/")
 }
