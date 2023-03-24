@@ -6,7 +6,7 @@ interface MakeService {
 
     abstract class Abstract(
         private val retrofitBuilder: ProvideRetrofitBuilder,
-        private val baseUrl: String,
+        private val baseUrl: String
     ) : MakeService {
 
         private val retrofit by lazy {
