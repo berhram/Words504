@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'ru.easycode.words504'
+    namespace 'ru.easycode.words504.core'
     compileSdk 33
 
     defaultConfig {
