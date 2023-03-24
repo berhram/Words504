@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.cache.languages
+package ru.easycode.words504.languages.data.cache
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals

@@ -1,4 +1,4 @@
-package ru.easycode.words504
+package ru.easycode.words504.data
 
 import com.google.gson.Gson
 import org.junit.Assert.assertEquals

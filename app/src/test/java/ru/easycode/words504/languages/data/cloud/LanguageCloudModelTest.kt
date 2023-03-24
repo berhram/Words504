@@ -1,4 +1,4 @@
-package ru.easycode.words504.languages
+package ru.easycode.words504.languages.data.cloud
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -1,4 +1,4 @@
-package ru.easycode.words504.languages
+package ru.easycode.words504.languages.data.cloud
 
 import okhttp3.Interceptor
 import ru.easycode.words504.BuildConfig
