@@ -21,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -35,6 +35,9 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    sourceSets {
+        test.java.srcDirs += ["${project(':core').projectDir}/src/test/java"]
+    }
 }
 
 dependencies {
@@ -43,6 +46,7 @@ dependencies {
 
     implementation "androidx.constraintlayout:constraintlayout:$rootProject.constraintlayoutVersion"
     testImplementation "junit:junit:$rootProject.junitTest"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.kotlinxCoroutinesTest"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.extJunitVersion"
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoCoreVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifeCycleVersion"
