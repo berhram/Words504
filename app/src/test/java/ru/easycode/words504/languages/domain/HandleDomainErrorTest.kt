@@ -8,7 +8,6 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.easycode.words504.languages.domain.*
 
 class HandleDomainErrorTest {
 

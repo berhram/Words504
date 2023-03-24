@@ -6,7 +6,7 @@ interface MakeService {
 
     abstract class Abstract(
         private val retrofitBuilder: ProvideRetrofitBuilder,
-        private val baseUrl: String
+        private val baseUrl: String,
     ) : MakeService {
 
         private val retrofit by lazy {
@@ -17,5 +17,4 @@ interface MakeService {
 
         override fun <T : Any> service(clazz: Class<T>): T = retrofit.create(clazz)
     }
-
 }
