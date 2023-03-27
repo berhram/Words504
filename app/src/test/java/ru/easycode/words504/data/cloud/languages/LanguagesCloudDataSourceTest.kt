@@ -104,7 +104,6 @@ class LanguagesCloudDataSourceTest {
                 override fun request(): Request = Request.Builder().build()
 
                 override fun timeout(): Timeout = Timeout()
-
             }
         }
     }
