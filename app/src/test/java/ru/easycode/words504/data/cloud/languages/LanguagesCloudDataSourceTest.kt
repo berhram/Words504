@@ -1,28 +1,31 @@
 package ru.easycode.words504.data.cloud.languages
 
 import kotlinx.coroutines.runBlocking
+import okhttp3.Request
 import okhttp3.ResponseBody.Companion.toResponseBody
+import okio.Timeout
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
-import ru.easycode.words504.core.data.HandleError
-import ru.easycode.words504.core.domain.HandleHttpError
 
 class LanguagesCloudDataSourceTest {
 
-    private lateinit var cloudDataSource: TestLanguagesCloudDataSource
+    private lateinit var cloudDataSource: LanguagesCloudDataSource
+    private lateinit var service: TestLanguagesService
 
     @Before
     fun setUp() {
-        val errorHandler: HandleError<Response<*>, Throwable> = HandleHttpError()
-        cloudDataSource = TestLanguagesCloudDataSource(errorHandler)
+        service = TestLanguagesService()
+        cloudDataSource = LanguagesCloudDataSource.Base(service)
     }
 
     @Test
     fun `test empty data success`() = runBlocking {
-        cloudDataSource.expectedData(emptyList())
-        cloudDataSource.expectedError(false)
+        service.expectedData(emptyList())
+        service.expectedError(false)
 
         val actual = cloudDataSource.languages()
         val expected = emptyList<LanguageCloud.Base>()
@@ -32,13 +35,13 @@ class LanguagesCloudDataSourceTest {
 
     @Test
     fun `test some data success`() = runBlocking {
-        cloudDataSource.expectedData(
+        service.expectedData(
             listOf(
                 LanguageCloud.Base("ru", "russian"),
                 LanguageCloud.Base("ch", "chinese")
             )
         )
-        cloudDataSource.expectedError(false)
+        service.expectedError(false)
 
         val actual = cloudDataSource.languages()
         val expected = listOf(
@@ -50,7 +53,7 @@ class LanguagesCloudDataSourceTest {
 
     @Test(expected = Exception::class)
     fun `test error`() = runBlocking {
-        cloudDataSource.expectedError(true)
+        service.expectedError(true)
 
         val actual = cloudDataSource.languages()
         val expected = emptyList<LanguageCloud.Base>()
@@ -58,9 +61,7 @@ class LanguagesCloudDataSourceTest {
         assertEquals(expected, actual)
     }
 
-    private class TestLanguagesCloudDataSource(
-        private val errorHandler: HandleError<Response<*>, Throwable>
-    ) : LanguagesCloudDataSource {
+    private class TestLanguagesService : LanguagesService {
 
         private var error: Boolean = false
         private val data = mutableListOf<LanguageCloud.Base>()
@@ -76,16 +77,34 @@ class LanguagesCloudDataSourceTest {
             }
         }
 
-        override suspend fun languages(): List<LanguageCloud> {
-            if (error) {
-                val response: Response<List<LanguageCloud>> = Response.error(
-                    404,
-                    "Not found".toResponseBody()
-                )
-                throw errorHandler.handle(response)
-            } else {
-                val success: Response<List<LanguageCloud>> = Response.success(data)
-                return success.body() ?: emptyList()
+        override suspend fun getLanguages(): Call<List<LanguageCloud.Base>> {
+            return object : Call<List<LanguageCloud.Base>> {
+
+                override fun clone(): Call<List<LanguageCloud.Base>> = this
+
+                override fun execute(): Response<List<LanguageCloud.Base>> {
+                    return if (error) {
+                        Response.error(
+                            404,
+                            "Not found".toResponseBody()
+                        )
+                    } else {
+                        Response.success(data)
+                    }
+                }
+
+                override fun enqueue(callback: Callback<List<LanguageCloud.Base>>) = Unit
+
+                override fun isExecuted(): Boolean = true
+
+                override fun cancel() = Unit
+
+                override fun isCanceled(): Boolean = true
+
+                override fun request(): Request = Request.Builder().build()
+
+                override fun timeout(): Timeout = Timeout()
+
             }
         }
     }
