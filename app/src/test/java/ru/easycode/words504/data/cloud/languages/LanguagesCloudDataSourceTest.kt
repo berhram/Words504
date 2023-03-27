@@ -35,7 +35,7 @@ class LanguagesCloudDataSourceTest {
         cloudDataSource.expectedData(
             listOf(
                 LanguageCloud.Base("ru", "russian"),
-                LanguageCloud.Base("ch", "chinese"),
+                LanguageCloud.Base("ch", "chinese")
             )
         )
         cloudDataSource.expectedError(false)
@@ -43,7 +43,7 @@ class LanguagesCloudDataSourceTest {
         val actual = cloudDataSource.languages()
         val expected = listOf(
             LanguageCloud.Base("ru", "russian"),
-            LanguageCloud.Base("ch", "chinese"),
+            LanguageCloud.Base("ch", "chinese")
         )
         assertEquals(expected, actual)
     }
@@ -78,7 +78,10 @@ class LanguagesCloudDataSourceTest {
 
         override suspend fun languages(): List<LanguageCloud> {
             if (error) {
-                val response: Response<List<LanguageCloud>> = Response.error(404, "Not found".toResponseBody())
+                val response: Response<List<LanguageCloud>> = Response.error(
+                    404,
+                    "Not found".toResponseBody()
+                )
                 throw errorHandler.handle(response)
             } else {
                 val success: Response<List<LanguageCloud>> = Response.success(data)

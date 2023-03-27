@@ -10,7 +10,7 @@ interface LanguagesCloudDataSource {
 
     class Base(
         private val service: LanguagesService,
-        private val errorHandler: HandleError<Response<*>, Throwable>,
+        private val errorHandler: HandleError<Response<*>, Throwable>
     ) : LanguagesCloudDataSource {
 
         override suspend fun languages(): List<LanguageCloud> {
