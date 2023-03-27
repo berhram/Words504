@@ -59,7 +59,7 @@ class LanguagesCloudDataSourceTest {
     }
 
     private class TestLanguagesCloudDataSource(
-        private val errorHandler: HandleError<Response<*>, Throwable>,
+        private val errorHandler: HandleError<Response<*>, Throwable>
     ) : LanguagesCloudDataSource {
 
         private var error: Boolean = false
