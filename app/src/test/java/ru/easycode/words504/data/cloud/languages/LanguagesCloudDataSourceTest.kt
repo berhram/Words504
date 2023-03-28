@@ -13,12 +13,12 @@ import ru.easycode.words504.core.data.HandleError
 class LanguagesCloudDataSourceTest : BaseTest() {
 
     private lateinit var cloudDataSource: LanguagesCloudDataSource
-    private lateinit var service: TestLanguagesService
+    private lateinit var service: FakeLanguagesService
 
     @Before
     fun setUp() {
-        service = TestLanguagesService()
-        val errorHandler: HandleError<Exception, Throwable> = TestHandleError()
+        service = FakeLanguagesService()
+        val errorHandler: HandleError<Exception, Throwable> = FakeHandleError()
         cloudDataSource = LanguagesCloudDataSource.Base(service, errorHandler)
     }
 
@@ -61,24 +61,22 @@ class LanguagesCloudDataSourceTest : BaseTest() {
         assertEquals(expected, actual)
     }
 
-    private class TestHandleError : HandleError<Exception, Throwable> {
+    private class FakeHandleError : HandleError<Exception, Throwable> {
 
-        override fun handle(source: Exception): Throwable = Exception()
+        override fun handle(source: Exception): Throwable = source
     }
 
-    private class TestLanguagesService : LanguagesService {
+    private class FakeLanguagesService : LanguagesService {
 
         private var error: Boolean = false
         private val data = mutableListOf<LanguageCloud.Base>()
 
         private val languagesCall = object : FakeCall<List<LanguageCloud.Base>>() {
-            override fun execute(): Response<List<LanguageCloud.Base>> {
-                return if (error) {
+            override fun execute(): Response<List<LanguageCloud.Base>> =
+                if (error)
                     throw UnknownHostException()
-                } else {
+                else
                     Response.success(data)
-                }
-            }
         }
 
         fun expectedError(isError: Boolean) {
