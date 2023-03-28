@@ -1,5 +1,6 @@
 package ru.easycode.words504.data.cloud.languages
 
+import java.net.UnknownHostException
 import kotlinx.coroutines.runBlocking
 import okhttp3.Request
 import okio.Timeout
@@ -13,7 +14,6 @@ import ru.easycode.words504.core.data.HandleError
 import ru.easycode.words504.core.domain.HandleDomainError
 import ru.easycode.words504.core.domain.HandleHttpError
 import ru.easycode.words504.core.domain.NoInternetConnectionError
-import java.net.UnknownHostException
 
 class LanguagesCloudDataSourceTest {
 
@@ -89,7 +89,7 @@ class LanguagesCloudDataSourceTest {
 
                 override fun execute(): Response<List<LanguageCloud.Base>> {
                     return if (error) {
-                       throw UnknownHostException()
+                        throw UnknownHostException()
                     } else {
                         Response.success(data)
                     }
