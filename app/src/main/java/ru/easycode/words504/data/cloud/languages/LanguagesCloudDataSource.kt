@@ -14,7 +14,7 @@ interface LanguagesCloudDataSource {
         override suspend fun languages(): List<LanguageCloud> {
             try {
                 val response = service.getLanguages().execute()
-                return response.body() ?: emptyList()
+                return response.body()!!
             } catch (e: Exception) {
                 throw errorHandler.handle(e)
             }

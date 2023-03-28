@@ -2,20 +2,15 @@ package ru.easycode.words504.data.cloud.languages
 
 import java.net.UnknownHostException
 import kotlinx.coroutines.runBlocking
-import okhttp3.Request
-import okio.Timeout
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
+import ru.easycode.words504.BaseTest
 import ru.easycode.words504.core.data.HandleError
-import ru.easycode.words504.core.domain.HandleDomainError
-import ru.easycode.words504.core.domain.HandleHttpError
-import ru.easycode.words504.core.domain.NoInternetConnectionError
 
-class LanguagesCloudDataSourceTest {
+class LanguagesCloudDataSourceTest : BaseTest() {
 
     private lateinit var cloudDataSource: LanguagesCloudDataSource
     private lateinit var service: TestLanguagesService
@@ -23,7 +18,7 @@ class LanguagesCloudDataSourceTest {
     @Before
     fun setUp() {
         service = TestLanguagesService()
-        val errorHandler: HandleError<Exception, Throwable> = HandleDomainError(HandleHttpError())
+        val errorHandler: HandleError<Exception, Throwable> = TestHandleError()
         cloudDataSource = LanguagesCloudDataSource.Base(service, errorHandler)
     }
 
@@ -56,7 +51,7 @@ class LanguagesCloudDataSourceTest {
         assertEquals(expected, actual)
     }
 
-    @Test(expected = NoInternetConnectionError::class)
+    @Test(expected = Exception::class)
     fun `test error`() = runBlocking {
         service.expectedError(true)
 
@@ -66,10 +61,25 @@ class LanguagesCloudDataSourceTest {
         assertEquals(expected, actual)
     }
 
+    private class TestHandleError : HandleError<Exception, Throwable> {
+
+        override fun handle(source: Exception): Throwable = Exception()
+    }
+
     private class TestLanguagesService : LanguagesService {
 
         private var error: Boolean = false
         private val data = mutableListOf<LanguageCloud.Base>()
+
+        private val languagesCall = object : FakeCall<List<LanguageCloud.Base>>() {
+            override fun execute(): Response<List<LanguageCloud.Base>> {
+                return if (error) {
+                    throw UnknownHostException()
+                } else {
+                    Response.success(data)
+                }
+            }
+        }
 
         fun expectedError(isError: Boolean) {
             error = isError
@@ -82,31 +92,6 @@ class LanguagesCloudDataSourceTest {
             }
         }
 
-        override suspend fun getLanguages(): Call<List<LanguageCloud.Base>> {
-            return object : Call<List<LanguageCloud.Base>> {
-
-                override fun clone(): Call<List<LanguageCloud.Base>> = this
-
-                override fun execute(): Response<List<LanguageCloud.Base>> {
-                    return if (error) {
-                        throw UnknownHostException()
-                    } else {
-                        Response.success(data)
-                    }
-                }
-
-                override fun enqueue(callback: Callback<List<LanguageCloud.Base>>) = Unit
-
-                override fun isExecuted(): Boolean = true
-
-                override fun cancel() = Unit
-
-                override fun isCanceled(): Boolean = true
-
-                override fun request(): Request = Request.Builder().build()
-
-                override fun timeout(): Timeout = Timeout()
-            }
-        }
+        override suspend fun getLanguages(): Call<List<LanguageCloud.Base>> = languagesCall
     }
 }
