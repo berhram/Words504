@@ -11,10 +11,10 @@ abstract class BaseTest(rule: Rule) {
     private val provider = setOf(RuleProvider { rule })
 
     protected fun assertNoLintErrors(@Language("kotlin") code: String) {
-        assertTrue(provider.lint(code).isEmpty())
+        assertTrue(provider.lint(code.trimIndent()).isEmpty())
     }
 
     protected fun assertLintErrors(@Language("kotlin") code: String) {
-        assertTrue(provider.lint(code).isNotEmpty())
+        assertTrue(provider.lint(code.trimIndent()).isNotEmpty())
     }
 }

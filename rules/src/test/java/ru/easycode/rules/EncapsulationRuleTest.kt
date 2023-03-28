@@ -13,7 +13,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 class Repository(private val dataSource: DataSource) {
                     private var page: Int = 0
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -27,7 +27,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
 
                     protected var page: Int = 0
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -41,7 +41,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
 
                     private var page: Int = 0
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -55,7 +55,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
 
                     protected var page: Int = 0
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -69,7 +69,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 
                     var page: Int = 0
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -83,7 +83,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 
                    protected val page: Int
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -97,7 +97,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 
                    private val page: Int
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -111,7 +111,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 
                    val page: Int
                 }
-            """.trimIndent()
+            """
         )
     }
 
@@ -125,7 +125,7 @@ class EncapsulationRuleTest : BaseTest(EncapsulationRule()) {
                 
                    val page: Int
                 }
-            """.trimIndent()
+            """
         )
     }
 }
