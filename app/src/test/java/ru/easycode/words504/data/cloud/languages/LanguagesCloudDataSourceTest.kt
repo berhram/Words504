@@ -51,14 +51,10 @@ class LanguagesCloudDataSourceTest : BaseTest() {
         assertEquals(expected, actual)
     }
 
-    @Test(expected = Exception::class)
-    fun `test error`() = runBlocking {
+    @Test(expected = UnknownHostException::class)
+    fun `test error`(): Unit = runBlocking {
         service.expectedError(true)
-
-        val actual = cloudDataSource.languages()
-        val expected = emptyList<LanguageCloud.Base>()
-
-        assertEquals(expected, actual)
+        cloudDataSource.languages()
     }
 
     private class FakeHandleError : HandleError<Exception, Throwable> {
@@ -73,10 +69,11 @@ class LanguagesCloudDataSourceTest : BaseTest() {
 
         private val languagesCall = object : FakeCall<List<LanguageCloud.Base>>() {
             override fun execute(): Response<List<LanguageCloud.Base>> =
-                if (error)
+                if (error) {
                     throw UnknownHostException()
-                else
+                } else {
                     Response.success(data)
+                }
         }
 
         fun expectedError(isError: Boolean) {
