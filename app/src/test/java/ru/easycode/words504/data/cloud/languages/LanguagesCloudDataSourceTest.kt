@@ -2,7 +2,6 @@ package ru.easycode.words504.data.cloud.languages
 
 import kotlinx.coroutines.runBlocking
 import okhttp3.Request
-import okhttp3.ResponseBody.Companion.toResponseBody
 import okio.Timeout
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -10,6 +9,11 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.easycode.words504.core.data.HandleError
+import ru.easycode.words504.core.domain.HandleDomainError
+import ru.easycode.words504.core.domain.HandleHttpError
+import ru.easycode.words504.core.domain.NoInternetConnectionError
+import java.net.UnknownHostException
 
 class LanguagesCloudDataSourceTest {
 
@@ -19,7 +23,8 @@ class LanguagesCloudDataSourceTest {
     @Before
     fun setUp() {
         service = TestLanguagesService()
-        cloudDataSource = LanguagesCloudDataSource.Base(service)
+        val errorHandler: HandleError<Exception, Throwable> = HandleDomainError(HandleHttpError())
+        cloudDataSource = LanguagesCloudDataSource.Base(service, errorHandler)
     }
 
     @Test
@@ -51,7 +56,7 @@ class LanguagesCloudDataSourceTest {
         assertEquals(expected, actual)
     }
 
-    @Test(expected = Exception::class)
+    @Test(expected = NoInternetConnectionError::class)
     fun `test error`() = runBlocking {
         service.expectedError(true)
 
@@ -84,10 +89,7 @@ class LanguagesCloudDataSourceTest {
 
                 override fun execute(): Response<List<LanguageCloud.Base>> {
                     return if (error) {
-                        Response.error(
-                            404,
-                            "Not found".toResponseBody()
-                        )
+                       throw UnknownHostException()
                     } else {
                         Response.success(data)
                     }
