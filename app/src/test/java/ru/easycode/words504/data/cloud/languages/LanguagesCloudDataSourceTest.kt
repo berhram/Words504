@@ -69,11 +69,7 @@ class LanguagesCloudDataSourceTest : BaseTest() {
 
         private val languagesCall = object : FakeCall<List<LanguageCloud.Base>>() {
             override fun execute(): Response<List<LanguageCloud.Base>> =
-                if (error) {
-                    throw UnknownHostException()
-                } else {
-                    Response.success(data)
-                }
+                if (error) throw UnknownHostException() else Response.success(data)
         }
 
         fun expectedError(isError: Boolean) {
