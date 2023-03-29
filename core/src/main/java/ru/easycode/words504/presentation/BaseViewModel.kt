@@ -16,5 +16,3 @@ abstract class BaseViewModel(
             }
         }
 }
-
-
