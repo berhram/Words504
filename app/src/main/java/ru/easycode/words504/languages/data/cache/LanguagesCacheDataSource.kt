@@ -4,8 +4,8 @@ import ru.easycode.words504.data.cache.storage.ObjectStorage
 
 interface LanguagesCacheDataSource {
 
-    interface Read : ru.easycode.words504.core.Read<List<LanguageCache>>
-    interface Save : ru.easycode.words504.core.Save<List<LanguageCache>>
+    interface Read : ru.easycode.words504.data.Read<List<LanguageCache>>
+    interface Save : ru.easycode.words504.data.Save<List<LanguageCache>>
     interface Mutable : Read, Save
 
     class Base(

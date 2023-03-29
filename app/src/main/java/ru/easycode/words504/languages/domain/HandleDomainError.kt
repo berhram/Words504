@@ -4,7 +4,7 @@ import java.net.ConnectException
 import java.net.UnknownHostException
 import retrofit2.HttpException
 import retrofit2.Response
-import ru.easycode.words504.core.HandleError
+import ru.easycode.words504.domain.HandleError
 
 
 class HandleDomainError(

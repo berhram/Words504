@@ -3,7 +3,7 @@ package ru.easycode.words504.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import ru.easycode.words504.core.Mapper
+import ru.easycode.words504.domain.Mapper
 
 interface Communication {
 

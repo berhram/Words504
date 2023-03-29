@@ -1,4 +1,4 @@
-package ru.easycode.words504.core
+package ru.easycode.words504.data
 
 interface Save<T : Any> {
 

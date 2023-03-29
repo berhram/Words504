@@ -1,7 +1,5 @@
 package ru.easycode.words504.presentation
 
-import ru.easycode.words504.core.Screen
-
 interface NavigationCommunication {
 
     interface Update : Communication.Update<Screen>

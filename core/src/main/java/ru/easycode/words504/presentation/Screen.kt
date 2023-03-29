@@ -1,4 +1,4 @@
-package ru.easycode.words504.core
+package ru.easycode.words504.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
