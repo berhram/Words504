@@ -18,8 +18,11 @@ interface Mapper<T : Any> {
             previousSymbol: Char,
             previousLength: Int,
             beforePreviousSymbol: Char
-        ): Boolean = currentLength > previousLength && currentLength > 1 &&
-                delimit(currentSymbol) && previousSymbol != ' '
+        ): Boolean {
+            val isTyping = currentLength > previousLength
+            val delimiterPassed = delimit(currentSymbol) && previousSymbol != ' '
+            return isTyping && delimiterPassed && currentLength > 1
+        }
     }
 
     class Remove : Abstract() {
@@ -30,8 +33,10 @@ interface Mapper<T : Any> {
             previousSymbol: Char,
             previousLength: Int,
             beforePreviousSymbol: Char
-        ): Boolean =
-            delimit(previousSymbol) && currentLength < previousLength && previousSymbol != beforePreviousSymbol
+        ): Boolean {
+            val delimiterReached = delimit(previousSymbol) && previousSymbol != beforePreviousSymbol
+            val isRemoving = currentLength < previousLength
+            return delimiterReached && isRemoving
+        }
     }
-
 }

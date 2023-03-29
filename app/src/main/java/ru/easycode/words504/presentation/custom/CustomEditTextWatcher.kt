@@ -10,7 +10,6 @@ class CustomEditTextWatcher(private val editTextLayout: TextInputLayout) : EditT
     private var previousSymbol = EMPTY
 
     override fun afterTextChanged(sequence: Editable) {
-
         val inputState = InputState.Base(sequence, previousLength, previousSymbol)
         val add = InputCondition.Add(sequence, inputState, Mapper.Add())
         val remove = InputCondition.Remove(sequence, inputState, Mapper.Remove())

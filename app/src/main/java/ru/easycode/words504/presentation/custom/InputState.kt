@@ -1,6 +1,5 @@
 package ru.easycode.words504.presentation.custom
 
-
 interface InputState {
 
     fun <T : Any> map(mapper: Mapper<T>): T
