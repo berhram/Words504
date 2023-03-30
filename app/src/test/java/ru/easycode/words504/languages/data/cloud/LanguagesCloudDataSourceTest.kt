@@ -1,4 +1,4 @@
-package ru.easycode.words504.data.cloud.languages
+package ru.easycode.words504.languages.data.cloud
 
 import java.net.UnknownHostException
 import kotlinx.coroutines.runBlocking
@@ -8,8 +8,7 @@ import org.junit.Test
 import retrofit2.Call
 import retrofit2.Response
 import ru.easycode.words504.BaseTest
-import ru.easycode.words504.core.data.HandleError
-import ru.easycode.words504.languages.data.cloud.LanguagesCloudDataSource
+import ru.easycode.words504.domain.HandleError
 
 class LanguagesCloudDataSourceTest : BaseTest() {
 
