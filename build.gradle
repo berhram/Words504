@@ -2,5 +2,25 @@
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
-    id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
+    id 'org.jetbrains.kotlin.android' version '1.8.0' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    retrofitVersion = '2.9.0'
+    converterGsonVersion = '2.9.0'
+    okhttpInterceptorVersion = '4.10.0'
+    gsonVersion = '2.10.1'
+    lifeCycleVersion = '2.6.0'
+    junitTest = '4.12'
+    kotlinxCoroutinesTest = '1.6.4'
+    coreKtxVersion = '1.9.0'
+    appcompatVersion = '1.6.1'
+    materialVersion = '1.8.0'
+    constraintlayoutVersion = '2.1.4'
+    extJunitVersion = '1.1.5'
+    espressoCoreVersion = '3.5.1'
 }

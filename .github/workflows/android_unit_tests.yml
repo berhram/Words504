@@ -1,0 +1,21 @@
+name: Android Unit Tests
+
+on: pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '11'
+
+      - name: Run Unit Tests
+        run: ./gradlew test
+        env:
+          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
