@@ -5,7 +5,7 @@ import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.presentation.custom.HandleIndexes
 
-class HandleIndexesTest {
+class HandleIndexesOutputTest {
 
     private lateinit var handler: HandleIndexes
 
