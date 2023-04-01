@@ -1,4 +1,4 @@
-package ru.easycode.words504.recognition
+package ru.easycode.words504.recognition.presentation
 
 
 import android.Manifest
@@ -11,13 +11,14 @@ import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModel
 import ru.easycode.words504.R
+import ru.easycode.words504.recognition.data.SpeechRecognizerCallback
+import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
 import java.util.*
 
 //todo 1. VM с SpeechRecognizerEngine
@@ -79,81 +80,10 @@ class TestVoiceRecognitionActivity : AppCompatActivity() {
 
 }
 
-interface SpeechRecognizerCallback {
-    fun started()
-    fun finished(result: String)
-    fun error(code: Int)//todo смаппить в домен
-}
+//class TestVoiceRecognitionViewModel : SpeachViewModel()
 
-interface SpeechRecognizerEngine {
-    fun start(callback: SpeechRecognizerCallback)
-    fun stop()
-
-    class Base(context: Context) : SpeechRecognizerEngine {
-
-        private val speechRecognizer = SpeechRecognizer.createSpeechRecognizer(context)
-
-        private val speechRecognizerIntent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
-            .putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
-            )
-            .putExtra(
-                RecognizerIntent.EXTRA_LANGUAGE,
-                Locale.ENGLISH.language
-            )
-
-        override fun start(callback: SpeechRecognizerCallback) {
-            speechRecognizer.setRecognitionListener(object : SimpleRecognitionListener() {
-                override fun onReadyForSpeech(p0: Bundle?) {
-                    callback.started()
-                }
-
-                override fun onError(p0: Int) {
-                    callback.error(p0)
-                }
-
-                override fun onResults(p0: Bundle?) {
-                    val data: ArrayList<String> =
-                        p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
-                    callback.finished(data[0])
-                }
-            })
-
-            speechRecognizer.startListening(speechRecognizerIntent)
-        }
-
-        override fun stop() {
-            speechRecognizer.stopListening()
-        }
-    }
-}
-
-abstract class SimpleRecognitionListener : RecognitionListener {
-    override fun onReadyForSpeech(params: Bundle?) = Unit
-
-    override fun onBeginningOfSpeech() = Unit
-
-    override fun onRmsChanged(rmsdB: Float) = Unit
-
-    override fun onBufferReceived(buffer: ByteArray?) = Unit
-
-    override fun onEndOfSpeech() = Unit
-
-    override fun onError(error: Int) = Unit
-
-    override fun onResults(results: Bundle?) = Unit
-
-    override fun onPartialResults(partialResults: Bundle?) = Unit
-
-    override fun onEvent(eventType: Int, params: Bundle?) = Unit
-
-}
-
-class TestVoiceRecognitionViewModel : SpeachViewModel()
-
-abstract class SpeachViewModel(private val speechRecognizerEngine: SpeechRecognizerEngine,
-private val communication: RecognitionResultCommunication): ViewModel(){
+/*abstract class SpeechViewModel(private val speechRecognizerEngine: SpeechRecognizerEngine,
+                               private val communication: RecognitionResultCommunication): ViewModel(){
 
     private val callback = object : SpeechRecognizerCallback {
         override fun started() {
@@ -171,11 +101,4 @@ private val communication: RecognitionResultCommunication): ViewModel(){
 
     //fun start
     //stop
-}
-
-/**
- * checkout main
- * pull
- * checkout vrg-0001
- * on main merge in to current
- */
+}*/

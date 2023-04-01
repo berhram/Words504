@@ -1,19 +1,15 @@
-package ru.easycode.words504.recognition
+package ru.easycode.words504.recognition.presentation
 
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.recognition.data.VoiceRecognition
 
-class MainViewModel(
-    val callbackLiveData: MutableLiveData<TTSState>,
+abstract class STTViewModel(
+    private val recognitionResultCommunication: RecognitionResultCommunication,
     private val voiceRecognition: VoiceRecognition
-) : ViewModel() {
+) : ViewModel(), Init {
 
     fun init() {}
-
-    fun handleCallback(state: TTSState) {
-        callbackLiveData.value = state
-    }
 
     fun record() {
         voiceRecognition.record()
@@ -27,4 +23,8 @@ class MainViewModel(
         voiceRecognition.recogniseText()
     }
 
+}
+
+interface Init {
+    fun init(isFirstRun: Boolean)
 }
