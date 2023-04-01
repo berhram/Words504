@@ -16,8 +16,14 @@ import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.ViewModel
 import ru.easycode.words504.R
 import java.util.*
+
+//todo 1. VM с SpeechRecognizerEngine
+//todo 2. По примеру вынести пермишены в VM
+//todo 3. touch listener по началу старт, по концу стоп
+//todo 4. Вынести все в абстракнтую VM test
 
 class TestVoiceRecognitionActivity : AppCompatActivity() {
 
@@ -143,3 +149,33 @@ abstract class SimpleRecognitionListener : RecognitionListener {
     override fun onEvent(eventType: Int, params: Bundle?) = Unit
 
 }
+
+class TestVoiceRecognitionViewModel : SpeachViewModel()
+
+abstract class SpeachViewModel(private val speechRecognizerEngine: SpeechRecognizerEngine,
+private val communication: RecognitionResultCommunication): ViewModel(){
+
+    private val callback = object : SpeechRecognizerCallback {
+        override fun started() {
+            //communication put ... "Started"
+        }
+
+        override fun finished(result: String) {
+            textView.text = result
+        }
+
+        override fun error(code: Int) {
+            textView.text = code.toString()
+        }
+    }
+
+    //fun start
+    //stop
+}
+
+/**
+ * checkout main
+ * pull
+ * checkout vrg-0001
+ * on main merge in to current
+ */
