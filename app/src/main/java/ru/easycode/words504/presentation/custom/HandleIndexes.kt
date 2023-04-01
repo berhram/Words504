@@ -7,7 +7,6 @@ interface HandleIndexes {
     class Base : HandleIndexes {
         override fun handle(input: String): String {
             var output = ""
-            if (input.isEmpty()) output = ""
             input.forEachIndexed { index, char ->
                 val previousSymbol = if (index > 0) input[index - 1] else ' '
                 val charOutput =
