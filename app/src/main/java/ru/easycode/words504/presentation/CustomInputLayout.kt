@@ -2,7 +2,9 @@ package ru.easycode.words504.presentation
 
 import android.content.Context
 import android.util.AttributeSet
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import ru.easycode.words504.R
 import ru.easycode.words504.presentation.custom.CustomEditTextWatcher
 
 class CustomInputLayout : TextInputLayout {
@@ -16,7 +18,9 @@ class CustomInputLayout : TextInputLayout {
 
     private val simpleWatcher = CustomEditTextWatcher(this)
 
-    init {
-        editText?.addTextChangedListener(simpleWatcher)
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        val inputEditText: TextInputEditText = findViewById(R.id.myEditText)
+        inputEditText.addTextChangedListener(simpleWatcher)
     }
 }

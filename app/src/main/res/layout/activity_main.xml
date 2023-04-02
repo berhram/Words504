@@ -6,14 +6,23 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <ru.easycode.words504.presentation.CustomInputLayout
+
+        android:id="@+id/customInputLayout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="16dp"
         android:text="Hello World!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/myEditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ru.easycode.words504.presentation.CustomInputLayout>
 
     <FrameLayout
         android:id="@+id/container"
