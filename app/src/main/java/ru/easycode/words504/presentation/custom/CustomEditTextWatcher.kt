@@ -6,7 +6,7 @@ import com.google.android.material.textfield.TextInputLayout
 class CustomEditTextWatcher(private val editTextLayout: TextInputLayout) : EditTextWatcher() {
 
     override fun afterTextChanged(sequence: Editable) {
-        val indexes = HandleIndexes()
+        val indexes = HandleIndexes(LetterMatch(), DelimiterMatch())
         editTextLayout.helperText = indexes.map(sequence.toString())
     }
 }

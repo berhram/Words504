@@ -10,7 +10,7 @@ class HandleIndexesTest {
 
     @Before
     fun setup() {
-        handler = HandleIndexes()
+        handler = HandleIndexes(LetterMatch(), DelimiterMatch())
     }
 
     @Test
