@@ -59,7 +59,7 @@ class HandleIndexesTest {
             "When can their glory fade? O the wild charge they made! All the world wonder'd."
         val expected =
             "0____5___9_____15_____21_____27_" +
-                    "29___33____38______45____50_____56___60___64_____70________"
+                "29___33____38______45____50_____56___60___64_____70________"
         val actual = handler.handle(sentence)
         assertEquals(expected, actual)
     }
