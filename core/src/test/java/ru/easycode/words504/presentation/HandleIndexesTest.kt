@@ -1,11 +1,11 @@
-package ru.easycode.words504
+package ru.easycode.words504.presentation
 
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.presentation.custom.HandleIndexes
 
-class HandleIndexesOutputTest {
+class HandleIndexesTest {
 
     private lateinit var handler: HandleIndexes
 
