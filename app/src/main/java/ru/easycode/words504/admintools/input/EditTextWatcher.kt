@@ -1,4 +1,4 @@
-package ru.easycode.words504.presentation.custom
+package ru.easycode.words504.admintools.input
 
 import android.text.Editable
 import android.text.TextWatcher

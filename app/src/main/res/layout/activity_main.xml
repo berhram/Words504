@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ru.easycode.words504.presentation.CustomInputLayout
+    <ru.easycode.words504.admintools.WordsIndexesInputLayout
 
         android:id="@+id/customInputLayout"
         android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             android:id="@+id/myEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </ru.easycode.words504.presentation.CustomInputLayout>
+    </ru.easycode.words504.admintools.WordsIndexesInputLayout>
 
     <FrameLayout
         android:id="@+id/container"

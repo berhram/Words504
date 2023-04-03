@@ -3,6 +3,9 @@ package ru.easycode.words504.presentation.custom
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.words504.admintools.input.ApostropheMatch
+import ru.easycode.words504.admintools.input.HandleIndexes
+import ru.easycode.words504.admintools.input.LetterMatch
 import ru.easycode.words504.domain.Mapper
 
 class HandleIndexesTest {
@@ -10,7 +13,7 @@ class HandleIndexesTest {
 
     @Before
     fun setup() {
-        handler = HandleIndexes(LetterMatch(), DelimiterMatch())
+        handler = HandleIndexes(LetterMatch(), ApostropheMatch())
     }
 
     @Test
@@ -77,6 +80,22 @@ class HandleIndexesTest {
     fun test_indexes_input_with_multiple_spaces() {
         val sentence = "Some of them   are not very honest men"
         val expected = "0____5__8______15___19___23____28______35__"
+        val actual = handler.map(sentence)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun test_indexes_input_with_quotations() {
+        val sentence = "On the box was a label that read, \"Fragile!, Handle with care!\""
+        val expected = "0__3___7___11___15_17_____23____28______35_________45______52____57_____"
+        val actual = handler.map(sentence)
+        assertEquals(expected, actual)
+    }
+
+    @Test
+    fun test_indexes_input_with_quotations_at_start() {
+        val sentence = "\"Fragile!, Handle with care!\" - the label said"
+        val expected = "_1_________11______18____23________32___36_____42___"
         val actual = handler.map(sentence)
         assertEquals(expected, actual)
     }
