@@ -9,12 +9,17 @@ class HandleIndexes(
     override fun map(source: String): String {
         var output = ""
         source.forEachIndexed { index, char ->
-            val previousSymbol = if (index > 0) source[index - 1] else ' '
+            val previousSymbol = if (index > 0) source[index - 1] else SPACE_CHAR
             val showUnderscore = with(letter) {
                 map(previousSymbol) || map(char).not() || apostrophe.map(previousSymbol)
             }
-            output += if (showUnderscore) '_' else index
+            output += if (showUnderscore) UNDERSCORE_CHAR else index
         }
         return output
+    }
+
+    companion object {
+        private const val SPACE_CHAR = ' '
+        private const val UNDERSCORE_CHAR = '_'
     }
 }

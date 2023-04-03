@@ -7,5 +7,9 @@ class LetterMatch : Mapper<Char, Boolean> {
 }
 
 class ApostropheMatch : Mapper<Char, Boolean> {
-    override fun map(source: Char): Boolean = source == '\''
+    override fun map(source: Char): Boolean = source == APOSTROPHE_CHAR
+
+    companion object {
+        private const val APOSTROPHE_CHAR = '\''
+    }
 }

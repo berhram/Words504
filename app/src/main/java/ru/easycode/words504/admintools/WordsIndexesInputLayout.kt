@@ -2,9 +2,7 @@ package ru.easycode.words504.admintools
 
 import android.content.Context
 import android.util.AttributeSet
-import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import ru.easycode.words504.R
 import ru.easycode.words504.admintools.input.ApostropheMatch
 import ru.easycode.words504.admintools.input.HandleIndexes
 import ru.easycode.words504.admintools.input.HelperIndexes
@@ -24,9 +22,7 @@ class WordsIndexesInputLayout : TextInputLayout {
     private val handle = HandleIndexes(LetterMatch(), ApostropheMatch())
     private val simpleWatcher = WordsIndexesTextWatcher(helper = helper, handle)
 
-    override fun onFinishInflate() {
-        super.onFinishInflate()
-        val inputEditText: TextInputEditText = findViewById(R.id.myEditText)
-        inputEditText.addTextChangedListener(simpleWatcher)
+    init {
+        editText?.addTextChangedListener(simpleWatcher)
     }
 }
