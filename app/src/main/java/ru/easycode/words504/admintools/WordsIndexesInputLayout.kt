@@ -20,9 +20,10 @@ class WordsIndexesInputLayout : TextInputLayout {
 
     private val helper = HelperIndexes { output -> helperText = output }
     private val handle = HandleIndexes(LetterMatch(), ApostropheMatch())
-    private val simpleWatcher = WordsIndexesTextWatcher(helper = helper, handle)
+    private val simpleWatcher = WordsIndexesTextWatcher(helper, handle)
 
-    init {
+    override fun onFinishInflate() {
+        super.onFinishInflate()
         editText?.addTextChangedListener(simpleWatcher)
     }
 }
