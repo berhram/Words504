@@ -24,6 +24,5 @@ interface LanguageCloud {
         }
 
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(languageCode, name)
-
     }
 }
