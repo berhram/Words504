@@ -10,16 +10,15 @@ class HandleIndexes(
         var output = ""
         source.forEachIndexed { index, char ->
             val previousSymbol = if (index > 0) source[index - 1] else SPACE_CHAR
-            val showUnderscore = with(letter) {
-                map(previousSymbol) || map(char).not() || apostrophe.map(previousSymbol)
+            val showIndex = with(letter) {
+                map(previousSymbol).not() && map(char) && apostrophe.map(previousSymbol).not()
             }
-            output += if (showUnderscore) UNDERSCORE_CHAR else index
+            if (showIndex) output += "$index.."
         }
         return output
     }
 
     companion object {
         private const val SPACE_CHAR = ' '
-        private const val UNDERSCORE_CHAR = '_'
     }
 }
