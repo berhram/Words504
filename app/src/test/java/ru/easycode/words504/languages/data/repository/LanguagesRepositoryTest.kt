@@ -5,7 +5,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.languages.data.cache.LanguageCache
-import ru.easycode.words504.languages.data.cache.LanguageKeyMapper
 import ru.easycode.words504.languages.domain.LanguageDomain
 
 class LanguagesRepositoryTest : LanguagesRepositoryBaseTest() {
@@ -23,8 +22,7 @@ class LanguagesRepositoryTest : LanguagesRepositoryBaseTest() {
         repository = LanguagesRepository(
             cacheDataSource,
             chosenLanguageCache,
-            domainMapper,
-            LanguageKeyMapper()
+            domainMapper
         )
     }
 

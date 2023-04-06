@@ -1,5 +1,8 @@
 package ru.easycode.words504.languages.data.cache
 
-class LanguageKeyMapper : LanguageCache.Mapper<String> {
-    override fun map(key: String, name: String) = key
+interface LanguageKeyMapper : LanguageCache.Mapper<Boolean> {
+
+    class SameLanguage(private val otherKey: String) : LanguageKeyMapper {
+        override fun map(key: String, name: String) = otherKey == key
+    }
 }
