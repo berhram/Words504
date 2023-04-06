@@ -9,7 +9,7 @@ import ru.easycode.words504.languages.data.cloud.LanguageCloud
 import ru.easycode.words504.languages.data.cloud.LanguageCloudCacheMapper
 import ru.easycode.words504.languages.data.cloud.LanguagesCloudDataSource
 
-class LanguagesFetchRepositoryTest: LanguagesRepositoryBaseTest() {
+class LanguagesFetchRepositoryTest : LanguagesRepositoryBaseTest() {
 
     private lateinit var repository: LanguagesFetchRepository
     private lateinit var cacheDataSource: FakeCacheDataSource
@@ -19,7 +19,11 @@ class LanguagesFetchRepositoryTest: LanguagesRepositoryBaseTest() {
     fun setUp() {
         cacheDataSource = FakeCacheDataSource()
         cloudDataSource = FakeLanguagesCloudDataSource()
-        repository = LanguagesFetchRepository(cacheDataSource, cloudDataSource, LanguageCloudCacheMapper())
+        repository = LanguagesFetchRepository(
+            cacheDataSource,
+            cloudDataSource,
+            LanguageCloudCacheMapper()
+        )
     }
 
     @Test

@@ -8,7 +8,7 @@ import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.cache.LanguageKeyMapper
 import ru.easycode.words504.languages.domain.LanguageDomain
 
-class LanguagesRepositoryTest: LanguagesRepositoryBaseTest() {
+class LanguagesRepositoryTest : LanguagesRepositoryBaseTest() {
 
     private lateinit var repository: LanguagesRepository
     private lateinit var cacheDataSource: FakeCacheDataSource
@@ -20,7 +20,12 @@ class LanguagesRepositoryTest: LanguagesRepositoryBaseTest() {
         cacheDataSource = FakeCacheDataSource()
         chosenLanguageCache = FakeChosenLanguageCache()
         domainMapper = FakeDomainMapper()
-        repository = LanguagesRepository(cacheDataSource, chosenLanguageCache, domainMapper, LanguageKeyMapper())
+        repository = LanguagesRepository(
+            cacheDataSource,
+            chosenLanguageCache,
+            domainMapper,
+            LanguageKeyMapper()
+        )
     }
 
     @Test
