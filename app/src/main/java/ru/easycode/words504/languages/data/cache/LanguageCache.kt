@@ -10,14 +10,10 @@ interface LanguageCache : Empty {
 
     fun <T> map(mapper: Mapper<T>): T
 
-    fun key(): String
-
     data class Base(private val key: String, private val name: String) : LanguageCache {
 
         override fun isEmpty() = key.isEmpty() || name.isEmpty()
 
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(key, name)
-
-        override fun key(): String = key
     }
 }

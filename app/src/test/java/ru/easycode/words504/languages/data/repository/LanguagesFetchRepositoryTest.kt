@@ -6,20 +6,20 @@ import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.cloud.LanguageCloud
+import ru.easycode.words504.languages.data.cloud.LanguageCloudCacheMapper
+import ru.easycode.words504.languages.data.cloud.LanguagesCloudDataSource
 
-class LanguagesFetchRepositoryTest {
+class LanguagesFetchRepositoryTest: LanguagesRepositoryBaseTest() {
 
     private lateinit var repository: LanguagesFetchRepository
     private lateinit var cacheDataSource: FakeCacheDataSource
     private lateinit var cloudDataSource: FakeLanguagesCloudDataSource
-    private lateinit var cacheMapper: FakeCacheMapper
 
     @Before
     fun setUp() {
         cacheDataSource = FakeCacheDataSource()
         cloudDataSource = FakeLanguagesCloudDataSource()
-        cacheMapper = FakeCacheMapper()
-        repository = LanguagesFetchRepository(cacheDataSource, cloudDataSource, cacheMapper)
+        repository = LanguagesFetchRepository(cacheDataSource, cloudDataSource, LanguageCloudCacheMapper())
     }
 
     @Test
@@ -39,5 +39,17 @@ class LanguagesFetchRepositoryTest {
         )
         assertEquals(2, cacheDataSource.data.size)
         assertEquals(expected, cacheDataSource.data)
+    }
+
+    private class FakeLanguagesCloudDataSource : LanguagesCloudDataSource {
+
+        private val data = mutableListOf<LanguageCloud>()
+
+        fun changeExpectedData(expected: List<LanguageCloud>) = with(data) {
+            clear()
+            addAll(expected)
+        }
+
+        override suspend fun languages(): List<LanguageCloud> = data
     }
 }

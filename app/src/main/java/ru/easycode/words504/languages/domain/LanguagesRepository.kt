@@ -7,10 +7,9 @@ interface LanguagesRepository {
     }
 
     interface Languages {
-        suspend fun languages(): List<LanguageDomain>
-    }
 
-    interface Save {
+        suspend fun languages(): List<LanguageDomain>
+
         suspend fun save(languageCode: String)
     }
 

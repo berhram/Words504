@@ -7,7 +7,7 @@ import org.junit.Test
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.domain.LanguageDomain
 
-class LanguageRepositoryTest {
+class LanguageRepositoryTest: LanguagesRepositoryBaseTest() {
 
     private lateinit var repository: LanguageRepository
     private lateinit var chosenLanguageCache: FakeChosenLanguageCache
