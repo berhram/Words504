@@ -26,7 +26,7 @@ class WordsIndexesInputLayout : TextInputLayout, Mapper.Unit<String> {
     private val simpleWatcher = WordsIndexesTextWatcher(this, handle)
 
     init {
-        (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+        LayoutInflater.from(context)
             .inflate(R.layout.words_indexes_input_layout, this, true)
         editText?.addTextChangedListener(simpleWatcher)
     }
