@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val testButton = findViewById<Button>(R.id.testButton)
         testButton.setOnClickListener {
+            //todo replace in container
             val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
             startActivity(intent)
         }

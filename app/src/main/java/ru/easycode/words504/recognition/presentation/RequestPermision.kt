@@ -1,9 +1,7 @@
 package ru.easycode.words504.recognition.presentation
 
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 
@@ -39,4 +37,8 @@ interface RequestPermission {
 
 interface HandlePermissionGranted {
     fun permissionCallback(granted: Boolean)
+
+    class Empty : HandlePermissionGranted {
+        override fun permissionCallback(granted: Boolean) = Unit
+    }
 }
