@@ -1,5 +1,11 @@
 package ru.easycode.words504.recognition
 
-interface TTSState {
+interface STTState {
+
+    data class Started(private val state: String): STTState
+
+    data class Finished(private val state: String): STTState
+
+    data class Error(private val state: String): STTState
 
 }

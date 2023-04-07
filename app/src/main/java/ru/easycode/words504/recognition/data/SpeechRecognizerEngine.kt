@@ -3,10 +3,8 @@ package ru.easycode.words504.recognition.data
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.speech.RecognitionListener
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import ru.easycode.words504.recognition.presentation.SpeechRecognizerCallback
 import java.util.*
 
 interface SpeechRecognizerEngine {
@@ -29,17 +27,17 @@ interface SpeechRecognizerEngine {
 
         override fun start(callback: SpeechRecognizerCallback) {
             speechRecognizer.setRecognitionListener(object : SimpleRecognitionListener() {
-                override fun onReadyForSpeech(p0: Bundle?) {
+                override fun onReadyForSpeech(params: Bundle?) {
                     callback.started()
                 }
 
-                override fun onError(p0: Int) {
-                    callback.error(p0)
+                override fun onError(error: Int) {
+                    callback.error(error)
                 }
 
-                override fun onResults(p0: Bundle?) {
+                override fun onResults(results: Bundle?) {
                     val data: ArrayList<String> =
-                        p0?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
+                        results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
                     callback.finished(data[0])
                 }
             })
