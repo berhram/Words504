@@ -13,12 +13,13 @@ class HandleIndexes(
             val showIndex = with(letter) {
                 map(previousSymbol).not() && map(char) && apostrophe.map(previousSymbol).not()
             }
-            if (showIndex) output += "$index.."
+            output += if (showIndex) index else FILLER_CHAR
         }
         return output
     }
 
     companion object {
         private const val SPACE_CHAR = ' '
+        private const val FILLER_CHAR = '_'
     }
 }
