@@ -1,11 +1,23 @@
 package ru.easycode.words504.recognition
 
+import android.widget.TextView
+
 interface STTState {
 
-    data class Started(private val state: String): STTState
+    fun show(textView: TextView)
 
-    data class Finished(private val state: String): STTState
+    abstract class Abstract(private val state: String): STTState {
+        override fun show(textView: TextView) {
+            textView.text = state
+        }
+    }
 
-    data class Error(private val state: String): STTState
+    data class Started(private val state: String): Abstract(state)
+
+    data class Finished(private val state: String): Abstract(state)
+
+    data class Error(private val state: String): Abstract(state)
+
+
 
 }

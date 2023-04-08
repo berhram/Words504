@@ -1,8 +1,24 @@
 <resources>
     <string name="app_name">Words504</string>
     <string name="button_test">start test</string>
+    <string name="started">Started</string>
     <string name="listening">Listening...</string>
     <string name="speak">Speak</string>
     <string name="result">Here will be the result</string>
     <string name="empty"> </string>
+    <string name="error_network_timeout">error network timeout</string>
+    <string name="error_network">error network</string>
+    <string name="error_audio">error audio</string>
+    <string name="error_server">error server</string>
+    <string name="error_client">error client</string>
+    <string name="error_speech_timeout">error speech timeout</string>
+    <string name="error_no_match">error no match</string>
+    <string name="error_recognizer_busy">error recognizer busy</string>
+    <string name="error_insufficient_permissions">error insufficient permissions</string>
+    <string name="error_too_many_request">error too many request</string>
+    <string name="error_server_disconnected">error server disconnected</string>
+    <string name="error_language_not_supported">error language not supported</string>
+    <string name="error_language_unvaliable">error language unvaliable</string>
+    <string name="error_cannot_check_support">error cannot check support</string>
+    <string name="none">none</string>
 </resources>

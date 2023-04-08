@@ -3,16 +3,24 @@ package ru.easycode.words504.recognition.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import ru.easycode.words504.R
+import ru.easycode.words504.domain.HandleError
 import ru.easycode.words504.presentation.Communication
+import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.recognition.STTState
+import ru.easycode.words504.recognition.data.STTErrors
 import ru.easycode.words504.recognition.data.SpeechRecognizerCallback
 import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
+import ru.easycode.words504.recognition.domain.STTHandleError
+import ru.easycode.words504.recognition.domain.ToSTTUiError
 
 abstract class STTViewModel(
     private val requestPermission: RequestPermission,
     private val permissionCommunication: PermissionCommunication,
     private val recognitionResultCommunication: RecognitionResultCommunication.Mutable,
     private val speechRecognizerEngine: SpeechRecognizerEngine,
+    private val manageResources: ManageResources,
+    private val sttHandleError: STTHandleError
 ) : ViewModel(), Init, HandlePermissionGranted, ObserveSTT {
 
     override fun init(isFirstRun: Boolean) {
@@ -21,7 +29,7 @@ abstract class STTViewModel(
 
     private val callback = object : SpeechRecognizerCallback {
         override fun started() {
-            recognitionResultCommunication.map(STTState.Started("Started"))
+            recognitionResultCommunication.map(STTState.Started(manageResources.string(R.string.started)))
         }
 
         override fun finished(result: String) {
@@ -29,8 +37,7 @@ abstract class STTViewModel(
         }
 
         override fun error(code: Int) {
-            //todo в какие строки из чисел?
-            recognitionResultCommunication.map(STTState.Error(code.toString()))
+            recognitionResultCommunication.map(STTState.Error(sttHandleError.handle(code)))
         }
     }
 
@@ -55,12 +62,16 @@ class TestSTTViewModel(
     requestPermission: RequestPermission,
     permissionCommunication: PermissionCommunication,
     recognitionResultCommunication: RecognitionResultCommunication.Mutable,
-    speechRecognizerEngine: SpeechRecognizerEngine
+    speechRecognizerEngine: SpeechRecognizerEngine,
+    manageResources: ManageResources,
+    sttHandleError: STTHandleError
 ) : STTViewModel(
     requestPermission,
     permissionCommunication,
     recognitionResultCommunication,
-    speechRecognizerEngine
+    speechRecognizerEngine,
+    manageResources,
+    sttHandleError
 ) {
     override fun permissionCallback(granted: Boolean) {
         if(granted){
@@ -70,7 +81,6 @@ class TestSTTViewModel(
             //todo предупредить
         }
     }
-
 }
 
 interface Init {

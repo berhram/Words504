@@ -3,20 +3,21 @@ package ru.easycode.words504.recognition.presentation
 import android.Manifest
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelStoreOwner
 import ru.easycode.words504.R
+import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
+import ru.easycode.words504.recognition.domain.STTHandleError
+import ru.easycode.words504.recognition.domain.ToSTTUiError
 import ru.easycode.words504.sl.ProvideViewModel
 
 //todo make abstract fragment with generic of viewModel in STTViewModel
-abstract class STTFragment<T : STTViewModel> :
+/*abstract class STTFragment<T : STTViewModel> :
     Fragment() { //todo BaseFragment onCreate viewModel init
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,7 +31,7 @@ abstract class STTFragment<T : STTViewModel> :
             it.handle(this, launcher)
         }
     }
-}
+}*/
 
 //todo  test fragment replace in main activity
 class TestVoiceRecognitionActivity : AppCompatActivity(), ProvideViewModel {
@@ -57,7 +58,7 @@ class TestVoiceRecognitionActivity : AppCompatActivity(), ProvideViewModel {
             it.handle(this, launcher)
         }
         viewModel.observeRecognitionResult(this) {
-            textView.text = it.toString()
+            it.show(textView)
         }
     }
 
@@ -76,11 +77,15 @@ class TestVoiceRecognitionActivity : AppCompatActivity(), ProvideViewModel {
             RequestPermission.AboveM(Manifest.permission.RECORD_AUDIO, handlePermissionGranted)
         else
             RequestPermission.UnderM(handlePermissionGranted)
+
+        val manageResources = ManageResources.Base(applicationContext)
         viewModel = TestSTTViewModel(
             requestPermission,
             PermissionCommunication.Base(),
             RecognitionResultCommunication.Base(),
-            SpeechRecognizerEngine.Base(applicationContext)
+            SpeechRecognizerEngine.Base(applicationContext),
+            manageResources,
+            STTHandleError(ToSTTUiError(manageResources))
         )
         return viewModel as T //todo in service locator
     }
