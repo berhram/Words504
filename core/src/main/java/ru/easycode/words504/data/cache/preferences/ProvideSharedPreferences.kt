@@ -10,7 +10,7 @@ interface ProvideSharedPreferences {
     abstract class SharedPref(
         private val context: Context,
         private val name: String,
-        private val visibility: Int = Context.MODE_PRIVATE,
+        private val visibility: Int = Context.MODE_PRIVATE
     ) : ProvideSharedPreferences {
         override fun sharedPreferences(): SharedPreferences =
             context.getSharedPreferences(name, visibility)
