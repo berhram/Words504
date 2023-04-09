@@ -20,7 +20,7 @@ interface LanguageCloud {
     ) : LanguageCloud {
 
         override fun isLanguageEnglish(): Boolean {
-            return languageCode.lowercase().startsWith("en")
+            return languageCode.startsWith("en", true)
         }
 
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(languageCode, name)
