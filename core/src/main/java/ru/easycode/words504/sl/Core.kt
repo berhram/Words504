@@ -12,12 +12,15 @@ import ru.easycode.words504.data.cache.storage.Storage
 import ru.easycode.words504.data.cloud.*
 import ru.easycode.words504.presentation.Communication
 
-interface CoreModule : SharedPrefs,Storage {
+interface CoreModule : SharedPrefs, Storage {
 
-    class Core(private val context: Context, idDebug: Boolean) : CoreModule {
+    class Core(
+        private val context: Context,
+        private val idDebug: Boolean
+    ) : CoreModule {
 
         override fun sharedPreferences(key: String): SharedPreferences =
-            context.getSharedPreferences(key,Context.MODE_PRIVATE)
+            context.getSharedPreferences(key, Context.MODE_PRIVATE)
 
         override fun read(key: String, default: String): String {
             TODO("Not yet implemented")
