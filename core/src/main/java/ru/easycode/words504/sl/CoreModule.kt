@@ -5,33 +5,20 @@ import android.content.SharedPreferences
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cache.storage.Storage
 
-interface CoreModule : ProvideSharedPreferences, Storage {
+interface CoreModule : ProvideSharedPreferences {
 
-    class Core(
+    class Base(
         private val context: Context,
         private val isDebug: Boolean
     ) : CoreModule {
 
-        private val manageResources = context.resources
+        private val sharedPref = if (isDebug)
+            ProvideSharedPreferences.Debug(context)
+        else
+            ProvideSharedPreferences.Release(context)
 
         override fun sharedPreferences(): SharedPreferences {
-            TODO("Not yet implemented")
-        }
-
-        override fun read(key: String, default: String): String {
-            TODO("Not yet implemented")
-        }
-
-        override fun <T : Any> read(key: String, default: T): T {
-            TODO("Not yet implemented")
-        }
-
-        override fun save(key: String, value: String) {
-            TODO("Not yet implemented")
-        }
-
-        override fun save(key: String, obj: Any) {
-            TODO("Not yet implemented")
+            return sharedPref.sharedPreferences()
         }
     }
 }
