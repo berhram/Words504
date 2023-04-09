@@ -9,10 +9,10 @@ abstract class BaseFragment<T : ViewModel> : Fragment() {
 
     protected lateinit var viewModel: T
 
-    protected abstract fun viewModelClass(): Class<T>
+    protected abstract val viewModelClass: Class<T>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = (requireActivity() as ProvideViewModel).viewModel(viewModelClass(), this)
+        viewModel = (requireActivity() as ProvideViewModel).viewModel(viewModelClass, this)
     }
 }
