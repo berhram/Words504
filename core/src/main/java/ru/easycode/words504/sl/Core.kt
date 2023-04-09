@@ -2,15 +2,8 @@ package ru.easycode.words504.sl
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelStoreOwner
-import okhttp3.Interceptor
-import retrofit2.Retrofit
-import ru.easycode.words504.core.BuildConfig
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cache.storage.Storage
-import ru.easycode.words504.data.cloud.*
-import ru.easycode.words504.presentation.Communication
 
 interface CoreModule : ProvideSharedPreferences, Storage {
 
@@ -18,6 +11,9 @@ interface CoreModule : ProvideSharedPreferences, Storage {
         private val context: Context,
         private val isDebug: Boolean
     ) : CoreModule {
+
+        private val manageResources = context.resources
+
         override fun sharedPreferences(): SharedPreferences {
             TODO("Not yet implemented")
         }
