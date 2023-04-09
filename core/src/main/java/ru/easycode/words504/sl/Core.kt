@@ -35,4 +35,3 @@ interface CoreModule : ProvideSharedPreferences, Storage {
         }
     }
 }
-
