@@ -12,18 +12,10 @@ abstract class BaseFragment<T : ViewModel> : Fragment() {
 
     protected lateinit var viewModel: T
 
-    protected abstract val layoutResId: Int
-
     protected abstract fun viewModelClass(): Class<T>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = (requireActivity() as ProvideViewModel).viewModel(viewModelClass(), this)
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? = layoutInflater.inflate(layoutResId, container, false)
 }
