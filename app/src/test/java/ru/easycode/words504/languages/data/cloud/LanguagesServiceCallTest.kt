@@ -14,7 +14,7 @@ import ru.easycode.words504.languages.domain.HandleHttpError
 class LanguagesServiceCallTest {
 
     @Test
-    @Ignore("Call manually from Android Studio")
+    //   @Ignore("Call manually from Android Studio")
     fun `test api call to get list of languages`(): Unit = runBlocking {
         val converterFactory = ProvideConverterFactory.Base()
 
@@ -32,9 +32,8 @@ class LanguagesServiceCallTest {
         val retrofitBuilder = ProvideRetrofitBuilder.Base(converterFactory, clientBuilder)
         val service = LanguagesMakeService(retrofitBuilder).service(LanguagesService::class.java)
         val dataSource = LanguagesCloudDataSource.Base(
-            service, errorHandler = HandleDomainError(
-                HandleHttpError()
-            )
+            service,
+            errorHandler = HandleDomainError(HandleHttpError())
         )
         val result = try {
             dataSource.languages()
