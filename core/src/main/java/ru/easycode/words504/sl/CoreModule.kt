@@ -6,8 +6,8 @@ import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 interface CoreModule : ProvideSharedPreferences {
 
     class Base(
-        private val context: Context,
-        private val isDebug: Boolean
+        context: Context,
+        isDebug: Boolean
     ) : CoreModule {
 
         private val sharedPref = if (isDebug) {
