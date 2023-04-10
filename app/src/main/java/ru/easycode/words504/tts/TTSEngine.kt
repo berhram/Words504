@@ -21,9 +21,9 @@ interface TTSEngine {
 
         private val tts: TextToSpeech
         private val queue: LinkedBlockingQueue<String> = LinkedBlockingQueue()
-        private lateinit var startSpeechCallback : (phrase: String) -> Unit
-        private lateinit var endSpeechCallback : (phrase: String) -> Unit
-        private lateinit var partialEndSpeechCallback : (phrase: String) -> Unit
+        private var startSpeechCallback : (phrase: String) -> Unit = {}
+        private var endSpeechCallback : (phrase: String) -> Unit = {}
+        private var partialEndSpeechCallback : (phrase: String) -> Unit = {}
 
         private val utteranceProgressListener = object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
