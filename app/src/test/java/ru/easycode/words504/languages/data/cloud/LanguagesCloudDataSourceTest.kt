@@ -83,6 +83,6 @@ class LanguagesCloudDataSourceTest : BaseTest() {
             }
         }
 
-        override suspend fun getLanguages(): Call<List<LanguageCloud.Base>> = languagesCall
+        override fun getLanguages(): Call<List<LanguageCloud.Base>> = languagesCall
     }
 }
