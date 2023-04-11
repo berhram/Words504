@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 interface WordCloud {
 
-    interface Mapper<T> {
+    interface Mapper<T : Any> {
         fun map(
             id: String,
             index: Int,
@@ -12,7 +12,7 @@ interface WordCloud {
         ): T
     }
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
         @SerializedName("id")
@@ -23,6 +23,6 @@ interface WordCloud {
         private val dictionaryForm: String
     ) : WordCloud {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(id, index, dictionaryForm)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(id, index, dictionaryForm)
     }
 }

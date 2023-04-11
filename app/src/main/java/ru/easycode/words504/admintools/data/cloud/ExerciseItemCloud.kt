@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 interface ExerciseItemCloud {
 
-    interface Mapper<T> {
+    interface Mapper<T : Any> {
         fun map(
             question: SentenceCloud,
             correctAnswerId: List<String>,
@@ -12,7 +12,7 @@ interface ExerciseItemCloud {
         ): T
     }
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
         @SerializedName("question")
@@ -23,6 +23,6 @@ interface ExerciseItemCloud {
         private val answers: List<SentenceCloud>
     ) : ExerciseItemCloud {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(question, correctAnswerId, answers)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(question, correctAnswerId, answers)
     }
 }

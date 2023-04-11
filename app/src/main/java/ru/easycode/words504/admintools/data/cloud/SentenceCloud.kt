@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 interface SentenceCloud {
 
-    interface Mapper<T> {
+    interface Mapper<T : Any> {
         fun map(ui: String, words: List<WordCloud>): T
     }
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
         @SerializedName("ui")
@@ -17,6 +17,6 @@ interface SentenceCloud {
         private val words: List<WordCloud>
     ) : SentenceCloud {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(ui, words)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(ui, words)
     }
 }

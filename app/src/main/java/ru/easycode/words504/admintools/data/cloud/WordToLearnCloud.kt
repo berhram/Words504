@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 interface WordToLearnCloud {
 
-    interface Mapper<T> {
+    interface Mapper<T : Any> {
         fun map(
             id: String,
             definitions: List<SentenceCloud>,
@@ -12,7 +12,7 @@ interface WordToLearnCloud {
         ): T
     }
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
         @SerializedName("id")
@@ -23,6 +23,6 @@ interface WordToLearnCloud {
         private val examples: List<SentenceCloud>
     ) : WordToLearnCloud {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(id, definitions, examples)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(id, definitions, examples)
     }
 }

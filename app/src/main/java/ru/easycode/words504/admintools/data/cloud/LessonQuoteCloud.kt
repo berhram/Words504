@@ -4,11 +4,11 @@ import com.google.gson.annotations.SerializedName
 
 interface LessonQuoteCloud {
 
-    interface Mapper<T> {
+    interface Mapper<T : Any> {
         fun map(value: List<SentenceCloud>, author: String): T
     }
 
-    fun <T> map(mapper: Mapper<T>): T
+    fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
         @SerializedName("value")
@@ -17,6 +17,6 @@ interface LessonQuoteCloud {
         private val author: String
     ) : LessonQuoteCloud {
 
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(value, author)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(value, author)
     }
 }
