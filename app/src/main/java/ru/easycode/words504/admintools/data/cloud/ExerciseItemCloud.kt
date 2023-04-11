@@ -23,6 +23,10 @@ interface ExerciseItemCloud {
         private val answers: List<SentenceCloud>
     ) : ExerciseItemCloud {
 
-        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(question, correctAnswerId, answers)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(
+            question,
+            correctAnswerId,
+            answers
+        )
     }
 }
