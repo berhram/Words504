@@ -6,7 +6,7 @@ interface WordCloud {
 
     interface Mapper<T : Any> {
         fun map(
-            id: String,
+            ui: String,
             index: Int,
             dictionaryForm: String
         ): T
@@ -15,14 +15,14 @@ interface WordCloud {
     fun <T : Any> map(mapper: Mapper<T>): T
 
     data class Base(
-        @SerializedName("id")
-        private val id: String,
+        @SerializedName("ui")
+        private val ui: String,
         @SerializedName("index")
         private val index: Int,
         @SerializedName("dictionaryForm")
         private val dictionaryForm: String
     ) : WordCloud {
 
-        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(id, index, dictionaryForm)
+        override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(ui, index, dictionaryForm)
     }
 }
