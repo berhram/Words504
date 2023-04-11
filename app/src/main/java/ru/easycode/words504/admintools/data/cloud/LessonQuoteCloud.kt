@@ -12,7 +12,7 @@ interface LessonQuoteCloud {
 
     data class Base(
         @SerializedName("value")
-        private val value: List<SentenceCloud>,
+        private val value: List<SentenceCloud.Base>,
         @SerializedName("author")
         private val author: String
     ) : LessonQuoteCloud {

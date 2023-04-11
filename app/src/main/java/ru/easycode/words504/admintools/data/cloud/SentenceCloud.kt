@@ -14,7 +14,7 @@ interface SentenceCloud {
         @SerializedName("ui")
         private val ui: String,
         @SerializedName("words")
-        private val words: List<WordCloud>
+        private val words: List<WordCloud.Base>
     ) : SentenceCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(ui, words)

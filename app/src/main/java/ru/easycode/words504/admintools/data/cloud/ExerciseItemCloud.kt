@@ -16,11 +16,11 @@ interface ExerciseItemCloud {
 
     data class Base(
         @SerializedName("question")
-        private val question: SentenceCloud,
-        @SerializedName("question")
+        private val question: SentenceCloud.Base,
+        @SerializedName("correctAnswerId")
         private val correctAnswerId: List<String>,
         @SerializedName("answers")
-        private val answers: List<SentenceCloud>
+        private val answers: List<SentenceCloud.Base>
     ) : ExerciseItemCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(

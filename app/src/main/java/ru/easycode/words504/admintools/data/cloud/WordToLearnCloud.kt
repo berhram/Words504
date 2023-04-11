@@ -18,9 +18,9 @@ interface WordToLearnCloud {
         @SerializedName("id")
         private val id: String,
         @SerializedName("definitions")
-        private val definitions: List<SentenceCloud>,
+        private val definitions: List<SentenceCloud.Base>,
         @SerializedName("examples")
-        private val examples: List<SentenceCloud>
+        private val examples: List<SentenceCloud.Base>
     ) : WordToLearnCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(id, definitions, examples)

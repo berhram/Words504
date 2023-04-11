@@ -17,13 +17,13 @@ interface LessonCloud {
 
     data class Base(
         @SerializedName("quote")
-        private val quote: LessonQuoteCloud,
+        private val quote: LessonQuoteCloud.Base,
         @SerializedName("wordsToLearn")
-        private val words: List<WordToLearnCloud>,
+        private val words: List<WordToLearnCloud.Base>,
         @SerializedName("text")
-        private val text: LessonTextCloud,
+        private val text: LessonTextCloud.Base,
         @SerializedName("exercises")
-        private val exercises: List<LessonExerciseCloud>
+        private val exercises: List<LessonExerciseCloud.Base>
     ) : LessonCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(quote, words, text, exercises)

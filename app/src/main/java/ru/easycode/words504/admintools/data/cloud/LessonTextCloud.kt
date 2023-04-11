@@ -12,9 +12,9 @@ interface LessonTextCloud {
 
     data class Base(
         @SerializedName("title")
-        private val title: SentenceCloud,
+        private val title: SentenceCloud.Base,
         @SerializedName("sentences")
-        private val sentences: List<SentenceCloud>
+        private val sentences: List<SentenceCloud.Base>
     ) : LessonTextCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(title, sentences)
