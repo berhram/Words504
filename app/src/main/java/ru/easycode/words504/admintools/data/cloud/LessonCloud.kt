@@ -28,5 +28,4 @@ interface LessonCloud {
 
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(quote, words, text, exercises)
     }
-
 }
