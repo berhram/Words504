@@ -1,4 +1,4 @@
-package ru.easycode.words504.admintools.input
+package ru.easycode.words504.admintools.presentation.input
 
 import android.text.Editable
 import ru.easycode.words504.domain.Mapper
