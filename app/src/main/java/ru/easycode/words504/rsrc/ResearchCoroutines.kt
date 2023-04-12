@@ -23,7 +23,8 @@ fun main() {
         "eleven",
         "twelve",
         "",
-        "fourteen"
+        "fourteen",
+        "fifteen"
     )
     handleResult.handle(primeResult)
 
