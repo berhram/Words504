@@ -1,5 +1,6 @@
 package ru.easycode.words504.languages.data.cloud
 
+import ru.easycode.words504.data.cloud.AbstractCloudDataSource
 import ru.easycode.words504.domain.HandleError
 
 interface LanguagesCloudDataSource {
@@ -8,16 +9,11 @@ interface LanguagesCloudDataSource {
 
     class Base(
         private val service: LanguagesService,
-        private val errorHandler: HandleError<Exception, Throwable>
-    ) : LanguagesCloudDataSource {
+        errorHandler: HandleError<Exception, Throwable>
+    ) : AbstractCloudDataSource(errorHandler), LanguagesCloudDataSource {
 
-        override suspend fun languages(): List<LanguageCloud> {
-            try {
-                val response = service.getLanguages().execute()
-                return response.body()!!
-            } catch (e: Exception) {
-                throw errorHandler.handle(e)
-            }
+        override suspend fun languages(): List<LanguageCloud> = handle {
+            service.getLanguages()
         }
     }
 }
