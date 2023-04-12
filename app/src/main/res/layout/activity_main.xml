@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
-    <ru.easycode.words504.admintools.WordsIndexesInputLayout
+    <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
         android:id="@+id/wordsIndexesInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
