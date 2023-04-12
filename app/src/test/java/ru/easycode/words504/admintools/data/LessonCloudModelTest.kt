@@ -13,7 +13,7 @@ import ru.easycode.words504.admintools.data.cloud.WordCloud
 import ru.easycode.words504.admintools.data.cloud.WordToLearnCloud
 import ru.easycode.words504.data.cache.serialization.Serialization
 
-class AdmtCloudModelsTest {
+class LessonCloudModelTest {
 
     @Test
     fun `test lesson cloud`() {
