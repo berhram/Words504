@@ -9,6 +9,6 @@ interface TranslateService {
     @POST("translate")
     fun translate(
         @Query("target_lang") targetLang: String,
-        @Query("text") text: String,
+        @Query("text") text: String
     ): Call<TranslateCloud.Base>
 }

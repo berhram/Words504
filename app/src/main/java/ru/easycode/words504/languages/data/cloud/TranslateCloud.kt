@@ -11,7 +11,7 @@ interface TranslateCloud {
 
     data class Base(
         @SerializedName("translations")
-        private val translations: List<TranslationsCloud.Base>,
+        private val translations: List<TranslationsCloud.Base>
     ) : TranslateCloud {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(translations)
     }
