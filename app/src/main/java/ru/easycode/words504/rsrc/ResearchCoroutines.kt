@@ -1,15 +1,30 @@
 package ru.easycode.words504.rsrc
 
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() {
     val handleResult = HandleResult.Base()
-    val primeResult = listOf("zero", "one", "two", "three", "four", "", "", "eight", "nine", "", "eleven", "twelve", "", "fourteen")
+    val primeResult = listOf(
+        "zero",
+        "one",
+        "two",
+        "three",
+        "four",
+        "",
+        "",
+        "eight",
+        "nine",
+        "",
+        "eleven",
+        "twelve",
+        "",
+        "fourteen"
+    )
     handleResult.handle(primeResult)
 
     val secondaryResult = listOf("five", "six", "thirteen", "")
