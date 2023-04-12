@@ -42,4 +42,26 @@ class LanguagesServiceCallTest {
         }
         println(result)
     }
+
+    @Test
+    @Ignore("Call manually from Android Studio")
+    fun `test api call to try to translate`(): Unit = runBlocking {
+        val converterFactory = ProvideConverterFactory.Base()
+
+        val authHeaderInterceptorProvider = AuthHeaderInterceptorProvider()
+        val loggingProvider = ProvideLoggingInterceptor.Debug()
+        val baseClientBuilder = ProvideOkHttpClientBuilder.AddInterceptor(
+            loggingProvider,
+            ProvideOkHttpClientBuilder.Base()
+        )
+
+        val clientBuilder = ProvideOkHttpClientBuilder.AddInterceptor(
+            authHeaderInterceptorProvider,
+            baseClientBuilder
+        )
+        val retrofitBuilder = ProvideRetrofitBuilder.Base(converterFactory, clientBuilder)
+        val service = LanguagesMakeService(retrofitBuilder).service(TranslateService::class.java)
+        val result = service.translate("ru", "hello").execute().body()
+        println(result)
+    }
 }
