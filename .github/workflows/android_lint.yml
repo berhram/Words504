@@ -12,10 +12,11 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '11'
-      - name: build rules
-        run: ./gradlew rules:jar
-        env:
-          DEEPL_API_KEY: ${{ secrets.DEEPL_API_KEY }}
+      - name: release-downloader
+        uses: robinraju/release-downloader@v1.7
+        with:
+          repository: berhram/oop-solid-rules
+          tag: v0.1
       - name: ktlint
         uses: berhram/action-ktlint-android@v1
         with:
@@ -23,4 +24,4 @@ jobs:
           reporter: github-pr-review
           filter_mode: file
           fail_on_error: true
-          custom_rule_path: rules/build/libs/rules.jar
+          custom_rule_path: oop-solid-rules-v0.1.jar
