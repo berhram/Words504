@@ -18,10 +18,11 @@ jobs:
           repository: berhram/oop-solid-rules
           tag: v0.1
       - name: ktlint
-        uses: berhram/action-ktlint-android@v1
+        uses: ScaCap/action-ktlint@v1.6
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
           filter_mode: file
           fail_on_error: true
+          android-true
           custom_rule_path: oop-solid-rules-v0.1.jar
