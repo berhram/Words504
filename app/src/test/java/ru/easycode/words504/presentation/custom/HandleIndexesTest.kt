@@ -3,9 +3,9 @@ package ru.easycode.words504.presentation.custom
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.easycode.words504.admintools.input.ApostropheMatch
-import ru.easycode.words504.admintools.input.HandleIndexes
-import ru.easycode.words504.admintools.input.LetterMatch
+import ru.easycode.words504.admintools.presentation.input.ApostropheMatch
+import ru.easycode.words504.admintools.presentation.input.HandleIndexes
+import ru.easycode.words504.admintools.presentation.input.LetterMatch
 import ru.easycode.words504.domain.Mapper
 
 class HandleIndexesTest {
