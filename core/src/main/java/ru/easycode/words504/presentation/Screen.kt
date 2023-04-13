@@ -1,13 +1,32 @@
 package ru.easycode.words504.presentation
 
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 
 interface Screen {
-    fun replace(manager: FragmentManager)
 
-    abstract class Base(private val navigationStrategy: NavigationStrategy) : Screen {
-        override fun replace(manager: FragmentManager) {
-            navigationStrategy.navigate(manager)
+    fun navigate(manager: FragmentManager, containerId: Int)
+
+    abstract class Add(private val clazz: Class<out Fragment>) : Screen {
+        override fun navigate(manager: FragmentManager, containerId: Int) {
+            manager.beginTransaction()
+                .add(containerId, clazz.newInstance())
+                .addToBackStack(clazz.canonicalName)
+                .commit()
+        }
+    }
+
+    abstract class Replace(private val clazz: Class<out Fragment>) : Screen {
+        override fun navigate(manager: FragmentManager, containerId: Int) {
+            manager.beginTransaction()
+                .replace(containerId, clazz.newInstance())
+                .commit()
+        }
+    }
+
+    class Pop : Screen {
+        override fun navigate(manager: FragmentManager, containerId: Int) {
+            manager.popBackStack()
         }
     }
 }
