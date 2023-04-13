@@ -15,4 +15,3 @@ dependencyResolutionManagement {
 rootProject.name = "Words504"
 include ':app'
 include ':core'
-include ':rules'
