@@ -36,31 +36,31 @@ fun main() {
 }
 
 interface HandleResult {
-    fun handle(list: List<String>)
+    fun handle(translateList: List<String>)
 
     class Base : HandleResult {
 
         @Volatile
         private var count = 0
 
-        override fun handle(list: List<String>) {
+        override fun handle(translateList: List<String>) {
             count = 0
             runBlocking {
-                list.map { string ->
+                translateList.map { word ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        if (string.isNotEmpty()) count++
-                        someHeavyOperation(string)
+                        if (word.isNotEmpty()) count++
+                        val translated = translateWord(word)
+                        println(translated)
                     }
                 }.joinAll()
-                if (count == list.size) println("Success!") else println("not success")
+                if (count == translateList.size) println("Success!") else println("not success")
                 println("------end-of-request------")
             }
         }
     }
 }
 
-suspend fun someHeavyOperation(result: String) {
+suspend fun translateWord(word: String):String {
     delay(2000)
-    val response = result + " " + result.isEmpty()
-    println(response)
+    return word + " " + word.isEmpty()
 }
