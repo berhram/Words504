@@ -1,66 +1,63 @@
 package ru.easycode.words504.rsrc
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
+import ru.easycode.words504.languages.data.cloud.TranslateCloud
+import ru.easycode.words504.presentation.Communication
+import ru.easycode.words504.presentation.DispatchersList
 
-fun main() {
-    val handleResult = HandleResult.Base()
-    val primeResult = listOf(
-        "zero",
-        "one",
-        "two",
-        "three",
-        "four",
-        "",
-        "",
-        "eight",
-        "nine",
-        "",
-        "eleven",
-        "twelve",
-        "",
-        "fourteen",
-        "fifteen"
-    )
-    handleResult.handle(primeResult)
+interface RunBunchCoroutines :  Communication.Observe<TranslateCloud> {
+    fun start(coroutineScope: CoroutineScope, textSize: Int, block: suspend () -> TranslateCloud)
 
-    val secondaryResult = listOf("five", "six", "thirteen", "")
-    handleResult.handle(secondaryResult)
+    class Base(
+        private val dispatchers: DispatchersList,
+        private val translate: Communication.Mutable<TranslateCloud>,
+        private val progress: ShowProgress
+    ) : RunBunchCoroutines  {
 
-    val lastResult = listOf("ten")
-    handleResult.handle(lastResult)
-}
-
-interface HandleResult {
-    fun handle(translateList: List<String>)
-
-    class Base : HandleResult {
-
-        @Volatile
-        private var count = 0
-
-        override fun handle(translateList: List<String>) {
-            count = 0
-            runBlocking {
-                translateList.map { word ->
-                    CoroutineScope(Dispatchers.IO).launch {
-                        if (word.isNotEmpty()) count++
-                        val translated = translateWord(word)
-                        println(translated)
-                    }
-                }.joinAll()
-                if (count == translateList.size) println("Success!") else println("not success")
-                println("------end-of-request------")
+        override fun start(
+            coroutineScope: CoroutineScope,
+            textSize: Int,
+            block: suspend () -> TranslateCloud
+        ) {
+            List(textSize) { it }.map {
+                coroutineScope.launch(dispatchers.io()) {
+                    translate.map(block.invoke())
+                    progress.show(textSize)
+                }
             }
         }
+        override fun observe(owner: LifecycleOwner, observer: Observer<TranslateCloud>) =
+            translate.observe(owner, observer)
     }
 }
 
-suspend fun translateWord(word: String):String {
-    delay(2000)
-    return word + " " + word.isEmpty()
+interface ShowProgress : Communication.Observe<Int>  {
+    suspend fun show(textSize: Int)
+
+    class Base(
+        private val dispatchers: DispatchersList,
+        private val progress: Communication.Mutable<Int>
+    ) : ShowProgress{
+
+        private var count = 0
+
+        private val mutex = Mutex()
+        override suspend fun show(textSize: Int) {
+            mutex.withLock {
+                count++
+                val currentProgress = (count * 100) / textSize
+                withContext(dispatchers.ui()) {
+                    progress.map(currentProgress)
+                }
+            }
+        }
+        override fun observe(owner: LifecycleOwner, observer: Observer<Int>) =
+            progress.observe(owner, observer)
+    }
 }
