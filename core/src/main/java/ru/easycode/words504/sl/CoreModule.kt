@@ -16,8 +16,10 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule {
             ProvideSharedPreferences.Release(context)
         }
 
+        private val adminScopeModule = AdminScopeModule.Base()
+
         override fun sharedPreferences() = sharedPref.sharedPreferences()
 
-        override fun provideAdminScope() = AdminScopeModule.Base()
+        override fun provideAdminScope() = adminScopeModule
     }
 }
