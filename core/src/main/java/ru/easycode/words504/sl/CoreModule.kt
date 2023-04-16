@@ -3,7 +3,7 @@ package ru.easycode.words504.sl
 import android.content.Context
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 
-interface CoreModule : ProvideSharedPreferences {
+interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule {
 
     class Base(
         context: Context,
@@ -17,5 +17,7 @@ interface CoreModule : ProvideSharedPreferences {
         }
 
         override fun sharedPreferences() = sharedPref.sharedPreferences()
+
+        override fun provideAdminScope() = AdminScopeModule.Base()
     }
 }
