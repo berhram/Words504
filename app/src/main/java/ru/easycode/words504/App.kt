@@ -17,6 +17,7 @@ class App : Application(), ProvideViewModel {
         super.onCreate()
         viewModelsFactory = ViewModelsFactory(
             BaseDependencyContainer(
+                this,
                 CoreModule.Base(
                     this,
                     BuildConfig.DEBUG

@@ -4,15 +4,12 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import ru.easycode.words504.R
-import ru.easycode.words504.domain.HandleError
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.recognition.STTState
-import ru.easycode.words504.recognition.data.STTErrors
 import ru.easycode.words504.recognition.data.SpeechRecognizerCallback
 import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
 import ru.easycode.words504.recognition.domain.STTHandleError
-import ru.easycode.words504.recognition.domain.ToSTTUiError
 
 abstract class STTViewModel(
     private val requestPermission: RequestPermission,
@@ -21,7 +18,7 @@ abstract class STTViewModel(
     private val speechRecognizerEngine: SpeechRecognizerEngine,
     private val manageResources: ManageResources,
     private val sttHandleError: STTHandleError
-) : ViewModel(), Init, HandlePermissionGranted, ObserveSTT {
+) : ViewModel(), Init, HandlePermissionGranted, ObserveSTT, SpeechRecognizer, ObserveRequestPermission {
 
     override fun init(isFirstRun: Boolean) {
         permissionCommunication.map(requestPermission)
@@ -41,15 +38,15 @@ abstract class STTViewModel(
         }
     }
 
-    fun observeRequestPermission(owner: LifecycleOwner, observer: Observer<RequestPermission>) {
+    override fun observeRequestPermission(owner: LifecycleOwner, observer: Observer<RequestPermission>) {
         permissionCommunication.observe(owner, observer)
     }
 
-    fun startRecord() {
+    override fun startRecord() {
         speechRecognizerEngine.start(callback)
     }
 
-    fun stopRecord() {
+    override fun stopRecord() {
         speechRecognizerEngine.stop()
     }
 
@@ -74,12 +71,7 @@ class TestSTTViewModel(
     sttHandleError
 ) {
     override fun permissionCallback(granted: Boolean) {
-        if(granted){
-
-        } else
-        {
-            //todo предупредить
-        }
+        //todo предупредить
     }
 }
 
@@ -92,3 +84,9 @@ interface PermissionCommunication : Communication.Mutable<RequestPermission> {
     class Base : Communication.Abstract<RequestPermission>(), PermissionCommunication
 }
 
+interface SpeechRecognizer{
+
+    fun startRecord()
+
+    fun stopRecord()
+}

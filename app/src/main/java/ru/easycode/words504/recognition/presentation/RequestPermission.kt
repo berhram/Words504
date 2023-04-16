@@ -2,15 +2,18 @@ package ru.easycode.words504.recognition.presentation
 
 import android.content.pm.PackageManager
 import androidx.activity.result.ActivityResultLauncher
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
+import ru.easycode.words504.recognition.STTState
 
 
 interface RequestPermission {
-    fun handle(activity: AppCompatActivity, launcher: ActivityResultLauncher<String>)
+    fun handle(fragment: Fragment, launcher: ActivityResultLauncher<String>)
 
     class UnderM(private val handlePermissionGranted: HandlePermissionGranted) : RequestPermission {
-        override fun handle(activity: AppCompatActivity, launcher: ActivityResultLauncher<String>) {
+        override fun handle(fragment: Fragment, launcher: ActivityResultLauncher<String>) {
             handlePermissionGranted.permissionCallback(true)
         }
     }
@@ -19,10 +22,10 @@ interface RequestPermission {
         private val permission: String,
         private val handlePermissionGranted: HandlePermissionGranted
     ) : RequestPermission {
-        override fun handle(activity: AppCompatActivity, launcher: ActivityResultLauncher<String>) =
-            with(activity) {
+        override fun handle(fragment: Fragment, launcher: ActivityResultLauncher<String>) =
+            with(fragment) {
                 if (ContextCompat.checkSelfPermission(
-                        this,
+                        requireContext(),
                         permission
                     ) == PackageManager.PERMISSION_GRANTED
                 )
@@ -32,7 +35,6 @@ interface RequestPermission {
                 }
             }
     }
-
 }
 
 interface HandlePermissionGranted {
@@ -41,4 +43,10 @@ interface HandlePermissionGranted {
     class Empty : HandlePermissionGranted {
         override fun permissionCallback(granted: Boolean) = Unit
     }
+}
+
+interface ObserveRequestPermission {
+
+    fun observeRequestPermission(owner: LifecycleOwner, observer: Observer<RequestPermission>)
+
 }
