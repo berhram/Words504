@@ -8,7 +8,7 @@ import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
 
 class AdminViewModel(
-    private val navigationCommunication: NavigationCommunication.Mutable,
+    private val navigationCommunication: NavigationCommunication.Mutable
 ) : ViewModel(), Communication.Observe<Screen> {
 
     override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) {
