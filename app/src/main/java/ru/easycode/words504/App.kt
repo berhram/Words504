@@ -36,5 +36,4 @@ class App : Application(), ProvideViewModel, ProvideAdminViewModel {
 
     override fun <T : ViewModel> adminViewModel(clazz: Class<T>, owner: ViewModelStoreOwner): T =
         ViewModelProvider(owner, viewModelsAdminFactory)[clazz]
-
 }
