@@ -40,8 +40,8 @@ class DiffCallBack(
     override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
-        oldList[oldItemPosition].hashCode() == newList[newItemPosition].hashCode()
-            && areContentsTheSame(oldItemPosition, newItemPosition)
+        oldList[oldItemPosition].hashCode() == newList[newItemPosition].hashCode() &&
+            areContentsTheSame(oldItemPosition, newItemPosition)
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
