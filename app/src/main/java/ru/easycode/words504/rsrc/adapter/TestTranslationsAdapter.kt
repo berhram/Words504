@@ -12,7 +12,8 @@ class TestTranslationsAdapter : RecyclerView.Adapter<WordWithTranslationViewHold
 
     private val list = mutableListOf<String>()
     override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): WordWithTranslationViewHolder {
         val itemBinding =
             ItemTestCoroutinesBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -33,7 +34,8 @@ class TestTranslationsAdapter : RecyclerView.Adapter<WordWithTranslationViewHold
 }
 
 class DiffCallBack(
-    private val oldList: List<String>, private val newList: List<String>
+    private val oldList: List<String>,
+    private val newList: List<String>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 
@@ -41,7 +43,7 @@ class DiffCallBack(
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].hashCode() == newList[newItemPosition].hashCode() &&
-            areContentsTheSame(oldItemPosition, newItemPosition)
+           areContentsTheSame(oldItemPosition, newItemPosition)
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
