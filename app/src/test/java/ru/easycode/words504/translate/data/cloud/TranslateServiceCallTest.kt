@@ -8,8 +8,6 @@ import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 import ru.easycode.words504.languages.data.cloud.AuthHeaderInterceptorProvider
-import ru.easycode.words504.languages.domain.HandleDomainError
-import ru.easycode.words504.languages.domain.HandleHttpError
 
 // TODO: Remove before the release
 class TranslateServiceCallTest {
