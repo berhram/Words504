@@ -14,7 +14,6 @@ class App : Application(), ProvideViewModel {
 
     private lateinit var viewModelsFactory: ViewModelsFactory
 
-
     override fun onCreate() {
         super.onCreate()
         val coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
