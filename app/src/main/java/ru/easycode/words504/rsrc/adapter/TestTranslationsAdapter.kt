@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.databinding.ItemTestCoroutinesBinding
-
 import ru.easycode.words504.domain.Mapper
 
 class TestTranslationsAdapter :

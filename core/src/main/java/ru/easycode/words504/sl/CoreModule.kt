@@ -9,7 +9,8 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule {
     fun provideDispatchers(): DispatchersList
 
     class Base(
-        context: Context, isDebug: Boolean
+        context: Context,
+        isDebug: Boolean
     ) : CoreModule {
 
         private val sharedPref = if (isDebug) {
