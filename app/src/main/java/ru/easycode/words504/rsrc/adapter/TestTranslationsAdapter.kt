@@ -20,7 +20,7 @@ class TestTranslationsAdapter : RecyclerView.Adapter<WordWithTranslationViewHold
     }
 
     override fun onBindViewHolder(holder: WordWithTranslationViewHolder, position: Int) =
-        holder.bind(list[position])
+        holder.map(list[position])
 
     override fun getItemCount(): Int = list.size
 
@@ -41,9 +41,7 @@ class DiffCallBack(
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].hashCode() == newList[newItemPosition].hashCode()
-                && areContentsTheSame(
-            oldItemPosition, newItemPosition
-        )
+            && areContentsTheSame(oldItemPosition, newItemPosition)
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition] == newList[newItemPosition]
@@ -51,9 +49,9 @@ class DiffCallBack(
 
 class WordWithTranslationViewHolder(
     private val itemBinding: ItemTestCoroutinesBinding
-) : RecyclerView.ViewHolder(itemBinding.root) {
+) : RecyclerView.ViewHolder(itemBinding.root), Mapper<String, Unit> {
 
-    fun bind(result: String) {
-        itemBinding.translationText.text = result
+    override fun map(source: String) {
+        itemBinding.translationText.text = source
     }
 }

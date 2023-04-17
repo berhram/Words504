@@ -6,11 +6,11 @@ import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 import ru.easycode.words504.languages.data.cloud.AuthHeaderInterceptorProvider
 import ru.easycode.words504.languages.data.cloud.LanguagesMakeService
-import ru.easycode.words504.translate.data.cloud.TranslateService
 import ru.easycode.words504.presentation.Communication
-import ru.easycode.words504.rsrc.TestTranslateViewModel
 import ru.easycode.words504.rsrc.TestTranslateCommunication
+import ru.easycode.words504.rsrc.TestTranslateViewModel
 import ru.easycode.words504.rsrc.adapter.TranslateResultUi
+import ru.easycode.words504.translate.data.cloud.TranslateService
 
 class CoroutinesTestModule(private val core: CoreModule) : Module<TestTranslateViewModel> {
 

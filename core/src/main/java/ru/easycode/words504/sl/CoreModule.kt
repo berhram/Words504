@@ -6,7 +6,7 @@ import ru.easycode.words504.presentation.DispatchersList
 
 interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule {
 
-    fun provideDispatchers() : DispatchersList
+    fun provideDispatchers(): DispatchersList
 
     class Base(
         context: Context,

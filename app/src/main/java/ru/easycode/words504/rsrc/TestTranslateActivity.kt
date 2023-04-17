@@ -7,9 +7,8 @@ import ru.easycode.words504.databinding.ActivityTestCoroutinesBinding
 import ru.easycode.words504.presentation.BaseActivity
 import ru.easycode.words504.rsrc.adapter.TestTranslationsAdapter
 
-class TestTranslateActivity: BaseActivity<TestTranslateViewModel>() {
-    override val viewModelClass: Class<TestTranslateViewModel> =
-        TestTranslateViewModel::class.java
+class TestTranslateActivity : BaseActivity<TestTranslateViewModel>() {
+    override val viewModelClass: Class<TestTranslateViewModel> = TestTranslateViewModel::class.java
 
     private lateinit var binding: ActivityTestCoroutinesBinding
 
@@ -27,9 +26,8 @@ class TestTranslateActivity: BaseActivity<TestTranslateViewModel>() {
 
         viewModel.observe(this@TestTranslateActivity) {
             adapter.map(it.currentList())
-            binding.progressText.text = resources.getString(
-                R.string.progress_text, it.current(), it.maximum()
-            )
+            binding.progressText.text =
+                getString(R.string.progress_text, it.current(), it.maximum())
             binding.translationsList.smoothScrollToPosition(adapter.itemCount)
         }
     }
