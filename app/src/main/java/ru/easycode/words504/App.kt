@@ -7,15 +7,12 @@ import androidx.lifecycle.ViewModelStoreOwner
 import ru.easycode.words504.admintools.sl.AdminDependencyContainer
 import ru.easycode.words504.sl.BaseDependencyContainer
 import ru.easycode.words504.sl.CoreModule
-import ru.easycode.words504.sl.ProvideAdminViewModel
 import ru.easycode.words504.sl.ProvideViewModel
 import ru.easycode.words504.sl.ViewModelsFactory
 
-class App : Application(), ProvideViewModel, ProvideAdminViewModel {
+class App : Application(), ProvideViewModel {
 
     private lateinit var viewModelsFactory: ViewModelsFactory
-
-    private lateinit var viewModelsAdminFactory: ViewModelsFactory
 
     private lateinit var coreModule: CoreModule
 
@@ -23,17 +20,14 @@ class App : Application(), ProvideViewModel, ProvideAdminViewModel {
         super.onCreate()
         coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
         viewModelsFactory = ViewModelsFactory(
-            BaseDependencyContainer(coreModule)
-        )
-
-        viewModelsAdminFactory = ViewModelsFactory(
-            AdminDependencyContainer(coreModule)
+            BaseDependencyContainer(
+                coreModule,
+                AdminDependencyContainer(coreModule)
+            )
         )
     }
 
     override fun <T : ViewModel> viewModel(clazz: Class<T>, owner: ViewModelStoreOwner): T =
         ViewModelProvider(owner, viewModelsFactory)[clazz]
 
-    override fun <T : ViewModel> adminViewModel(clazz: Class<T>, owner: ViewModelStoreOwner): T =
-        ViewModelProvider(owner, viewModelsAdminFactory)[clazz]
 }
