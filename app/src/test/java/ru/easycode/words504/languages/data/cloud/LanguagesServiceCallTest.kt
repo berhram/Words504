@@ -9,6 +9,7 @@ import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 import ru.easycode.words504.languages.domain.HandleDomainError
 import ru.easycode.words504.languages.domain.HandleHttpError
+import ru.easycode.words504.translate.data.cloud.TranslateService
 
 // TODO: Remove before the release
 class LanguagesServiceCallTest {
