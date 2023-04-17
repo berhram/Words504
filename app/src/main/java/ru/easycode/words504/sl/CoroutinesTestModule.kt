@@ -9,13 +9,13 @@ import ru.easycode.words504.languages.data.cloud.LanguagesMakeService
 import ru.easycode.words504.translate.data.cloud.TranslateService
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.rsrc.TestTranslateViewModel
-import ru.easycode.words504.rsrc.TestTranslateCommunications
+import ru.easycode.words504.rsrc.TestTranslateCommunication
 import ru.easycode.words504.rsrc.adapter.TranslateResultUi
 
-class TestCoroutinesModule(private val core: CoreModule) : Module<TestTranslateViewModel> {
+class CoroutinesTestModule(private val core: CoreModule) : Module<TestTranslateViewModel> {
 
     private val uiCommunication: Communication.Mutable<TranslateResultUi> by lazy {
-        TestTranslateCommunications()
+        TestTranslateCommunication()
     }
 
     override fun viewModel(): TestTranslateViewModel = TestTranslateViewModel(

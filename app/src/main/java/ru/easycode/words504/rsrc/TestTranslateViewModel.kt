@@ -8,10 +8,10 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ru.easycode.words504.translate.data.cloud.TranslateService
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.rsrc.adapter.TranslateResultUi
+import ru.easycode.words504.translate.data.cloud.TranslateService
 
 class TestTranslateViewModel(
     private val service: TranslateService,
@@ -39,7 +39,6 @@ class TestTranslateViewModel(
             viewModelScope.launch(dispatchers.io()) {
                 val translatedWord = service.translate("ru", wordsList[it]).execute().body()!!
                     .map(TranslationsMapper(wordsList[it]))
-
                 mutex.withLock {
                     wordsTranslated.add(translatedWord)
                     withContext(dispatchers.ui()) {

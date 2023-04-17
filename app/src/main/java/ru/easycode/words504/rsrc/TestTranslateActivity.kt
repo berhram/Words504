@@ -7,7 +7,7 @@ import ru.easycode.words504.databinding.ActivityTestCoroutinesBinding
 import ru.easycode.words504.presentation.BaseActivity
 import ru.easycode.words504.rsrc.adapter.TestTranslationsAdapter
 
-class TestTranslateActivity : BaseActivity<TestTranslateViewModel>() {
+class TestTranslateActivity: BaseActivity<TestTranslateViewModel>() {
     override val viewModelClass: Class<TestTranslateViewModel> =
         TestTranslateViewModel::class.java
 

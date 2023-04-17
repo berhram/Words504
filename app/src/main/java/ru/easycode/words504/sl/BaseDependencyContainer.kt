@@ -9,7 +9,7 @@ class BaseDependencyContainer(
     private val error: DependencyContainer = DependencyContainer.Error()
 ) : DependencyContainer {
     override fun <T : ViewModel> module(clazz: Class<T>): Module<*> = when (clazz) {
-        TestTranslateViewModel::class.java -> TestCoroutinesModule(core)
+        TestTranslateViewModel::class.java -> CoroutinesTestModule(core)
         MainViewModel::class.java -> MainModule()
         else -> error.module(clazz)
     }

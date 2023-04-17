@@ -12,8 +12,8 @@ class TranslateMapper(private val wordToTranslate: String) :
 class TranslationsMapper(private val wordToTranslate: String) :
     TranslateCloud.Mapper<String> {
     override fun map(translations: List<TranslationsCloud>): String {
-        return translations.joinToString { cloudModel ->
-            cloudModel.map(TranslateMapper(wordToTranslate))
+        return translations.joinToString { translation ->
+            translation.map(TranslateMapper(wordToTranslate))
         }
     }
 }

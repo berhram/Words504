@@ -8,10 +8,10 @@ interface TranslateResultUi {
 
     class Base(
         private val currentList: List<String>,
-        private val maximum: Int
+        private val maximumSize: Int
     ) : TranslateResultUi {
         override fun current(): Int = currentList.size
         override fun currentList(): List<String> = currentList
-        override fun maximum(): Int = maximum
+        override fun maximum(): Int = maximumSize
     }
 }

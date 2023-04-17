@@ -53,7 +53,7 @@ class WordWithTranslationViewHolder(
     private val itemBinding: ItemTestCoroutinesBinding
 ) : RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(text: String) {
-        itemBinding.translationText.text = text
+    fun bind(result: String) {
+        itemBinding.translationText.text = result
     }
 }
