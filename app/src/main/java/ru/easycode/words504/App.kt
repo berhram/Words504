@@ -14,11 +14,10 @@ class App : Application(), ProvideViewModel {
 
     private lateinit var viewModelsFactory: ViewModelsFactory
 
-    private lateinit var coreModule: CoreModule
 
     override fun onCreate() {
         super.onCreate()
-        coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
+        val coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
         viewModelsFactory = ViewModelsFactory(
             BaseDependencyContainer(
                 coreModule,
