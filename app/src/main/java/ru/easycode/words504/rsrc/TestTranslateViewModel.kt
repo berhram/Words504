@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withContext
-import ru.easycode.words504.languages.data.cloud.TranslateService
+import ru.easycode.words504.translate.data.cloud.TranslateService
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.rsrc.adapter.TranslateResultUi

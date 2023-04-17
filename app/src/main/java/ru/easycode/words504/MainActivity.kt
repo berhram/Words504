@@ -10,7 +10,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
 
-    private lateinit var binding : ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
