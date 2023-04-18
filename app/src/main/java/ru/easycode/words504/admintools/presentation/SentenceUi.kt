@@ -1,6 +1,8 @@
 package ru.easycode.words504.admintools.presentation
 
-interface SentenceUi {
+import ru.easycode.words504.data.Empty
+
+interface SentenceUi: Empty {
 
     interface Mapper<T> {
         fun map(ui: String, words: List<WordUi>): T
@@ -13,5 +15,6 @@ interface SentenceUi {
         private val words: List<WordUi>
     ) : SentenceUi {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(ui, words)
+        override fun isEmpty(): Boolean = words.isEmpty()
     }
 }
