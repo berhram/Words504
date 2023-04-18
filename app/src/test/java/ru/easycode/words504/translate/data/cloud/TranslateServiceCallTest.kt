@@ -8,6 +8,7 @@ import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 import ru.easycode.words504.languages.data.cloud.AuthHeaderInterceptorProvider
+import ru.easycode.words504.languages.data.cloud.LanguagesMakeService
 
 // TODO: Remove before the release
 class TranslateServiceCallTest {
@@ -30,7 +31,7 @@ class TranslateServiceCallTest {
         )
         val retrofitBuilder = ProvideRetrofitBuilder.Base(converterFactory, clientBuilder)
         val service =
-            TranslateMakeService(retrofitBuilder).service(TranslateService::class.java)
+            LanguagesMakeService(retrofitBuilder).service(TranslateService::class.java)
         val result = service.translate("ru", "hello").execute().body()
         println(result)
     }

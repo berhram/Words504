@@ -13,7 +13,6 @@ import ru.easycode.words504.languages.data.cache.ChosenLanguageCache
 
 class TranslateCloudDataSourceTest : BaseTest() {
 
-    //    private val cacheDataSource = LanguagesCacheDataSource.Base(FakeObjectStorage())
     private val objectStorage = FakeObjectStorage()
     private lateinit var cloudDataSource: TranslateCloudDataSource
     private lateinit var service: FakeTranslateService
