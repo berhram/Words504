@@ -32,7 +32,13 @@ class TranslateMapperTest : BaseTest() {
         FakeCall<TranslateCloud.Base>() {
 
         override fun execute(): Response<TranslateCloud.Base> {
-            return Response.success(TranslateCloud.Base(listOf(TranslationsCloud.Base(targetLang + text))))
+            return Response.success(
+                TranslateCloud.Base(
+                    listOf(
+                        TranslationsCloud.Base(targetLang + text)
+                    )
+                )
+            )
         }
     }
 }
