@@ -56,14 +56,7 @@ class TranslateCloudDataSourceTest : BaseTest() {
 
     private class FakeTranslateService : TranslateService {
 
-        private var error: Boolean = false
         private val translations = mutableListOf<TranslationsCloud.Base>()
-        private val data = TranslateCloud.Base(translations)
-
-        private val translateCall = object : FakeCall<TranslateCloud.Base>() {
-            override fun execute(): Response<TranslateCloud.Base> =
-                if (error) throw UnknownHostException() else Response.success(data)
-        }
 
         fun expectedData(newData: List<TranslationsCloud.Base>) {
             with(translations) {
@@ -76,6 +69,14 @@ class TranslateCloudDataSourceTest : BaseTest() {
             targetLang: String,
             text: String,
             sourceLang: String
-        ): Call<TranslateCloud.Base> = translateCall
+        ): Call<TranslateCloud.Base> = Translate(targetLang, text)
+    }
+
+    private class Translate(private val targetLang: String, private val text: String) :
+        FakeCall<TranslateCloud.Base>() {
+
+        override fun execute(): Response<TranslateCloud.Base> {
+            return Response.success(TranslateCloud.Base(listOf(TranslationsCloud.Base(targetLang + text))))
+        }
     }
 }
