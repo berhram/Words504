@@ -1,6 +1,8 @@
 package ru.easycode.words504.sl
 
 import android.content.Context
+import ru.easycode.words504.admintools.sl.AdminScopeModule
+import ru.easycode.words504.admintools.sl.ProvideAdminScopeModule
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 
 interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule {
