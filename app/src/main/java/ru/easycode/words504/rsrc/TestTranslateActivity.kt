@@ -24,7 +24,7 @@ class TestTranslateActivity : BaseActivity<TestTranslateViewModel>() {
             setHasFixedSize(true)
         }
 
-        viewModel.observe(this@TestTranslateActivity) {
+        viewModel.observe(this) {
             adapter.map(it.currentList())
             binding.progressText.text =
                 getString(R.string.progress_text, it.current(), it.maximum())
