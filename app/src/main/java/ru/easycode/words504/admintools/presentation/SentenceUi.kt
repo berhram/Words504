@@ -15,6 +15,7 @@ interface SentenceUi: Empty {
         private val words: List<WordUi>
     ) : SentenceUi {
         override fun <T> map(mapper: Mapper<T>): T = mapper.map(ui, words)
+
         override fun isEmpty(): Boolean = words.isEmpty()
     }
 }
