@@ -1,27 +1,23 @@
 package ru.easycode.words504.admintools.data.cache
 
-import ru.easycode.words504.admintools.data.SentenceData
+import ru.easycode.words504.admintools.presentation.SentenceUi
 import ru.easycode.words504.data.Empty
-import ru.easycode.words504.data.cache.storage.ObjectStorage
 
 interface SentenceCache : Empty {
-    interface Read : ru.easycode.words504.data.Read<SentenceData>
-    interface Save : ru.easycode.words504.data.Save<SentenceData>
+    interface Read : ru.easycode.words504.data.Read<SentenceUi>
+    interface Save : ru.easycode.words504.data.Save<SentenceUi>
     interface Mutable : Read, Save
 
-    class Base(
-        private val objectStorage: ObjectStorage,
-        private val sentenceKey: String = "SentenceKey"
-    ) : SentenceCache, Mutable {
+    class Base : SentenceCache, Mutable {
 
-        private val defaultSentence = SentenceData.Base("", emptyList())
+        private var data: SentenceUi = SentenceUi.Base("", emptyList())
 
-        override fun read(): SentenceData {
-            return objectStorage.read(sentenceKey, defaultSentence)
+        override fun read() = data
+
+        override fun save(data: SentenceUi) {
+            this.data = data
         }
 
-        override fun save(data: SentenceData) = objectStorage.save(sentenceKey, data)
-
-        override fun isEmpty(): Boolean = defaultSentence == read()
+        override fun isEmpty(): Boolean = data.isEmpty()
     }
 }
