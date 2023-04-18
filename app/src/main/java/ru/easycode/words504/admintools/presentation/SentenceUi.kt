@@ -2,7 +2,7 @@ package ru.easycode.words504.admintools.presentation
 
 import ru.easycode.words504.data.Empty
 
-interface SentenceUi: Empty {
+interface SentenceUi : Empty {
 
     interface Mapper<T> {
         fun map(ui: String, words: List<WordUi>): T
