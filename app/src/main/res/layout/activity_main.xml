@@ -17,4 +17,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp" />
+
+    <Button
+        android:id="@+id/gotoAdminButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/goto_admin"
+        android:layout_margin="16dp"/>
 </LinearLayout>
