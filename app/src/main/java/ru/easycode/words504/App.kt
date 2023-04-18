@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
+import ru.easycode.words504.admintools.sl.AdminDependencyContainer
 import ru.easycode.words504.sl.BaseDependencyContainer
 import ru.easycode.words504.sl.CoreModule
 import ru.easycode.words504.sl.ProvideViewModel
@@ -15,12 +16,11 @@ class App : Application(), ProvideViewModel {
 
     override fun onCreate() {
         super.onCreate()
+        val coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
         viewModelsFactory = ViewModelsFactory(
             BaseDependencyContainer(
-                CoreModule.Base(
-                    this,
-                    BuildConfig.DEBUG
-                )
+                coreModule,
+                AdminDependencyContainer(coreModule)
             )
         )
     }
