@@ -2,7 +2,7 @@ package ru.easycode.words504.admintools.data
 
 import ru.easycode.words504.data.Empty
 
-interface SentenceData: Empty {
+interface SentenceData : Empty {
     interface Mapper<T : Any> {
         fun map(ui: String, words: List<WordData>): T
     }
@@ -12,7 +12,7 @@ interface SentenceData: Empty {
     data class Base(
         private val ui: String,
         private val words: List<WordData>
-    ): SentenceData {
+    ) : SentenceData {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(ui, words)
 

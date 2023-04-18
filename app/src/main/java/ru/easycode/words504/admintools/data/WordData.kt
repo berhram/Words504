@@ -16,7 +16,7 @@ interface WordData {
         private val ui: String,
         private val index: Int,
         private val dictionaryForm: String
-    ): WordData {
+    ) : WordData {
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(ui, index, dictionaryForm)
     }
 }

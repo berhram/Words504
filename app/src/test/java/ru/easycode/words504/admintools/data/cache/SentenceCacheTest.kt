@@ -1,12 +1,12 @@
 package ru.easycode.words504.admintools.data.cache
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.admintools.data.SentenceData
 import ru.easycode.words504.admintools.data.WordData
 
-class SentenceCacheTest: BaseTest() {
+class SentenceCacheTest : BaseTest() {
 
     private val objectStorage = FakeObjectStorage()
     private val sentenceCache = SentenceCache.Base(objectStorage, KEY)
@@ -65,5 +65,4 @@ class SentenceCacheTest: BaseTest() {
     companion object {
         private const val KEY = "sentenceKey"
     }
-
 }
