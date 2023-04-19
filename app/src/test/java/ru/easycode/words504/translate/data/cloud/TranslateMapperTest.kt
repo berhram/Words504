@@ -18,28 +18,25 @@ class TranslateMapperTest : BaseTest() {
         assertEquals(expected, actual)
     }
 
-
     private class FakeTranslateService : TranslateService {
         override fun translate(
             targetLang: String,
             text: String,
             sourceLang: String
         ): Call<TranslateCloud.Base> = Translate(targetLang, text)
-
     }
 
-    private class Translate(private val targetLang: String, private val text: String) :
-        FakeCall<TranslateCloud.Base>() {
+    private class Translate(
+        private val targetLang: String,
+        private val text: String
+    ) : FakeCall<TranslateCloud.Base>() {
 
-        override fun execute(): Response<TranslateCloud.Base> {
-            return Response.success(
-                TranslateCloud.Base(
-                    listOf(
-                        TranslationsCloud.Base(targetLang + text)
-                    )
+        override fun execute(): Response<TranslateCloud.Base> = Response.success(
+            TranslateCloud.Base(
+                listOf(
+                    TranslationsCloud.Base(targetLang + text)
                 )
             )
-        }
+        )
     }
 }
-
