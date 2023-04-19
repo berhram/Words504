@@ -14,7 +14,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-       val gotoAdminButton: Button = findViewById(R.id.gotoAdminButton)
+        val gotoAdminButton: Button = findViewById(R.id.gotoAdminButton)
         gotoAdminButton.setOnClickListener {
             startActivity(Intent(this, AdminActivity::class.java))
         }
