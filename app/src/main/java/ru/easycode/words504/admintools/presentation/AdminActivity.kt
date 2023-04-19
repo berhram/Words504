@@ -11,10 +11,10 @@ class AdminActivity : BaseActivity<AdminViewModel>() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin)
 
-        viewModel.observe(this) { ui ->
-            ui.navigate(supportFragmentManager, R.id.admin_container)
+        viewModel.observe(this) {
+            it.navigate(supportFragmentManager, R.id.admin_container)
         }
     }
 
-    override fun onBackPressed() { }
+    override fun onBackPressed() = Unit
 }
