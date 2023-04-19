@@ -1,6 +1,5 @@
 package ru.easycode.words504.translate.data.cloud
 
-import java.net.UnknownHostException
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -28,7 +27,8 @@ class TranslateCloudDataSourceTest : BaseTest() {
 
     @Test
     fun `test empty data success`() = runBlocking {
-        val translations = mutableListOf<TranslationsCloud.Base>()
+        val translationsCloud = TranslationsCloud.Base("")
+        val translations = mutableListOf(translationsCloud)
 
         val actual = cloudDataSource.translateText("")
         val expected = TranslateCloud.Base(translations)
