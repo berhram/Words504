@@ -1,6 +1,8 @@
 package ru.easycode.words504.admintools.presentation
 
-interface SentenceUi : java.io.Serializable {
+import java.io.Serializable
+
+interface SentenceUi : Serializable {
 
     interface Mapper<T> {
         fun map(ui: String, words: List<WordUi>): T

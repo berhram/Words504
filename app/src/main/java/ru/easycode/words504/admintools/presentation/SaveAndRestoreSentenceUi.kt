@@ -6,7 +6,7 @@ import ru.easycode.words504.presentation.SaveAndRestore
 
 class SaveAndRestoreSentenceUi(
     private val key: String = "SaveAndRestoreSentenceUi",
-    private val bundle: Bundle?,
+    private val bundle: Bundle?
 ) : SaveAndRestore.Abstract<SentenceUi>(bundle, key) {
 
     override fun restore() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
