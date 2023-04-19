@@ -10,7 +10,7 @@ class SaveAndRestoreSentenceUi(
 ) : SaveAndRestore.Abstract<SentenceUi>(bundle, key) {
 
     override fun restore() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-        bundle!!.getSerializable(key, SentenceUi::class.java) as SentenceUi
+        bundle!!.getSerializable(key, SentenceUi.Base::class.java) as SentenceUi
     } else {
         @Suppress("DEPRECATION")
         bundle!!.getSerializable(key) as SentenceUi
