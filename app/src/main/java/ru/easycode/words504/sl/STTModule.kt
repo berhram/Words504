@@ -8,7 +8,8 @@ import ru.easycode.words504.recognition.domain.STTHandleError
 import ru.easycode.words504.recognition.domain.ToSTTUiError
 import ru.easycode.words504.recognition.presentation.*
 
-class STTModule(private val context: Context, private val core: CoreModule): Module<TestSTTViewModel> {
+class STTModule(private val context: Context, private val core: CoreModule) :
+    Module<TestSTTViewModel> {
     override fun viewModel(): TestSTTViewModel {
         var viewModel: HandlePermissionGranted = HandlePermissionGranted.Empty()
         val handlePermissionGranted = object : HandlePermissionGranted {

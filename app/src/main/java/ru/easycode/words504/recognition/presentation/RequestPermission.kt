@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
-import ru.easycode.words504.recognition.STTState
 
 
 interface RequestPermission {

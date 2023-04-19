@@ -18,7 +18,8 @@ abstract class STTViewModel(
     private val speechRecognizerEngine: SpeechRecognizerEngine,
     private val manageResources: ManageResources,
     private val sttHandleError: STTHandleError
-) : ViewModel(), Init, HandlePermissionGranted, ObserveSTT, SpeechRecognizer, ObserveRequestPermission {
+) : ViewModel(), Init, HandlePermissionGranted, ObserveSTT, SpeechRecognizer,
+    ObserveRequestPermission {
 
     override fun init(isFirstRun: Boolean) {
         permissionCommunication.map(requestPermission)
@@ -38,7 +39,10 @@ abstract class STTViewModel(
         }
     }
 
-    override fun observeRequestPermission(owner: LifecycleOwner, observer: Observer<RequestPermission>) {
+    override fun observeRequestPermission(
+        owner: LifecycleOwner,
+        observer: Observer<RequestPermission>
+    ) {
         permissionCommunication.observe(owner, observer)
     }
 
@@ -84,7 +88,7 @@ interface PermissionCommunication : Communication.Mutable<RequestPermission> {
     class Base : Communication.Abstract<RequestPermission>(), PermissionCommunication
 }
 
-interface SpeechRecognizer{
+interface SpeechRecognizer {
 
     fun startRecord()
 
