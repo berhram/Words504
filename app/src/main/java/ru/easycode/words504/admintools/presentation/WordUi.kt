@@ -1,6 +1,8 @@
 package ru.easycode.words504.admintools.presentation
 
-interface WordUi {
+import java.io.Serializable
+
+interface WordUi : Serializable {
 
     interface Mapper<T> {
         fun map(ui: String, index: Int, dictionaryForm: String): T
