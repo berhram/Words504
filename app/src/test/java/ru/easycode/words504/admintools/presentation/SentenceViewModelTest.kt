@@ -83,7 +83,7 @@ interface SentenceViewModelTest {
             assertEquals(true, navigation.same(expected))
         }
 
-        class FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
+        private class FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
 
             private var cache: SentenceUi = SentenceUi.Base("", emptyList())
             private var isEmpty = true
@@ -98,7 +98,7 @@ interface SentenceViewModelTest {
             override fun isEmpty(): Boolean = isEmpty
         }
 
-        interface FakeCommunication : Communication.Mutable<SentenceUi> {
+        private interface FakeCommunication : Communication.Mutable<SentenceUi> {
 
             fun same(other: SentenceUi): Boolean
 
