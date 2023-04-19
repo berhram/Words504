@@ -29,7 +29,8 @@ interface SentenceViewModelTest {
             assertEquals(true, communication.same(sentenceUiCache.read()))
 
             viewModel.save(
-                saveAndRestore, SentenceUi.Base(
+                saveAndRestore,
+                SentenceUi.Base(
                     "Hello world",
                     listOf(
                         WordUi.Base("hello", 0, "hello"),
@@ -64,7 +65,6 @@ interface SentenceViewModelTest {
             )
             assertEquals(expected, sentenceUiCache.read())
         }
-
 
         @Test
         fun `test navigation back`() {
