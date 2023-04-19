@@ -18,8 +18,8 @@ class SentenceViewModelTest {
 
     @Before
     fun setUp() {
-        navigation = FakeNavigation()
-        communication = FakeCommunication()
+        navigation = FakeNavigation.Base()
+        communication = FakeCommunication.Base()
         viewModel = SentenceViewModel.Base(
             sentenceUiCache,
             navigation,
@@ -47,7 +47,7 @@ class SentenceViewModelTest {
                 WordUi.Base("word", 6, "word")
             )
         )
-        assertEquals(expected, communication.sentence)
+        assertEquals(true, communication.same(expected))
     }
 
     @Test
@@ -68,7 +68,7 @@ class SentenceViewModelTest {
                 WordUi.Base("word", 6, "word")
             )
         )
-        assertEquals(expected, communication.sentence)
+        assertEquals(true, communication.same(expected))
     }
 
     @Test
@@ -98,7 +98,7 @@ class SentenceViewModelTest {
     fun `test navigation back`() {
         viewModel.backPressed()
         val expected = Screen.Pop
-        assertEquals(expected, navigation.screen)
+        assertEquals(true, navigation.same(expected))
     }
 
     private class FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
@@ -112,19 +112,32 @@ class SentenceViewModelTest {
         override fun restore(): SentenceUi = cache
     }
 
-    private class FakeCommunication : Communication.Mutable<SentenceUi> {
-        var sentence: SentenceUi = SentenceUi.Base("", emptyList())
+    interface FakeCommunication: Communication.Mutable<SentenceUi> {
 
-        override fun map(source: SentenceUi) {
-            sentence = source
+        fun same(other: SentenceUi): Boolean
+
+        class Base : FakeCommunication {
+
+            private var sentence: SentenceUi = SentenceUi.Base("", emptyList())
+            override fun same(other: SentenceUi) = sentence == other
+
+            override fun map(source: SentenceUi) {
+                sentence = source
+            }
         }
     }
 
-    private class FakeNavigation : NavigationCommunication.Mutable {
-        var screen: Screen = ScreenEmpty()
+    private interface FakeNavigation : NavigationCommunication.Mutable {
+        fun same(other: Screen): Boolean
 
-        override fun map(source: Screen) {
-            screen = source
+        class Base: FakeNavigation {
+            private var screen: Screen = ScreenEmpty()
+
+            override fun same(other: Screen): Boolean = screen == other
+
+            override fun map(source: Screen) {
+                screen = source
+            }
         }
     }
 

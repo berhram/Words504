@@ -22,11 +22,12 @@ interface SentenceViewModel {
         private var sentenceUi: SentenceUi = SentenceUi.Base("", emptyList())
 
         override fun init(saveAndRestore: SaveAndRestore<SentenceUi>) {
-            updateSentenceUi(saveAndRestore.restore())
+            sentence(saveAndRestore.restore())
         }
 
         override fun sentence(data: SentenceUi) {
-            updateSentenceUi(data)
+            sentenceUi = data
+            communication.map(sentenceUi)
         }
 
         override fun save() {
@@ -35,11 +36,6 @@ interface SentenceViewModel {
 
         override fun backPressed() {
             navigation.map(Screen.Pop)
-        }
-
-        private fun updateSentenceUi(data: SentenceUi) {
-            sentenceUi = data
-            communication.map(sentenceUi)
         }
     }
 }
