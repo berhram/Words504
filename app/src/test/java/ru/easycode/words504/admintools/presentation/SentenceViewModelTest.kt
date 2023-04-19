@@ -14,7 +14,7 @@ interface SentenceViewModelTest {
 
         @Test
         fun `test initial`() {
-            val saveAndRestore = FakeSaveAndRestore.Base()
+            val saveAndRestore = FakeSaveAndRestore()
             val sentenceUiCache = SentenceUiCache.Base()
             val navigation = FakeNavigation.Base()
             val communication = FakeCommunication.Base()
@@ -83,27 +83,19 @@ interface SentenceViewModelTest {
             assertEquals(true, navigation.same(expected))
         }
 
-        interface FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
-//            fun changeEmpty(isEmpty: Boolean)
+        class FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
 
-            class Base : FakeSaveAndRestore {
+            private var cache: SentenceUi = SentenceUi.Base("", emptyList())
+            private var isEmpty = true
 
-                private var cache: SentenceUi = SentenceUi.Base("", emptyList())
-                private var isEmpty = true
-//
-//                override fun changeEmpty(isEmpty: Boolean) {
-//                    this.isEmpty = isEmpty
-//                }
-
-                override fun save(obj: SentenceUi) {
-                    cache = obj
-                    isEmpty = false
-                }
-
-                override fun restore(): SentenceUi = cache
-
-                override fun isEmpty(): Boolean = isEmpty
+            override fun save(obj: SentenceUi) {
+                cache = obj
+                isEmpty = false
             }
+
+            override fun restore(): SentenceUi = cache
+
+            override fun isEmpty(): Boolean = isEmpty
         }
 
         interface FakeCommunication : Communication.Mutable<SentenceUi> {
@@ -136,7 +128,7 @@ interface SentenceViewModelTest {
         }
 
         private class ScreenEmpty : Screen {
-            override fun navigate(manager: FragmentManager, containerId: Int) {}
+            override fun navigate(manager: FragmentManager, containerId: Int) = Unit
         }
     }
 }
