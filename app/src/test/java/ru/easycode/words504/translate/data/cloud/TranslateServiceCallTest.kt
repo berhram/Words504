@@ -3,6 +3,7 @@ package ru.easycode.words504.translate.data.cloud
 import kotlinx.coroutines.runBlocking
 import org.junit.Ignore
 import org.junit.Test
+import ru.easycode.words504.BaseTest
 import ru.easycode.words504.data.cloud.ProvideConverterFactory
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
@@ -11,7 +12,7 @@ import ru.easycode.words504.languages.data.cloud.AuthHeaderInterceptorProvider
 import ru.easycode.words504.languages.data.cloud.LanguagesMakeService
 
 // TODO: Remove before the release
-class TranslateServiceCallTest {
+class TranslateServiceCallTest : BaseTest() {
 
     @Test
     @Ignore("Call manually from Android Studio")
