@@ -29,8 +29,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".loading.LoadTranslateActivity"
-            android:exported="true">
-        </activity>
+            android:name=".admintools.presentation.AdminActivity"
+            android:exported="false"/>
     </application>
+
 </manifest>

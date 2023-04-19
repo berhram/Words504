@@ -1,6 +1,8 @@
 package ru.easycode.words504.sl
 
 import android.content.Context
+import ru.easycode.words504.admintools.sl.AdminScopeModule
+import ru.easycode.words504.admintools.sl.ProvideAdminScopeModule
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cloud.ProvideConverterFactory
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor

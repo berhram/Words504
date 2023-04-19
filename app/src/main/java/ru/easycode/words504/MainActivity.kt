@@ -2,9 +2,9 @@ package ru.easycode.words504
 
 import android.content.Intent
 import android.os.Bundle
-import ru.easycode.words504.databinding.ActivityMainBinding
+import android.widget.Button
+import ru.easycode.words504.admintools.presentation.AdminActivity
 import ru.easycode.words504.presentation.BaseActivity
-import ru.easycode.words504.loading.LoadTranslateActivity
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
@@ -12,12 +12,11 @@ class MainActivity : BaseActivity<MainViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        setContentView(R.layout.activity_main)
 
-        binding.goToLoadCoroutines.setOnClickListener {
-            val intent = Intent(this, LoadTranslateActivity::class.java)
-            startActivity(intent)
+        val gotoAdminButton: Button = findViewById(R.id.gotoAdminButton)
+        gotoAdminButton.setOnClickListener {
+            startActivity(Intent(this, AdminActivity::class.java))
         }
     }
 }
