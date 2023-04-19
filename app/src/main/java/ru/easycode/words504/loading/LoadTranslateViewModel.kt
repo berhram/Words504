@@ -27,13 +27,13 @@ class LoadTranslateViewModel(
 
     private val textToTranslate =
         "Collins Example Sentences is a database of authentic English examples extracted " +
-                "from Collins resources. Whilst a definition can help you understand the" +
-                " meaning of a word, example sentences show you how to use the word in " +
-                "a sentence. They can also help you check that you’ve understood the meaning " +
-                "correctly, as well as enabling you to see and learn the linguistic features " +
-                "of the word. If youre looking to improve your writing, example sentences " +
-                "can also give you ideas for other words that naturally " +
-                "occur in similar contexts."
+            "from Collins resources. Whilst a definition can help you understand the" +
+            " meaning of a word, example sentences show you how to use the word in " +
+            "a sentence. They can also help you check that you’ve understood the meaning " +
+            "correctly, as well as enabling you to see and learn the linguistic features " +
+            "of the word. If youre looking to improve your writing, example sentences " +
+            "can also give you ideas for other words that naturally " +
+            "occur in similar contexts."
 
     init {
         val wordsList = textToTranslate.split(" ")

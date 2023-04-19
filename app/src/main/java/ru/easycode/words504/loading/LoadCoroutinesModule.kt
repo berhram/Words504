@@ -17,7 +17,8 @@ class LoadCoroutinesModule(private val core: CoreModule) : Module<LoadTranslateV
                 httpClientBuilder = ProvideOkHttpClientBuilder.AddInterceptor(
                     AuthHeaderInterceptorProvider(),
                     core.provideHttpClientBuilder()
-                ), provideConverterFactory = ProvideConverterFactory.Base()
+                ),
+                provideConverterFactory = ProvideConverterFactory.Base()
             )
         ).service(TranslateService::class.java),
         dispatchers = core.provideDispatchers()
