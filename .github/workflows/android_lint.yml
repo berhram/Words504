@@ -16,7 +16,7 @@ jobs:
         uses: robinraju/release-downloader@v1.7
         with:
           repository: berhram/oop-solid-rules
-          tag: v0.5
+          tag: v0.6
       - name: ktlint
         uses: ScaCap/action-ktlint@v1.6
         with:
@@ -25,4 +25,4 @@ jobs:
           filter_mode: file
           fail_on_error: true
           android: true
-          custom_rule_path: oop-solid-rules-v0.5.jar
+          custom_rule_path: oop-solid-rules-v0.6.jar
