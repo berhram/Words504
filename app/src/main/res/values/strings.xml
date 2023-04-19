@@ -21,4 +21,5 @@
     <string name="error_language_unvaliable">error language unvaliable</string>
     <string name="error_cannot_check_support">error cannot check support</string>
     <string name="none">none</string>
+    <string name="goto_admin">goto admin</string>
 </resources>

@@ -1,0 +1,375 @@
+{
+  "quote": {
+    "value": [
+      {
+        "ui": "Now or never",
+        "words": [
+          {
+            "ui": "Now",
+            "index": 0,
+            "dictionaryForm": "now"
+          },
+          {
+            "ui": "or",
+            "index": 4,
+            "dictionaryForm": "or"
+          },
+          {
+            "ui": "never",
+            "index": 7,
+            "dictionaryForm": "never"
+          }
+        ]
+      }
+    ],
+    "author": "Someone"
+  },
+  "wordsToLearn": [
+    {
+      "id": "firstWord",
+      "definitions": [
+        {
+          "ui": "firstWord is something",
+          "words": [
+            {
+              "ui": "firstWord",
+              "index": 0,
+              "dictionaryForm": "firstWord"
+            },
+            {
+              "ui": "something",
+              "index": 13,
+              "dictionaryForm": "something"
+            }
+          ]
+        },
+        {
+          "ui": "firstWord is something",
+          "words": [
+            {
+              "ui": "firstWord",
+              "index": 0,
+              "dictionaryForm": "firstWord"
+            },
+            {
+              "ui": "something",
+              "index": 13,
+              "dictionaryForm": "something"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "ui": "firstWord example one",
+          "words": [
+            {
+              "ui": "firstWord",
+              "index": 0,
+              "dictionaryForm": "firstWord"
+            },
+            {
+              "ui": "example",
+              "index": 10,
+              "dictionaryForm": "example"
+            },
+            {
+              "ui": "one",
+              "index": 18,
+              "dictionaryForm": "one"
+            }
+          ]
+        },
+        {
+          "ui": "firstWord example two",
+          "words": [
+            {
+              "ui": "firstWord",
+              "index": 0,
+              "dictionaryForm": "firstWord"
+            },
+            {
+              "ui": "example",
+              "index": 10,
+              "dictionaryForm": "example"
+            },
+            {
+              "ui": "two",
+              "index": 18,
+              "dictionaryForm": "two"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "secondWord",
+      "definitions": [
+        {
+          "ui": "secondWord is something",
+          "words": [
+            {
+              "ui": "secondWord",
+              "index": 0,
+              "dictionaryForm": "secondWord"
+            },
+            {
+              "ui": "something",
+              "index": 13,
+              "dictionaryForm": "something"
+            }
+          ]
+        }
+      ],
+      "examples": [
+        {
+          "ui": "secondWord example one",
+          "words": [
+            {
+              "ui": "secondWord",
+              "index": 0,
+              "dictionaryForm": "secondWord"
+            },
+            {
+              "ui": "example",
+              "index": 10,
+              "dictionaryForm": "example"
+            },
+            {
+              "ui": "one",
+              "index": 18,
+              "dictionaryForm": "one"
+            }
+          ]
+        },
+        {
+          "ui": "secondWord example two",
+          "words": [
+            {
+              "ui": "secondWord",
+              "index": 0,
+              "dictionaryForm": "secondWord"
+            },
+            {
+              "ui": "example",
+              "index": 10,
+              "dictionaryForm": "example"
+            },
+            {
+              "ui": "two",
+              "index": 18,
+              "dictionaryForm": "two"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "text": {
+    "title": {
+      "ui": "Title text",
+      "words": [
+        {
+          "ui": "Title",
+          "index": 0,
+          "dictionaryForm": "title"
+        },
+        {
+          "ui": "text",
+          "index": 7,
+          "dictionaryForm": "text"
+        }
+      ]
+    },
+    "sentences": [
+      {
+        "ui": "Some sentence one",
+        "words": [
+          {
+            "ui": "Some",
+            "index": 0,
+            "dictionaryForm": "some"
+          },
+          {
+            "ui": "sentence",
+            "index": 5,
+            "dictionaryForm": "sentence"
+          },
+          {
+            "ui": "one",
+            "index": 14,
+            "dictionaryForm": "one"
+          }
+        ]
+      },
+      {
+        "ui": "Some sentence two",
+        "words": [
+          {
+            "ui": "Some",
+            "index": 0,
+            "dictionaryForm": "some"
+          },
+          {
+            "ui": "sentence",
+            "index": 5,
+            "dictionaryForm": "sentence"
+          },
+          {
+            "ui": "two",
+            "index": 14,
+            "dictionaryForm": "two"
+          }
+        ]
+      }
+    ]
+  },
+  "exercises": [
+    {
+      "type": "fillBlank",
+      "items": [
+        {
+          "question": {
+            "ui": "Fill blank word",
+            "words": [
+              {
+                "ui": "Fill",
+                "index": 0,
+                "dictionaryForm": "fill"
+              },
+              {
+                "ui": "blank",
+                "index": 6,
+                "dictionaryForm": "blank"
+              },
+              {
+                "ui": "word",
+                "index": 12,
+                "dictionaryForm": "word"
+              }
+            ]
+          },
+          "correctAnswerId": [
+            "blank"
+          ],
+          "answers": [
+            {
+              "ui": "",
+              "words": [
+                {
+                  "ui": "wrong",
+                  "index": 0,
+                  "dictionaryForm": "wrong"
+                }
+              ]
+            },
+            {
+              "ui": "",
+              "words": [
+                {
+                  "ui": "blank",
+                  "index": 0,
+                  "dictionaryForm": "blank"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "opposites",
+      "items": [
+        {
+          "question": {
+            "ui": "first question",
+            "words": [
+              {
+                "ui": "first",
+                "index": 0,
+                "dictionaryForm": "first"
+              },
+              {
+                "ui": "question",
+                "index": 6,
+                "dictionaryForm": "question"
+              }
+            ]
+          },
+          "correctAnswerId": [
+            "answerFirst"
+          ],
+          "answers": [
+            {
+              "ui": "",
+              "words": [
+                {
+                  "ui": "answerFirst",
+                  "index": 0,
+                  "dictionaryForm": "answerFirst"
+                }
+              ]
+            },
+            {
+              "ui": "",
+              "words": [
+                {
+                  "ui": "answerSecond",
+                  "index": 0,
+                  "dictionaryForm": "answerSecond"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "question": {
+            "ui": "second question",
+            "words": [
+              {
+                "ui": "second",
+                "index": 0,
+                "dictionaryForm": "second"
+              },
+              {
+                "ui": "question",
+                "index": 7,
+                "dictionaryForm": "question"
+              }
+            ]
+          },
+          "correctAnswerId": [
+            "answerSecond"
+          ],
+          "answers": []
+        }
+      ]
+    },
+    {
+      "type": "trueFalse",
+      "items": [
+        {
+          "question": {
+            "ui": "Some question",
+            "words": [
+              {
+                "ui": "Some",
+                "index": 0,
+                "dictionaryForm": "some"
+              },
+              {
+                "ui": "question",
+                "index": 5,
+                "dictionaryForm": "question"
+              }
+            ]
+          },
+          "correctAnswerId": [
+            "true"
+          ],
+          "answers": []
+        }
+      ]
+    }
+  ]
+}
