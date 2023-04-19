@@ -9,9 +9,9 @@ import ru.easycode.words504.presentation.Screen
 interface SentenceViewModel {
 
     fun init(saveAndRestore: SaveAndRestore<SentenceUi>)
-    fun sentence(data: SentenceUi)
-    fun save()
-    fun backPressed()
+    fun save(saveAndRestore: SaveAndRestore<SentenceUi>, sentence: SentenceUi)
+    fun save(sentenceUi: SentenceUi)
+    fun goBack()
 
     class Base(
         private val sentenceUiCache: SentenceUiCache.Mutable,
@@ -19,22 +19,25 @@ interface SentenceViewModel {
         private val communication: Communication.Mutable<SentenceUi>
     ) : ViewModel(), SentenceViewModel {
 
-        private var sentenceUi: SentenceUi = SentenceUi.Base("", emptyList())
-
         override fun init(saveAndRestore: SaveAndRestore<SentenceUi>) {
-            sentence(saveAndRestore.restore())
+            communication.map(
+                if (saveAndRestore.isEmpty()) {
+                    sentenceUiCache.read()
+                } else {
+                    saveAndRestore.restore()
+                }
+            )
         }
 
-        override fun sentence(data: SentenceUi) {
-            sentenceUi = data
-            communication.map(sentenceUi)
+        override fun save(saveAndRestore: SaveAndRestore<SentenceUi>, sentence: SentenceUi) {
+            saveAndRestore.save(sentence)
         }
 
-        override fun save() {
+        override fun save(sentenceUi: SentenceUi) {
             sentenceUiCache.save(sentenceUi)
         }
 
-        override fun backPressed() {
+        override fun goBack() {
             navigation.map(Screen.Pop)
         }
     }

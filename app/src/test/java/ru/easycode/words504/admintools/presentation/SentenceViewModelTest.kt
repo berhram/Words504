@@ -2,7 +2,6 @@ package ru.easycode.words504.admintools.presentation
 
 import androidx.fragment.app.FragmentManager
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.NavigationCommunication
@@ -13,49 +12,24 @@ interface SentenceViewModelTest {
 
     class Base : SentenceViewModelTest {
 
-        private lateinit var viewModel: SentenceViewModel
-        private lateinit var communication: FakeCommunication
-        private lateinit var navigation: FakeNavigation
-        private val sentenceUiCache = SentenceUiCache.Base()
+        @Test
+        fun `test initial`() {
+            val saveAndRestore = FakeSaveAndRestore.Base()
+            val sentenceUiCache = SentenceUiCache.Base()
+            val navigation = FakeNavigation.Base()
+            val communication = FakeCommunication.Base()
 
-        @Before
-        fun setUp() {
-            navigation = FakeNavigation.Base()
-            communication = FakeCommunication.Base()
-            viewModel = SentenceViewModel.Base(
+            val viewModel = SentenceViewModel.Base(
                 sentenceUiCache,
                 navigation,
                 communication
             )
-        }
 
-        @Test
-        fun `test initial`() {
-            val saveAndRestore = FakeSaveAndRestore()
-            saveAndRestore.save(
-                SentenceUi.Base(
-                    "Hello world",
-                    listOf(
-                        WordUi.Base("hello", 0, "hello"),
-                        WordUi.Base("word", 6, "word")
-                    )
-                )
-            )
             viewModel.init(saveAndRestore)
-            val expected = SentenceUi.Base(
-                "Hello world",
-                listOf(
-                    WordUi.Base("hello", 0, "hello"),
-                    WordUi.Base("word", 6, "word")
-                )
-            )
-            assertEquals(true, communication.same(expected))
-        }
+            assertEquals(true, communication.same(sentenceUiCache.read()))
 
-        @Test
-        fun `test sentence`() {
-            viewModel.sentence(
-                SentenceUi.Base(
+            viewModel.save(
+                saveAndRestore, SentenceUi.Base(
                     "Hello world",
                     listOf(
                         WordUi.Base("hello", 0, "hello"),
@@ -63,55 +37,73 @@ interface SentenceViewModelTest {
                     )
                 )
             )
-            val expected = SentenceUi.Base(
-                "Hello world",
-                listOf(
-                    WordUi.Base("hello", 0, "hello"),
-                    WordUi.Base("word", 6, "word")
-                )
+            val navigationNew = FakeNavigation.Base()
+            val communicationNew = FakeCommunication.Base()
+            val viewModelNew = SentenceViewModel.Base(
+                sentenceUiCache,
+                navigationNew,
+                communicationNew
             )
-            assertEquals(true, communication.same(expected))
-        }
 
-        @Test
-        fun `test save`() {
-            viewModel.sentence(
+            viewModelNew.init(saveAndRestore)
+            assertEquals(true, communicationNew.same(saveAndRestore.restore()))
+
+            viewModelNew.save(
                 SentenceUi.Base(
-                    "Hello world",
+                    "Kotlin",
                     listOf(
-                        WordUi.Base("hello", 0, "hello"),
-                        WordUi.Base("word", 6, "word")
+                        WordUi.Base("Kotlin", 0, "kotlin")
                     )
                 )
             )
-            viewModel.save()
-
             val expected = SentenceUi.Base(
-                "Hello world",
+                "Kotlin",
                 listOf(
-                    WordUi.Base("hello", 0, "hello"),
-                    WordUi.Base("word", 6, "word")
+                    WordUi.Base("Kotlin", 0, "kotlin")
                 )
             )
             assertEquals(expected, sentenceUiCache.read())
         }
 
+
         @Test
         fun `test navigation back`() {
-            viewModel.backPressed()
+            val sentenceUiCache = SentenceUiCache.Base()
+            val navigation = FakeNavigation.Base()
+            val communication = FakeCommunication.Base()
+
+            val viewModel = SentenceViewModel.Base(
+                sentenceUiCache,
+                navigation,
+                communication
+            )
+
+            viewModel.goBack()
             val expected = Screen.Pop
             assertEquals(true, navigation.same(expected))
         }
 
-        private class FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
+        interface FakeSaveAndRestore : SaveAndRestore<SentenceUi> {
+//            fun changeEmpty(isEmpty: Boolean)
 
-            private var cache: SentenceUi = SentenceUi.Base("", emptyList())
+            class Base : FakeSaveAndRestore {
 
-            override fun save(obj: SentenceUi) {
-                cache = obj
+                private var cache: SentenceUi = SentenceUi.Base("", emptyList())
+                private var isEmpty = true
+//
+//                override fun changeEmpty(isEmpty: Boolean) {
+//                    this.isEmpty = isEmpty
+//                }
+
+                override fun save(obj: SentenceUi) {
+                    cache = obj
+                    isEmpty = false
+                }
+
+                override fun restore(): SentenceUi = cache
+
+                override fun isEmpty(): Boolean = isEmpty
             }
-
-            override fun restore(): SentenceUi = cache
         }
 
         interface FakeCommunication : Communication.Mutable<SentenceUi> {
