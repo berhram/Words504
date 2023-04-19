@@ -112,7 +112,7 @@ class SentenceViewModelTest {
         override fun restore(): SentenceUi = cache
     }
 
-    interface FakeCommunication: Communication.Mutable<SentenceUi> {
+    interface FakeCommunication : Communication.Mutable<SentenceUi> {
 
         fun same(other: SentenceUi): Boolean
 
