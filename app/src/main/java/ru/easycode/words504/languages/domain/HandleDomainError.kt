@@ -6,7 +6,6 @@ import ru.easycode.words504.domain.HandleError
 import java.net.ConnectException
 import java.net.UnknownHostException
 
-
 class HandleDomainError(
     private val httpError: HandleError<Response<*>, Throwable>
 ) : HandleError<Exception, Throwable> {

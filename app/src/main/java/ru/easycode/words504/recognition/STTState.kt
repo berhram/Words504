@@ -12,11 +12,9 @@ interface STTState {
         }
     }
 
-    data class Started(private val state: String) : Abstract(state)
+    class Started(state: String) : Abstract(state)
 
-    data class Finished(private val state: String) : Abstract(state)
+    class Finished(state: String) : Abstract(state)
 
-    data class Error(private val state: String) : Abstract(state)
-
-
+    class Error(state: String) : Abstract(state)
 }
