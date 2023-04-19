@@ -24,7 +24,7 @@ interface Screen {
         }
     }
 
-    class Pop : Screen {
+    object Pop : Screen {
         override fun navigate(manager: FragmentManager, containerId: Int) {
             manager.popBackStack()
         }
