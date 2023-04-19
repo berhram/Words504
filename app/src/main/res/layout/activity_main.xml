@@ -12,6 +12,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:text="@string/goto_admin" />
+    <Button
+        android:id="@+id/gotoLoadCoroutines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/load_coroutines"/>
 
     <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
         android:id="@+id/wordsIndexesInputLayout"

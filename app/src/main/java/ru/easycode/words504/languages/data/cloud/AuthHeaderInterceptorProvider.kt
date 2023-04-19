@@ -1,7 +1,7 @@
 package ru.easycode.words504.languages.data.cloud
 
 import okhttp3.Interceptor
-import ru.easycode.words504.core.BuildConfig
+import ru.easycode.words504.BuildConfig
 import ru.easycode.words504.data.cloud.HeaderInterceptor
 import ru.easycode.words504.data.cloud.ProvideInterceptor
 

@@ -4,13 +4,11 @@ import android.content.Context
 import ru.easycode.words504.admintools.sl.AdminScopeModule
 import ru.easycode.words504.admintools.sl.ProvideAdminScopeModule
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
-import ru.easycode.words504.data.cloud.ProvideConverterFactory
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
-import ru.easycode.words504.data.cloud.ProvideRetrofitBuilder
 import ru.easycode.words504.presentation.DispatchersList
 
-interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, ProvideRetrofit {
+interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, ProvideHttpClientBuilder {
 
     fun provideDispatchers(): DispatchersList
 
@@ -25,17 +23,12 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, Provid
             ProvideSharedPreferences.Release(context)
         }
 
-        private val provideRetrofit: ProvideRetrofitBuilder by lazy {
-            ProvideRetrofitBuilder.Base(
-                httpClientBuilder = ProvideOkHttpClientBuilder.AddInterceptor(
+        private val provideHttpClientBuilder by lazy {
+            ProvideOkHttpClientBuilder
+                .AddInterceptor(
                     ProvideLoggingInterceptor.Debug(),
-                    ProvideOkHttpClientBuilder.AddInterceptor(
-                        AuthHeaderInterceptorProvider(),
-                        ProvideOkHttpClientBuilder.Base()
-                    )
-                ),
-                provideConverterFactory = ProvideConverterFactory.Base()
-            )
+                    ProvideOkHttpClientBuilder.Base()
+                )
         }
 
         private val dispatchers: DispatchersList = DispatchersList.Base()
@@ -46,6 +39,7 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, Provid
         override fun sharedPreferences() = sharedPref.sharedPreferences()
 
         override fun provideAdminScope() = adminScopeModule
-        override fun provideRetrofit(): ProvideRetrofitBuilder = provideRetrofit
+        override fun provideHttpClientBuilder(): ProvideOkHttpClientBuilder =
+            provideHttpClientBuilder
     }
 }
