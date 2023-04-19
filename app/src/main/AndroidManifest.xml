@@ -29,11 +29,8 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".rsrc.TestTranslateActivity"
+            android:name=".loading.LoadTranslateActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-            </intent-filter>
         </activity>
     </application>
 </manifest>

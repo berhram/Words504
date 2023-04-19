@@ -19,9 +19,9 @@
         android:padding="16dp" />
 
     <Button
-        android:id="@+id/goToTestCoroutines"
+        android:id="@+id/goToLoadCoroutines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/test_coroutines" />
+        android:text="@string/load_coroutines" />
 </LinearLayout>

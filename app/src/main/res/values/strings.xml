@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">Words504</string>
     <string name="progress_text">%1$d out of %2$d</string>
-    <string name="test_coroutines">Test Coroutines</string>
+    <string name="load_coroutines">Load Coroutines</string>
 </resources>
