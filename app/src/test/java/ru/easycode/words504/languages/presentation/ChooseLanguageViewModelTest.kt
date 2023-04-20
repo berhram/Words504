@@ -1,51 +1,70 @@
 package ru.easycode.words504.languages.presentation
 
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
-import ru.easycode.words504.languages.data.cache.ChosenLanguageCache
+import ru.easycode.words504.MainScreen
 import ru.easycode.words504.languages.data.cache.LanguageCache
-import ru.easycode.words504.languages.data.cache.LanguagesCacheDataSource
+import ru.easycode.words504.languages.data.repository.ChooseLanguageRepository
 import ru.easycode.words504.presentation.Communication
+import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.presentation.SaveAndRestore
+import ru.easycode.words504.presentation.Screen
 
 /**
  * @author Asatryan on 17.04.2023
  */
 class ChooseLanguageViewModelTest {
 
+    private lateinit var repository: FakeChooseLanguageRepository
+    private lateinit var communication: FakeCommunication
+    private lateinit var navigation: FakeNavigation
+    private lateinit var viewModel: ChooseLanguageViewModel
+    private lateinit var mapperNotChosen: LanguageCache.Mapper<LanguageUi>
+    private lateinit var mapperChosen: LanguageCache.Mapper<LanguageUi>
+    private val saveAndRestore: FakeSaveAndRestore = FakeSaveAndRestore()
+
+    @Before
+    fun setUp() {
+        communication = FakeCommunication.Base()
+        navigation = FakeNavigation.Base()
+        mapperNotChosen = LanguageUiInitialMapper()
+        mapperChosen = LanguageUiChosenMapper()
+        repository = FakeChooseLanguageRepository.Base()
+
+        viewModel = ChooseLanguageViewModel.Base(
+            communication = communication,
+            repository = repository,
+            navigation = navigation,
+            mapperChosen = mapperChosen,
+            mapperNotChosen = mapperNotChosen
+        )
+    }
+
     @Test
     fun `test initial`() {
-        val dataSource = FakeLanguagesCacheDataSource()
-        dataSource.save(
+        repository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
         )
-        val userTempChoice = FakeChosenLanguageCache()
-        val chosenLanguage = FakeChosenLanguageCache()
-        val communication = FakeCommunication()
-        val saveAndRestore = FakeSaveAndRestore()
-
-        val viewModel = ChooseLanguageViewModel(
-            communication = communication,
-            languagesCacheDataSource = dataSource,
-            userChoice = userTempChoice,
-            chosenLanguage = chosenLanguage
-        )
 
         viewModel.init(saveAndRestore = saveAndRestore)
 
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Initial(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Initial(
+                    languages = listOf<LanguageUi>(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
@@ -54,56 +73,47 @@ class ChooseLanguageViewModelTest {
 
     @Test
     fun `test choose language`() {
-        val dataSource = FakeLanguagesCacheDataSource()
-        dataSource.save(
+        repository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
         )
-        val userTempChoice = FakeChosenLanguageCache()
-        val chosenLanguage = FakeChosenLanguageCache()
-        val communication = FakeCommunication()
-        val saveAndRestore = FakeSaveAndRestore()
-
-        val viewModel = ChooseLanguageViewModel(
-            communication = communication,
-            languagesCacheDataSource = dataSource,
-            userChoice = userTempChoice,
-            chosenLanguage = chosenLanguage
-        )
 
         viewModel.init(saveAndRestore = saveAndRestore)
 
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Initial(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Initial(
+                    languages = listOf<LanguageUi>(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.choose(id = "ru")
-        assertEquals(LanguageCache.Base("ru", "Russian"), userTempChoice.read())
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.Chosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.Chosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
@@ -112,74 +122,66 @@ class ChooseLanguageViewModelTest {
 
     @Test
     fun `test choose other language`() {
-        val dataSource = FakeLanguagesCacheDataSource()
-        dataSource.save(
+        repository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
         )
-        val userTempChoice = FakeChosenLanguageCache()
-        val chosenLanguage = FakeChosenLanguageCache()
-        val communication = FakeCommunication()
-        val saveAndRestore = FakeSaveAndRestore()
-
-        val viewModel = ChooseLanguageViewModel(
-            communication = communication,
-            languagesCacheDataSource = dataSource,
-            userChoice = userTempChoice,
-            chosenLanguage = chosenLanguage
-        )
 
         viewModel.init(saveAndRestore = saveAndRestore)
 
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Initial(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Initial(
+                    languages = listOf<LanguageUi>(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.choose(id = "ru")
-        assertEquals(LanguageCache.Base("ru", "Russian"), userTempChoice.read())
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.Chosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.Chosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.choose(id = "ch")
-        assertEquals(LanguageCache.Base("ch", "Chinese"), userTempChoice.read())
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.Chosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.Chosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
@@ -188,56 +190,47 @@ class ChooseLanguageViewModelTest {
 
     @Test
     fun `test restore language`() {
-        val dataSource = FakeLanguagesCacheDataSource()
-        dataSource.save(
+        repository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
         )
-        val userTempChoice = FakeChosenLanguageCache()
-        val chosenLanguage = FakeChosenLanguageCache()
-        val communication = FakeCommunication()
-        val saveAndRestore = FakeSaveAndRestore()
-
-        val viewModel = ChooseLanguageViewModel(
-            communication = communication,
-            languagesCacheDataSource = dataSource,
-            userChoice = userTempChoice,
-            chosenLanguage = chosenLanguage
-        )
 
         viewModel.init(saveAndRestore = saveAndRestore)
 
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Initial(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Initial(
+                    languages = listOf<LanguageUi>(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.choose(id = "ru")
-        assertEquals(LanguageCache.Base("ru", "Russian"), userTempChoice.read())
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.Chosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.Chosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
@@ -246,112 +239,110 @@ class ChooseLanguageViewModelTest {
         viewModel.save(saveAndRestore = saveAndRestore)
         assertEquals(LanguageCache.Base("ru", "Russian"), saveAndRestore.restore())
 
-        val newDataSource = FakeLanguagesCacheDataSource()
-        newDataSource.save(
+        val newRepository = FakeChooseLanguageRepository.Base()
+        newRepository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
         )
-        val newUserTempChoice = FakeChosenLanguageCache()
-        val newChosenLanguage = FakeChosenLanguageCache()
-        val newCommunication = FakeCommunication()
 
-        val newViewModel = ChooseLanguageViewModel(
+        val newCommunication = FakeCommunication.Base()
+        val newNavigation = FakeNavigation.Base()
+        val newViewModel = ChooseLanguageViewModel.Base(
             communication = newCommunication,
-            languagesCacheDataSource = newDataSource,
-            userChoice = newUserTempChoice,
-            chosenLanguage = newChosenLanguage
+            repository = newRepository,
+            navigation = newNavigation,
+            mapperChosen = mapperChosen,
+            mapperNotChosen = mapperNotChosen
         )
 
         newViewModel.init(saveAndRestore = saveAndRestore)
         assertEquals(
-            newCommunication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.Chosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            newCommunication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.Chosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
-        assertEquals(LanguageCache.Base("ru", "Russian"), userTempChoice.read())
     }
 
     @Test
     fun `test save user choice`() {
-        val dataSource = FakeLanguagesCacheDataSource()
-        dataSource.save(
+        repository.expectedLanguages(
             listOf(
                 LanguageCache.Base("ru", "Russian"),
                 LanguageCache.Base("ch", "Chinese")
             )
-        )
-        val userTempChoice = FakeChosenLanguageCache()
-        val chosenLanguage = FakeChosenLanguageCache()
-        val communication = FakeCommunication()
-        val saveAndRestore = FakeSaveAndRestore()
-
-        val viewModel = ChooseLanguageViewModel(
-            //todo navigation,
-            communication = communication,
-            languagesCacheDataSource = dataSource,
-            userChoice = userTempChoice,
-            chosenLanguage = chosenLanguage
         )
 
         viewModel.init(saveAndRestore = saveAndRestore)
 
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Initial(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.NotChosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Initial(
+                    languages = listOf<LanguageUi>(
+                        LanguageUi.NotChosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.choose(id = "ru")
-        assertEquals(LanguageCache.Base("ru", "Russian"), userTempChoice.read())
         assertEquals(
-            communication.state,
-            ChooseLanguageState.Chosen(
-                languages = listOf<LanguageUi>(
-                    LanguageUi.Chosen(
-                        id = "ru",
-                        value = "Russian"
-                    ),
-                    LanguageUi.NotChosen(
-                        id = "ch",
-                        value = "Chinese"
+            true,
+            communication.same(
+                ChooseLanguageState.Chosen(
+                    languages = listOf(
+                        LanguageUi.Chosen(
+                            id = "ru",
+                            value = "Russian"
+                        ),
+                        LanguageUi.NotChosen(
+                            id = "ch",
+                            value = "Chinese"
+                        )
                     )
                 )
             )
         )
 
         viewModel.save()
-        assertEquals(LanguageCache.Base("ru", "Russian"), chosenLanguage.read())
-        assertEquals(navigation.screen, MainScreen)
+        assertEquals(true, navigation.same(MainScreen))
     }
 }
 
-private class FakeCommunication : Communication.Mutable<ChooseLanguageState> {
-    var state: ChooseLanguageState? = null
 
-    override fun map(source: ChooseLanguageState) {
-        state = source
+private interface FakeCommunication : Communication.Mutable<ChooseLanguageState> {
+
+    fun same(other: ChooseLanguageState): Boolean
+
+    class Base : FakeCommunication {
+        private var state: ChooseLanguageState? = null
+
+        override fun same(other: ChooseLanguageState): Boolean = state == other
+
+        override fun map(source: ChooseLanguageState) {
+            state = source
+        }
     }
 }
 
@@ -372,26 +363,46 @@ private class FakeSaveAndRestore : SaveAndRestore<LanguageCache> {
     }
 }
 
-private class FakeChosenLanguageCache : ChosenLanguageCache.Mutable {
 
-    private var languageCache: LanguageCache = LanguageCache.Base("", "")
+private interface FakeNavigation : NavigationCommunication.Update {
 
-    override fun read(): LanguageCache = languageCache
+    fun same(other: Screen): Boolean
 
-    override fun save(data: LanguageCache) {
-        languageCache = data
+    class Base : FakeNavigation {
+        private var screen: Screen? = null
+
+        override fun same(other: Screen): Boolean = screen == other
+
+        override fun map(source: Screen) {
+            screen = source
+        }
     }
 }
 
-private class FakeLanguagesCacheDataSource : LanguagesCacheDataSource.Mutable {
-    private val list = mutableListOf<LanguageCache>()
+private interface FakeChooseLanguageRepository : ChooseLanguageRepository {
 
-    override fun read(): List<LanguageCache> {
-        return list
-    }
+    fun expectedLanguages(data: List<LanguageCache>)
 
-    override fun save(data: List<LanguageCache>) {
-        list.clear()
-        list.addAll(data)
+    class Base : FakeChooseLanguageRepository {
+
+        private var languages = emptyList<LanguageCache>()
+        private var userChoice: LanguageCache = LanguageCache.Base("", "")
+        private var chosen: LanguageCache = LanguageCache.Base("", "")
+
+        override fun expectedLanguages(data: List<LanguageCache>) {
+            languages = data
+        }
+
+        override fun languages(): List<LanguageCache> = languages
+
+        override fun userChoice(languageCache: LanguageCache) {
+            userChoice = languageCache
+        }
+
+        override fun fetchUserChoice(): LanguageCache = userChoice
+
+        override fun save() {
+            chosen = userChoice
+        }
     }
 }
