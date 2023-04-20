@@ -330,7 +330,6 @@ class ChooseLanguageViewModelTest {
     }
 }
 
-
 private interface FakeCommunication : Communication.Mutable<ChooseLanguageState> {
 
     fun same(other: ChooseLanguageState): Boolean
@@ -362,7 +361,6 @@ private class FakeSaveAndRestore : SaveAndRestore<LanguageCache> {
         return cache
     }
 }
-
 
 private interface FakeNavigation : NavigationCommunication.Update {
 

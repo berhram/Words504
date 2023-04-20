@@ -20,7 +20,7 @@ interface ChooseLanguageViewModel {
         private val repository: ChooseLanguageRepository,
         private val navigation: NavigationCommunication.Update,
         private val mapperChosen: LanguageCache.Mapper<LanguageUi>,
-        private val mapperNotChosen: LanguageCache.Mapper<LanguageUi>
+        private val mapperNotChosen: LanguageCache.Mapper<LanguageUi>,
     ) : ViewModel(), ChooseLanguageViewModel {
 
         private val languagesCache = mutableListOf<LanguageCache>()
@@ -56,8 +56,11 @@ interface ChooseLanguageViewModel {
 
         private fun makeChosen(language: LanguageCache): List<LanguageUi> =
             languagesCache.map { languageCache ->
-                if (languageCache.same(language)) languageCache.map(mapperChosen)
-                else languageCache.map(mapperNotChosen)
+                if (languageCache.same(language)) {
+                    languageCache.map(mapperChosen)
+                } else {
+                    languageCache.map(mapperNotChosen)
+                }
             }
     }
 }
