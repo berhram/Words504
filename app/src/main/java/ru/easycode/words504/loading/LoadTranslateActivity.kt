@@ -14,7 +14,7 @@ class LoadTranslateActivity : BaseActivity<LoadTranslateViewModel>() {
         setContentView(binding.root)
 
         val adapter = LoadTranslationsAdapter()
-        with(binding){
+        with(binding) {
             translationsList.adapter = adapter
             viewModel.observe(this@LoadTranslateActivity) { result ->
                 result.show(progressTextView, adapter)
