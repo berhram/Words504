@@ -20,7 +20,7 @@ interface ChooseLanguageViewModel {
         private val repository: ChooseLanguageRepository,
         private val navigation: NavigationCommunication.Update,
         private val mapperChosen: LanguageCache.Mapper<LanguageUi>,
-        private val mapperNotChosen: LanguageCache.Mapper<LanguageUi>,
+        private val mapperNotChosen: LanguageCache.Mapper<LanguageUi>
     ) : ViewModel(), ChooseLanguageViewModel {
 
         private val languagesCache = mutableListOf<LanguageCache>()
