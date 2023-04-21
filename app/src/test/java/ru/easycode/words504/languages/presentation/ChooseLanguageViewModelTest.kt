@@ -11,33 +11,27 @@ import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.SaveAndRestore
 import ru.easycode.words504.presentation.Screen
 
-/**
- * @author Asatryan on 17.04.2023
- */
 class ChooseLanguageViewModelTest {
 
     private lateinit var repository: FakeChooseLanguageRepository
     private lateinit var communication: FakeCommunication
     private lateinit var navigation: FakeNavigation
     private lateinit var viewModel: ChooseLanguageViewModel
-    private lateinit var mapperNotChosen: LanguageCache.Mapper<LanguageUi>
-    private lateinit var mapperChosen: LanguageCache.Mapper<LanguageUi>
+    private lateinit var mapper: LanguageCache.Mapper<List<LanguageUi>>
     private val saveAndRestore: FakeSaveAndRestore = FakeSaveAndRestore()
 
     @Before
     fun setUp() {
         communication = FakeCommunication.Base()
         navigation = FakeNavigation.Base()
-        mapperNotChosen = LanguageUiInitialMapper()
-        mapperChosen = LanguageUiChosenMapper()
         repository = FakeChooseLanguageRepository.Base()
+        mapper = LanguageUiChosenMapper(repository, LanguageUiMapper())
 
         viewModel = ChooseLanguageViewModel.Base(
             communication = communication,
             repository = repository,
             navigation = navigation,
-            mapperChosen = mapperChosen,
-            mapperNotChosen = mapperNotChosen
+            mapper = mapper,
         )
     }
 
@@ -253,8 +247,7 @@ class ChooseLanguageViewModelTest {
             communication = newCommunication,
             repository = newRepository,
             navigation = newNavigation,
-            mapperChosen = mapperChosen,
-            mapperNotChosen = mapperNotChosen
+            mapper = mapper
         )
 
         newViewModel.init(saveAndRestore = saveAndRestore)
@@ -326,6 +319,7 @@ class ChooseLanguageViewModelTest {
         )
 
         viewModel.save()
+        assertEquals(LanguageCache.Base("ru", "Russian"), repository.userChoice())
         assertEquals(true, navigation.same(MainScreen))
     }
 }
@@ -393,11 +387,11 @@ private interface FakeChooseLanguageRepository : ChooseLanguageRepository {
 
         override fun languages(): List<LanguageCache> = languages
 
-        override fun userChoice(languageCache: LanguageCache) {
+        override fun saveUserChoice(languageCache: LanguageCache) {
             userChoice = languageCache
         }
 
-        override fun fetchUserChoice(): LanguageCache = userChoice
+        override fun userChoice(): LanguageCache = userChoice
 
         override fun save() {
             chosen = userChoice

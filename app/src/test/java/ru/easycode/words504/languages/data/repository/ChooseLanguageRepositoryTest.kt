@@ -40,7 +40,7 @@ class ChooseLanguageRepositoryTest {
 
     @Test
     fun `test save user choice temp`() {
-        repository.userChoice(LanguageCache.Base("ru", "Russian"))
+        repository.saveUserChoice(LanguageCache.Base("ru", "Russian"))
         val expected = LanguageCache.Base("ru", "Russian")
         assertEquals(expected, userTempChoice.read())
     }
@@ -57,7 +57,7 @@ class ChooseLanguageRepositoryTest {
     fun `test fetch user choice`() {
         userTempChoice.save(LanguageCache.Base("ru", "Russian"))
         val expected = LanguageCache.Base("ru", "Russian")
-        assertEquals(expected, repository.fetchUserChoice())
+        assertEquals(expected, repository.userChoice())
     }
 
     private class FakeChosenLanguageCache : ChosenLanguageCache.Mutable {

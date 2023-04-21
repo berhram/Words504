@@ -19,34 +19,33 @@ interface ChooseLanguageViewModel {
         private val communication: Communication.Mutable<ChooseLanguageState>,
         private val repository: ChooseLanguageRepository,
         private val navigation: NavigationCommunication.Update,
-        private val mapperChosen: LanguageCache.Mapper<LanguageUi>,
-        private val mapperNotChosen: LanguageCache.Mapper<LanguageUi>
+        private val mapper: LanguageCache.Mapper<List<LanguageUi>>,
     ) : ViewModel(), ChooseLanguageViewModel {
 
         private val languagesCache = mutableListOf<LanguageCache>()
 
         override fun init(saveAndRestore: SaveAndRestore<LanguageCache>) {
+            languagesCache.clear()
             languagesCache.addAll(repository.languages())
-            if (saveAndRestore.isEmpty()) {
-                communication.map(
-                    ChooseLanguageState.Initial(
-                        languagesCache.map { it.map(mapperNotChosen) }
-                    )
-                )
-            } else {
-                val languageRestore = saveAndRestore.restore()
-                communication.map(ChooseLanguageState.Chosen(makeChosen(languageRestore)))
-            }
+            val userChoice = repository.userChoice()
+            communication.map(
+                if (saveAndRestore.isEmpty()) {
+                    ChooseLanguageState.Initial(userChoice.map(mapper))
+                }
+                else {
+                    ChooseLanguageState.Chosen(saveAndRestore.restore().map(mapper))
+                }
+            )
         }
 
         override fun choose(id: String) {
             val language = languagesCache.find { it.same(id) }!!
-            repository.userChoice(language)
-            communication.map(ChooseLanguageState.Chosen(makeChosen(language)))
+            repository.saveUserChoice(language)
+            communication.map(ChooseLanguageState.Chosen(language.map(mapper)))
         }
 
         override fun save(saveAndRestore: SaveAndRestore<LanguageCache>) {
-            saveAndRestore.save(repository.fetchUserChoice())
+            saveAndRestore.save(repository.userChoice())
         }
 
         override fun save() {
@@ -54,13 +53,5 @@ interface ChooseLanguageViewModel {
             navigation.map(MainScreen)
         }
 
-        private fun makeChosen(language: LanguageCache): List<LanguageUi> =
-            languagesCache.map { languageCache ->
-                if (languageCache.same(language)) {
-                    languageCache.map(mapperChosen)
-                } else {
-                    languageCache.map(mapperNotChosen)
-                }
-            }
     }
 }
