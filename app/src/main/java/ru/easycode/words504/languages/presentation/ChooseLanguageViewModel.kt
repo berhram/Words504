@@ -19,27 +19,22 @@ interface ChooseLanguageViewModel {
         private val communication: Communication.Mutable<ChooseLanguageState>,
         private val repository: ChooseLanguageRepository,
         private val navigation: NavigationCommunication.Update,
-        private val mapper: LanguageCache.Mapper<List<LanguageUi>>,
+        private val mapper: LanguageCache.Mapper<List<LanguageUi>>
     ) : ViewModel(), ChooseLanguageViewModel {
 
-        private val languagesCache = mutableListOf<LanguageCache>()
-
         override fun init(saveAndRestore: SaveAndRestore<LanguageCache>) {
-            languagesCache.clear()
-            languagesCache.addAll(repository.languages())
             val userChoice = repository.userChoice()
             communication.map(
                 if (saveAndRestore.isEmpty()) {
                     ChooseLanguageState.Initial(userChoice.map(mapper))
-                }
-                else {
+                } else {
                     ChooseLanguageState.Chosen(saveAndRestore.restore().map(mapper))
                 }
             )
         }
 
         override fun choose(id: String) {
-            val language = languagesCache.find { it.same(id) }!!
+            val language = repository.languages().find { it.same(id) }!!
             repository.saveUserChoice(language)
             communication.map(ChooseLanguageState.Chosen(language.map(mapper)))
         }
@@ -52,6 +47,5 @@ interface ChooseLanguageViewModel {
             repository.save()
             navigation.map(MainScreen)
         }
-
     }
 }

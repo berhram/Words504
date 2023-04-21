@@ -31,7 +31,7 @@ class ChooseLanguageViewModelTest {
             communication = communication,
             repository = repository,
             navigation = navigation,
-            mapper = mapper,
+            mapper = mapper
         )
     }
 

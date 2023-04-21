@@ -7,17 +7,17 @@ import ru.easycode.words504.languages.data.repository.ChooseLanguageRepository
 interface LanguageUi : Serializable {
     abstract class Abstract(
         protected open val id: String,
-        protected open val value: String,
+        protected open val value: String
     ) : LanguageUi
 
     data class NotChosen(
         override val id: String,
-        override val value: String,
+        override val value: String
     ) : Abstract(id, value)
 
     data class Chosen(
         override val id: String,
-        override val value: String,
+        override val value: String
     ) : Abstract(id, value)
 }
 
@@ -27,7 +27,7 @@ class LanguageUiMapper : LanguageCache.Mapper<LanguageUi> {
 
 class LanguageUiChosenMapper(
     private val repository: ChooseLanguageRepository,
-    private val mapper: LanguageCache.Mapper<LanguageUi>,
+    private val mapper: LanguageCache.Mapper<LanguageUi>
 ) : LanguageCache.Mapper<List<LanguageUi>> {
 
     override fun map(key: String, name: String) = repository.languages().map {
