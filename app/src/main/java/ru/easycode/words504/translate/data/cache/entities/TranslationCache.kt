@@ -8,9 +8,9 @@ import androidx.room.PrimaryKey
 data class TranslationCache(
     @PrimaryKey
     @ColumnInfo(name = "id")
-    private val id: String,
+    val id: String,
     @ColumnInfo(name = "text")
-    private val text: String,
+    val text: String,
     @ColumnInfo(name = "targetLang")
-    private val targetLang: String
+    val targetLang: String
 )
