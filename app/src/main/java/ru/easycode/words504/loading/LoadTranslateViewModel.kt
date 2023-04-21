@@ -16,14 +16,13 @@ import ru.easycode.words504.translate.data.cloud.TranslateService
 
 class LoadTranslateViewModel(
     private val service: TranslateService,
-    private val dispatchers: DispatchersList
+    private val dispatchers: DispatchersList,
+    private val uiCommunication: Communication.Mutable<TranslateResultUi>
 ) : ViewModel(), Communication.Observe<TranslateResultUi> {
 
     private val mutex = Mutex()
 
     private val translatedList = mutableListOf<ItemTranslateUi>()
-
-    private val uiCommunication = LoadTranslateCommunication()
 
     private val textToTranslate =
         "Collins Example Sentences is a database of authentic English examples extracted " +

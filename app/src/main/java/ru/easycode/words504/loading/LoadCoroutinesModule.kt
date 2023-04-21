@@ -21,6 +21,7 @@ class LoadCoroutinesModule(private val core: CoreModule) : Module<LoadTranslateV
                 provideConverterFactory = ProvideConverterFactory.Base()
             )
         ).service(TranslateService::class.java),
-        dispatchers = core.provideDispatchers()
+        dispatchers = core.provideDispatchers(),
+        uiCommunication = LoadTranslateCommunication.Base()
     )
 }
