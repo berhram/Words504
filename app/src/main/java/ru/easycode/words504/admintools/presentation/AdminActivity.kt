@@ -1,18 +1,27 @@
 package ru.easycode.words504.admintools.presentation
 
 import android.os.Bundle
-import ru.easycode.words504.R
+import ru.easycode.words504.databinding.ActivityAdminBinding
 import ru.easycode.words504.presentation.BaseActivity
+
 
 class AdminActivity : BaseActivity<AdminViewModel>() {
     override val viewModelClass: Class<AdminViewModel> = AdminViewModel::class.java
-
+    private lateinit var binding: ActivityAdminBinding
+    private lateinit var wordUi: WordUi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin)
+        binding = ActivityAdminBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
+        binding.saveButton.setOnClickListener {
+          wordUi = binding.wordUiView.read()
+        }
+        binding.restoreButton.setOnClickListener {
+           binding.wordUiView.save(wordUi)
+        }
         viewModel.observe(this) {
-            it.navigate(supportFragmentManager, R.id.admin_container)
+            it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
     }
 

@@ -4,49 +4,41 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import ru.easycode.words504.R
 import ru.easycode.words504.admintools.presentation.SaveAndReadWordUi
 import ru.easycode.words504.admintools.presentation.WordUi
-import ru.easycode.words504.presentation.CorrectTextInputEditText
+import ru.easycode.words504.databinding.WordsUiLayoutBinding
 
 class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
     constructor(context: Context) : super(context)
-
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
         context,
         attrs,
         defStyleAttr
     )
 
-    private val inputWord: CorrectTextInputEditText
-    private val inputIndex: CorrectTextInputEditText
-    private val inputDictionaryForm: CorrectTextInputEditText
-
-    init {
-        LayoutInflater.from(context)
-            .inflate(R.layout.words_ui_layout, this, true)
-        inputWord = findViewById(R.id.inputWord_editText)
-        inputIndex = findViewById(R.id.inputIndex_editText)
-        inputDictionaryForm = findViewById(R.id.inputDictionaryForm_editText) //todo viewbinning
-    }
+    private var binding: WordsUiLayoutBinding =
+        WordsUiLayoutBinding.inflate(
+            LayoutInflater.from(context),
+            this,
+            true
+        )
 
     override fun save(data: WordUi) {
         data.map(this)
-
     }
 
     override fun read() = WordUi.Base(
-        inputWord.text.toString(),
-        inputIndex.text.toString().toInt(),
-        inputDictionaryForm.text.toString()
+        binding.inputWordEditText.text.toString(),
+        binding.inputIndexEditText.text.toString().toInt(),
+        binding.inputDictionaryFormEditText.text.toString()
     )
 
     override fun map(ui: String, index: Int, dictionaryForm: String) {
-        inputWord.setText(ui)
-        inputIndex.setText(index.toString())
-        inputDictionaryForm.setText(dictionaryForm)
+        binding.apply {
+            inputWordEditText.setText(ui)
+            inputIndexEditText.setText(index.toString())
+            inputDictionaryFormEditText.setText(dictionaryForm)
+        }
     }
 }
-

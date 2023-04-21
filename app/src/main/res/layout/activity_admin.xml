@@ -5,24 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    tools:context=".admintools.presentation.AdminActivity">
+    tools:context=".admintools.presentation.AdminActivity" >
 
     <ru.easycode.words504.admintools.presentation.input.WordUiView
+        android:id="@+id/wordUiView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/wordui"/>
+        android:layout_height="wrap_content" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/saveButton"
-        android:text="save"
-        android:layout_gravity="bottom|end"/>
-    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:text="save" />
+
+    <Button
         android:id="@+id/restoreButton"
-        android:text="restore"
-        android:layout_gravity="bottom|start"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:text="restore" />
 
 </FrameLayout>
