@@ -18,4 +18,15 @@ interface ChosenLanguageCache {
 
         override fun save(data: LanguageCache) = objectStorage.save(languageKey, data)
     }
+
+    class Temporary : Mutable {
+
+        private var temporaryCache: LanguageCache = LanguageCache.Base("", "")
+
+        override fun read(): LanguageCache = temporaryCache
+
+        override fun save(data: LanguageCache) {
+            temporaryCache = data
+        }
+    }
 }
