@@ -13,7 +13,7 @@ import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.presentation.NavigationCommunication
 
 interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, ProvideHttpClientBuilder,
-    ProvideObjectStorage {
+    ProvideNavigation, ProvideObjectStorage {
 
     fun provideDispatchers(): DispatchersList
 
