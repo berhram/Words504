@@ -17,14 +17,7 @@ interface ChooseLanguageRepository {
         private val chosenLanguage: ChosenLanguageCache.Save
     ) : ChooseLanguageRepository {
 
-        private val temporaryCache = mutableListOf<LanguageCache>()
-
-        override fun languages(): List<LanguageCache> {
-            if (temporaryCache.isEmpty()) {
-                temporaryCache.addAll(languagesCacheDataSource.read())
-            }
-            return temporaryCache
-        }
+        override fun languages() = languagesCacheDataSource.read()
 
         override fun saveUserChoice(languageCache: LanguageCache) = userChoice.save(languageCache)
 
