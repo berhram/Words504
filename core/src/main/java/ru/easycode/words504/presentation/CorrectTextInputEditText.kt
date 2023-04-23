@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import com.google.android.material.textfield.TextInputEditText
 
-
 class CorrectTextInputEditText : TextInputEditText {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)

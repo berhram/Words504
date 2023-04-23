@@ -17,7 +17,7 @@ class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
         defStyleAttr
     )
 
-    private var binding: WordsUiLayoutBinding =
+    private val binding: WordsUiLayoutBinding =
         WordsUiLayoutBinding.inflate(
             LayoutInflater.from(context),
             this,
@@ -25,14 +25,29 @@ class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
         )
 
     override fun save(data: WordUi) {
+        val defaultIndex = "0"
+        binding.apply {
+            if (inputIndexEditText.text.toString() == "") {
+                inputIndexEditText.setText(defaultIndex)
+            }
+        }
+
         data.map(this)
     }
 
-    override fun read() = WordUi.Base(
-        binding.inputWordEditText.text.toString(),
-        binding.inputIndexEditText.text.toString().toInt(),
-        binding.inputDictionaryFormEditText.text.toString()
-    )
+    override fun read() = with(binding) {
+        val defaultIndex = "0"
+        binding.apply {
+            if (inputIndexEditText.text.toString() == "") {
+                inputIndexEditText.setText(defaultIndex)
+            }
+        }
+        WordUi.Base(
+            inputWordEditText.text.toString(),
+            inputIndexEditText.text.toString().toInt(),
+            inputDictionaryFormEditText.text.toString()
+        )
+    }
 
     override fun map(ui: String, index: Int, dictionaryForm: String) {
         binding.apply {

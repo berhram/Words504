@@ -4,4 +4,3 @@ import ru.easycode.words504.data.Read
 import ru.easycode.words504.data.Save
 
 interface SaveAndReadWordUi : Save<WordUi>, Read<WordUi>
-
