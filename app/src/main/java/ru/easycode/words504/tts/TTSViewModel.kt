@@ -1,9 +1,17 @@
 package ru.easycode.words504.tts
 
 import androidx.lifecycle.ViewModel
+import kotlinx.coroutines.withContext
+import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
+import ru.easycode.words504.tts.presentation.TTSCommunication
 
-abstract class TTSViewModel(private val dispatchers: DispatchersList, ) : ViewModel() {
+abstract class TTSViewModel(
+    private val dispatchers: DispatchersList,
+    private val ttsEngine: TTSEngine.Base,
+    private val communication: Communication.Mutable<List<String>>
+) : ViewModel(),
+    Init {
 
     abstract fun ttsString(string: String)
 
@@ -14,11 +22,14 @@ abstract class TTSViewModel(private val dispatchers: DispatchersList, ) : ViewMo
     abstract fun stop()
 }
 
-class TTSTestViewModelFinal(private val dispatchers: DispatchersList) : TTSViewModel(dispatchers) {
-    val ttsEngine = TTSEngine.Base()
+class TTSTestViewModelFinal(
+    private val dispatchers: DispatchersList,
+    private val ttsEngine: TTSEngine.Base,
+    private val communication: Communication.Mutable<List<String>>
+) : TTSViewModel(dispatchers, ttsEngine, communication) {
 
     override fun ttsString(string: String) {
-        ttsEngine.speak(binding.textInputEditText.text.toString())
+
     }
 
     override fun ttsStringList(stringList: List<String>) {
@@ -33,4 +44,14 @@ class TTSTestViewModelFinal(private val dispatchers: DispatchersList) : TTSViewM
         TODO("Not yet implemented")
     }
 
+    override fun init(isFirstRun: Boolean) {
+
+        ttsEngine.init {
+        }
+    }
+
+}
+
+interface Init {
+    fun init(isFirstRun: Boolean)
 }

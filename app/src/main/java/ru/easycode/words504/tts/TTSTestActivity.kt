@@ -16,10 +16,13 @@ class TTSTestActivity : BaseActivity<TTSTestViewModelFinal>() {
         super.onCreate(savedInstanceState)
         binding = ActivityTtsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val ttsEngine = TTSEngine.Base(this) {
-            binding.buttonSpeak.isEnabled = true
-            binding.buttonSpeakBySentences.isEnabled = true
-        }
+        val ttsEngine = TTSEngine.Base(this)
+//        {
+//            binding.buttonSpeak.isEnabled = true
+//            binding.buttonSpeakBySentences.isEnabled = true
+//        }
+        viewModel.init(savedInstanceState == null)
+
 
         binding.buttonSpeak.setOnClickListener {
             binding.buttonStop.isEnabled = true

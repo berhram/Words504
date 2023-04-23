@@ -10,6 +10,7 @@ import java.util.concurrent.ArrayBlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 
 interface TTSEngine {
+    fun init(onInitListener: OnInitListener)
     fun speak(phrases: List<String>)
     fun speak(phrase: String)
     fun stop()
@@ -17,9 +18,9 @@ interface TTSEngine {
     fun setPartialEndOfSpeechListener(callback: (phrase: String) -> Unit)
     fun setStartOfSpeechListener(callback: (phrase: String) -> Unit)
 
-    class Base(context: Context, onInitListener: OnInitListener) : TTSEngine {
+    class Base(private val context: Context) : TTSEngine {
 
-        private val tts: TextToSpeech
+        private lateinit var tts: TextToSpeech
         private val queue: LinkedBlockingQueue<String> = LinkedBlockingQueue()
         private var startSpeechCallback: (phrase: String) -> Unit = {}
         private var endSpeechCallback: (phrase: String) -> Unit = {}
@@ -46,7 +47,7 @@ interface TTSEngine {
             }
         }
 
-        init {
+        override fun init(onInitListener: OnInitListener) {
             tts = TextToSpeech(context, onInitListener)
             tts.setOnUtteranceProgressListener(utteranceProgressListener)
             tts.language = Locale.ENGLISH

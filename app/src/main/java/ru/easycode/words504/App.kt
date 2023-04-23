@@ -19,6 +19,7 @@ class App : Application(), ProvideViewModel {
         val coreModule = CoreModule.Base(this, BuildConfig.DEBUG)
         viewModelsFactory = ViewModelsFactory(
             BaseDependencyContainer(
+                this,
                 coreModule,
                 AdminDependencyContainer(coreModule)
             )
