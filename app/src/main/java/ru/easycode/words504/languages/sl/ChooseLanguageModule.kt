@@ -15,7 +15,6 @@ class ChooseLanguageModule(
 ) : Module<ChooseLanguageViewModel.Base> {
 
     override fun viewModel(): ChooseLanguageViewModel.Base {
-
         val objectStorage = core.provideObjectStorage()
 
         val languagesCacheDataSource = LanguagesCacheDataSource.Base(objectStorage)
