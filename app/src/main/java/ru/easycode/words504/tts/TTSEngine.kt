@@ -13,17 +13,17 @@ interface TTSEngine {
     fun speak(phrases: List<String>)
     fun speak(phrase: String)
     fun stop()
-    fun setEndOfSpeechListener(callback : (phrase: String) -> Unit)
-    fun setPartialEndOfSpeechListener(callback : (phrase: String) -> Unit)
-    fun setStartOfSpeechListener(callback : (phrase: String) -> Unit)
+    fun setEndOfSpeechListener(callback: (phrase: String) -> Unit)
+    fun setPartialEndOfSpeechListener(callback: (phrase: String) -> Unit)
+    fun setStartOfSpeechListener(callback: (phrase: String) -> Unit)
 
     class Base(context: Context, onInitListener: OnInitListener) : TTSEngine {
 
         private val tts: TextToSpeech
         private val queue: LinkedBlockingQueue<String> = LinkedBlockingQueue()
-        private var startSpeechCallback : (phrase: String) -> Unit = {}
-        private var endSpeechCallback : (phrase: String) -> Unit = {}
-        private var partialEndSpeechCallback : (phrase: String) -> Unit = {}
+        private var startSpeechCallback: (phrase: String) -> Unit = {}
+        private var endSpeechCallback: (phrase: String) -> Unit = {}
+        private var partialEndSpeechCallback: (phrase: String) -> Unit = {}
 
         private val utteranceProgressListener = object : UtteranceProgressListener() {
             override fun onStart(utteranceId: String?) {
@@ -32,7 +32,9 @@ interface TTSEngine {
 
             override fun onDone(utteranceId: String?) {
                 queue.poll()
-                (if (queue.size > 0) partialEndSpeechCallback else endSpeechCallback).invoke(utteranceId ?: "")
+                (if (queue.size > 0) partialEndSpeechCallback else endSpeechCallback).invoke(
+                    utteranceId ?: ""
+                )
             }
 
             override fun onError(utteranceId: String?) {
@@ -52,7 +54,7 @@ interface TTSEngine {
 
         override fun speak(phrases: List<String>) {
             stop()
-            phrases.forEach {phrase ->
+            phrases.forEach { phrase ->
                 if (phrase.isEmpty()) return
                 queue.add(phrase)
                 tts.speak(phrase, TextToSpeech.QUEUE_ADD, null, phrase)
