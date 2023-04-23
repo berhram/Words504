@@ -23,9 +23,9 @@ interface ChooseLanguageViewModel {
     ) : ViewModel(), ChooseLanguageViewModel {
 
         override fun init(saveAndRestore: SaveAndRestore<LanguageCache>) {
-            val userChoice = repository.userChoice()
             communication.map(
                 if (saveAndRestore.isEmpty()) {
+                    val userChoice = repository.userChoice()
                     ChooseLanguageState.Initial(userChoice.map(mapper))
                 } else {
                     ChooseLanguageState.Chosen(saveAndRestore.restore().map(mapper))
