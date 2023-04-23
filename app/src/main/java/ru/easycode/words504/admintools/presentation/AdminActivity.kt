@@ -6,13 +6,10 @@ import ru.easycode.words504.presentation.BaseActivity
 
 class AdminActivity : BaseActivity<AdminViewModel>() {
     override val viewModelClass: Class<AdminViewModel> = AdminViewModel::class.java
-    private lateinit var binding: ActivityAdminBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAdminBinding.inflate(layoutInflater)
+        val binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         viewModel.observe(this) {
             it.navigate(supportFragmentManager, binding.adminContainer.id)
         }

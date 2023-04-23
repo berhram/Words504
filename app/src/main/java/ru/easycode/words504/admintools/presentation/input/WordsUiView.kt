@@ -8,7 +8,7 @@ import ru.easycode.words504.admintools.presentation.SaveAndReadWordUi
 import ru.easycode.words504.admintools.presentation.WordUi
 import ru.easycode.words504.databinding.WordsUiLayoutBinding
 
-class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
+class WordsUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
@@ -24,34 +24,20 @@ class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
             true
         )
 
-    override fun save(data: WordUi) {
-        val defaultIndex = "0"
-        binding.apply {
-            if (inputIndexEditText.text.toString() == "") {
-                inputIndexEditText.setText(defaultIndex)
-            }
-        }
-
-        data.map(this)
-    }
+    override fun save(data: WordUi) = data.map(this)
 
     override fun read() = with(binding) {
-        val defaultIndex = "0"
-        binding.apply {
-            if (inputIndexEditText.text.toString() == "") {
-                inputIndexEditText.setText(defaultIndex)
-            }
-        }
+        val text = inputIndexEditText.text
         WordUi.Base(
             inputWordEditText.text.toString(),
-            inputIndexEditText.text.toString().toInt(),
+            if (text.isNullOrEmpty()) Int.MIN_VALUE else text.toString().toInt(),
             inputDictionaryFormEditText.text.toString()
         )
     }
 
     override fun map(ui: String, index: Int, dictionaryForm: String) = with(binding) {
         inputWordEditText.setText(ui)
-        inputIndexEditText.setText(index.toString())
+        inputIndexEditText.setText(if (index == Int.MIN_VALUE) "" else index.toString())
         inputDictionaryFormEditText.setText(dictionaryForm)
     }
 }
