@@ -13,4 +13,3 @@ interface RecognitionResultCommunication {
 
     class Base : Communication.Abstract<STTState>(), Mutable
 }
-

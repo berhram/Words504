@@ -21,5 +21,4 @@ abstract class SimpleRecognitionListener : RecognitionListener {
     override fun onPartialResults(partialResults: Bundle?) = Unit
 
     override fun onEvent(eventType: Int, params: Bundle?) = Unit
-
 }

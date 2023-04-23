@@ -7,7 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 
-
 interface RequestPermission {
     fun handle(fragment: Fragment, launcher: ActivityResultLauncher<String>)
 
@@ -27,9 +26,9 @@ interface RequestPermission {
                         requireContext(),
                         permission
                     ) == PackageManager.PERMISSION_GRANTED
-                )
+                ) {
                     handlePermissionGranted.permissionCallback(true)
-                else {
+                } else {
                     launcher.launch(permission)
                 }
             }
@@ -47,5 +46,4 @@ interface HandlePermissionGranted {
 interface ObserveRequestPermission {
 
     fun observeRequestPermission(owner: LifecycleOwner, observer: Observer<RequestPermission>)
-
 }

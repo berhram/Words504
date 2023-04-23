@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.speech.RecognizerIntent
 import android.speech.SpeechRecognizer
-import java.util.*
+import java.util.Locale
 
 interface SpeechRecognizerEngine {
     fun start(callback: SpeechRecognizerCallback)
@@ -36,8 +36,8 @@ interface SpeechRecognizerEngine {
                 }
 
                 override fun onResults(results: Bundle?) {
-                    val data: ArrayList<String> =
-                        results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION) as ArrayList<String>
+                    val data = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION)
+                        as ArrayList<String>
                     callback.finished(data[0])
                 }
             })
@@ -50,4 +50,3 @@ interface SpeechRecognizerEngine {
         }
     }
 }
-

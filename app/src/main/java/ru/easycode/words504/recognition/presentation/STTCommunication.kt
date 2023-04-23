@@ -4,8 +4,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import ru.easycode.words504.recognition.STTState
 
-interface ObserveSTT {
+interface STTCommunication {
 
     fun observeRecognitionResult(owner: LifecycleOwner, observer: Observer<STTState>)
-
 }
