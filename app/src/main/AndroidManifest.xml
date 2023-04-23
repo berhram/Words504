@@ -46,7 +46,10 @@
         </activity>
         <activity
             android:name=".admintools.presentation.AdminActivity"
-            android:exported="false"/>
+            android:exported="false" />
+        <activity
+            android:name=".loading.LoadTranslateActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
