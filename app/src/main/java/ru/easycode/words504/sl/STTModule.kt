@@ -3,6 +3,7 @@ package ru.easycode.words504.sl
 import android.Manifest.permission.RECORD_AUDIO
 import android.content.Context
 import android.os.Build
+import ru.easycode.words504.recognition.data.STTErrorsFactory
 import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
 import ru.easycode.words504.recognition.domain.STTHandleError
 import ru.easycode.words504.recognition.domain.ToSTTUiError
@@ -33,7 +34,7 @@ class STTModule(private val context: Context, private val core: CoreModule) :
             RecognitionResultCommunication.Base(),
             SpeechRecognizerEngine.Base(context),
             core,
-            STTHandleError(ToSTTUiError(core))
+            STTHandleError(ToSTTUiError(core), STTErrorsFactory.Base())
         )
         return viewModel
     }
