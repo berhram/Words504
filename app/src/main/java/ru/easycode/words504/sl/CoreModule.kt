@@ -12,8 +12,12 @@ import ru.easycode.words504.data.cache.storage.ObjectStorage
 import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.presentation.NavigationCommunication
 
-interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, ProvideHttpClientBuilder,
-    ProvideNavigation, ProvideObjectStorage {
+interface CoreModule :
+    ProvideSharedPreferences,
+    ProvideAdminScopeModule,
+    ProvideHttpClientBuilder,
+    ProvideNavigation,
+    ProvideObjectStorage {
 
     fun provideDispatchers(): DispatchersList
 
@@ -37,7 +41,6 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, Provid
         }
 
         private val dispatchers: DispatchersList = DispatchersList.Base()
-
         private val adminScopeModule = AdminScopeModule.Base()
         private val navigation = NavigationCommunication.Base()
 
@@ -51,6 +54,7 @@ interface CoreModule : ProvideSharedPreferences, ProvideAdminScopeModule, Provid
         override fun sharedPreferences() = sharedPref.sharedPreferences()
 
         override fun provideAdminScope() = adminScopeModule
+
         override fun provideHttpClientBuilder(): ProvideOkHttpClientBuilder =
             provideHttpClientBuilder
 
