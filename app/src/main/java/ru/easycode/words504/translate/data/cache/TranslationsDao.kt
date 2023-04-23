@@ -9,8 +9,12 @@ import ru.easycode.words504.translate.data.cache.entities.TranslationCache
 @Dao
 interface TranslationsDao {
 
-    @Query("SELECT EXISTS(SELECT * FROM translations_table WHERE id = :id AND targetLang = :targetLang)")
-    fun isExistTranslationByIdAndLang(id: String,targetLang: String): Boolean
+    @Query(
+        "SELECT EXISTS(" +
+        "SELECT * FROM translations_table " +
+        "WHERE id = :id AND targetLang = :targetLang)"
+    )
+    fun isExistTranslationByIdAndLang(id: String, targetLang: String): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(tr: TranslationCache)
