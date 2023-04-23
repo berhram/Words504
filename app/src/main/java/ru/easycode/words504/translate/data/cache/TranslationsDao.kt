@@ -11,10 +11,10 @@ interface TranslationsDao {
 
     @Query(
         "SELECT EXISTS(" +
-        "SELECT * FROM translations_table " +
-        "WHERE id = :id AND targetLang = :targetLang)"
+                "SELECT * FROM translations_table " +
+                "WHERE id = :id AND targetLang = :targetLang)"
     )
-    fun isExistTranslationByIdAndLang(id: String, targetLang: String): Boolean
+    fun containsTranslation(id: String, targetLang: String): Boolean
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(tr: TranslationCache)
@@ -23,5 +23,5 @@ interface TranslationsDao {
     fun deleteTranslation(targetLang: String)
 
     @Query("SELECT * FROM translations_table WHERE id = :id")
-    fun getTranslationById(id: String): TranslationCache
+    fun translation(id: String): TranslationCache
 }
