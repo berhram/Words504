@@ -4,7 +4,6 @@ import android.os.Bundle
 import ru.easycode.words504.databinding.ActivityAdminBinding
 import ru.easycode.words504.presentation.BaseActivity
 
-
 class AdminActivity : BaseActivity<AdminViewModel>() {
     override val viewModelClass: Class<AdminViewModel> = AdminViewModel::class.java
     private lateinit var binding: ActivityAdminBinding

@@ -49,11 +49,9 @@ class WordUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
         )
     }
 
-    override fun map(ui: String, index: Int, dictionaryForm: String) {
-        binding.apply {
-            inputWordEditText.setText(ui)
-            inputIndexEditText.setText(index.toString())
-            inputDictionaryFormEditText.setText(dictionaryForm)
-        }
+    override fun map(ui: String, index: Int, dictionaryForm: String) = with(binding) {
+        inputWordEditText.setText(ui)
+        inputIndexEditText.setText(index.toString())
+        inputDictionaryFormEditText.setText(dictionaryForm)
     }
 }
