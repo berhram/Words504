@@ -8,18 +8,12 @@ import ru.easycode.words504.presentation.BaseActivity
 class AdminActivity : BaseActivity<AdminViewModel>() {
     override val viewModelClass: Class<AdminViewModel> = AdminViewModel::class.java
     private lateinit var binding: ActivityAdminBinding
-    private lateinit var wordUi: WordUi
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.saveButton.setOnClickListener {
-          wordUi = binding.wordUiView.read()
-        }
-        binding.restoreButton.setOnClickListener {
-           binding.wordUiView.save(wordUi)
-        }
         viewModel.observe(this) {
             it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
