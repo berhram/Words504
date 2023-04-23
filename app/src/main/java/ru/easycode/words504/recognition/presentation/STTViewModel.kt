@@ -17,7 +17,7 @@ abstract class STTViewModel(
     private val recognitionResultCommunication: RecognitionResultCommunication.Mutable,
     private val speechRecognizerEngine: SpeechRecognizerEngine,
     private val manageResources: ManageResources,
-    private val sttHandleError: STTHandleError,
+    private val sttHandleError: STTHandleError
 ) : ViewModel(),
     Init,
     HandlePermissionGranted,
@@ -47,7 +47,7 @@ abstract class STTViewModel(
 
     override fun observeRequestPermission(
         owner: LifecycleOwner,
-        observer: Observer<RequestPermission>,
+        observer: Observer<RequestPermission>
     ) {
         permissionCommunication.observe(owner, observer)
     }
@@ -71,14 +71,14 @@ class TestSTTViewModel(
     recognitionResultCommunication: RecognitionResultCommunication.Mutable,
     speechRecognizerEngine: SpeechRecognizerEngine,
     manageResources: ManageResources,
-    sttHandleError: STTHandleError,
+    sttHandleError: STTHandleError
 ) : STTViewModel(
     requestPermission,
     permissionCommunication,
     recognitionResultCommunication,
     speechRecognizerEngine,
     manageResources,
-    sttHandleError,
+    sttHandleError
 ) {
     override fun permissionCallback(granted: Boolean) {
         // todo предупредить

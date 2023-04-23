@@ -6,7 +6,11 @@ import android.os.Build
 import ru.easycode.words504.recognition.data.SpeechRecognizerEngine
 import ru.easycode.words504.recognition.domain.STTHandleError
 import ru.easycode.words504.recognition.domain.ToSTTUiError
-import ru.easycode.words504.recognition.presentation.*
+import ru.easycode.words504.recognition.presentation.HandlePermissionGranted
+import ru.easycode.words504.recognition.presentation.PermissionCommunication
+import ru.easycode.words504.recognition.presentation.RecognitionResultCommunication
+import ru.easycode.words504.recognition.presentation.RequestPermission
+import ru.easycode.words504.recognition.presentation.TestSTTViewModel
 
 class STTModule(private val context: Context, private val core: CoreModule) :
     Module<TestSTTViewModel> {
@@ -17,10 +21,11 @@ class STTModule(private val context: Context, private val core: CoreModule) :
                 viewModel.permissionCallback(granted)
             }
         }
-        val requestPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
+        val requestPermission = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             RequestPermission.AboveM(RECORD_AUDIO, handlePermissionGranted)
-        else
+        } else {
             RequestPermission.UnderM(handlePermissionGranted)
+        }
 
         viewModel = TestSTTViewModel(
             requestPermission,
@@ -32,6 +37,4 @@ class STTModule(private val context: Context, private val core: CoreModule) :
         )
         return viewModel
     }
-
-
 }

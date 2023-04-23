@@ -18,12 +18,16 @@ class TestVoiceRecognitionFragment : BaseFragment<TestSTTViewModel>() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.fragment_test_voice_recognition, container, false)
+    ): View? = inflater.inflate(
+        R.layout.fragment_test_voice_recognition,
+        container,
+        false
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val launcher =
-            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
                 viewModel.permissionCallback(isGranted)
             }
 
