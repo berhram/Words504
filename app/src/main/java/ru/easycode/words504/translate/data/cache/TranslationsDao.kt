@@ -11,8 +11,8 @@ interface TranslationsDao {
 
     @Query(
         "SELECT EXISTS(" +
-                "SELECT * FROM translations_table " +
-                "WHERE id = :id AND targetLang = :targetLang)"
+            "SELECT * FROM translations_table " +
+            "WHERE id = :id AND targetLang = :targetLang)"
     )
     fun containsTranslation(id: String, targetLang: String): Boolean
 
