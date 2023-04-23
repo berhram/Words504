@@ -4,12 +4,12 @@ import android.content.Context
 import ru.easycode.words504.admintools.sl.AdminScopeModule
 import ru.easycode.words504.admintools.sl.ProvideAdminScopeModule
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
-import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
-import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
-import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.data.cache.serialization.Serialization
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 import ru.easycode.words504.data.cache.storage.SimpleStorage
+import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
+import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
+import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.NavigationCommunication
 
 interface CoreModule :
