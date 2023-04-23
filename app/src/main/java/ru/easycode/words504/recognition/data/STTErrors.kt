@@ -9,7 +9,7 @@ interface STTError {
     fun string(manageResources: ManageResources): String
 
     abstract class Abstract(
-        @StringRes protected open val errorMessage: Int,
+        @StringRes protected open val errorMessage: Int
     ) : STTError {
         override fun string(manageResources: ManageResources) = manageResources.string(errorMessage)
     }
