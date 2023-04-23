@@ -10,8 +10,8 @@ import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.presentation.DispatchersList
-import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.ManageResources
+import ru.easycode.words504.presentation.NavigationCommunication
 
 interface CoreModule :
     ProvideSharedPreferences,
