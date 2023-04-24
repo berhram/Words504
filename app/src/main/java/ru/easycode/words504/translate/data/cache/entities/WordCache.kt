@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "WordCache")
+@Entity(tableName = "words_table")
 data class WordCache(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
