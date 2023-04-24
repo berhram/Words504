@@ -25,10 +25,6 @@ abstract class STTViewModel(
     SpeechRecognizer,
     ObserveRequestPermission {
 
-    override fun init(isFirstRun: Boolean) {
-        permissionCommunication.map(requestPermission)
-    }
-
     private val callback = object : SpeechRecognizerCallback {
         override fun started() {
             recognitionResultCommunication.map(
@@ -45,12 +41,16 @@ abstract class STTViewModel(
         }
     }
 
+    override fun init(isFirstRun: Boolean) {
+        if (isFirstRun) {
+            permissionCommunication.map(requestPermission)
+        }
+    }
+
     override fun observeRequestPermission(
         owner: LifecycleOwner,
         observer: Observer<RequestPermission>
-    ) {
-        permissionCommunication.observe(owner, observer)
-    }
+    ) = permissionCommunication.observe(owner, observer)
 
     override fun startRecord() {
         speechRecognizerEngine.start(callback)
