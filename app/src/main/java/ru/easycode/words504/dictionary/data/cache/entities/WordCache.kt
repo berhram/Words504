@@ -1,4 +1,4 @@
-package ru.easycode.words504.translate.data.cache.entities
+package ru.easycode.words504.dictionary.data.cache.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
