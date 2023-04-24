@@ -26,6 +26,13 @@
         android:layout_height="wrap_content"
         android:padding="16dp" />
 
+    <Button
+        android:id="@+id/testButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/button_test" />
+
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

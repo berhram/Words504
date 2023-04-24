@@ -10,6 +10,7 @@ import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.data.cloud.ProvideLoggingInterceptor
 import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.presentation.DispatchersList
+import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.presentation.NavigationCommunication
 
 interface CoreModule :
@@ -17,7 +18,8 @@ interface CoreModule :
     ProvideAdminScopeModule,
     ProvideHttpClientBuilder,
     ProvideNavigation,
-    ProvideObjectStorage {
+    ProvideObjectStorage,
+    ManageResources {
 
     fun provideDispatchers(): DispatchersList
 
@@ -41,6 +43,8 @@ interface CoreModule :
         }
 
         private val dispatchers: DispatchersList = DispatchersList.Base()
+        private val manageResources: ManageResources = ManageResources.Base(context)
+
         private val adminScopeModule = AdminScopeModule.Base()
         private val navigation = NavigationCommunication.Base()
 
@@ -52,6 +56,8 @@ interface CoreModule :
         override fun provideDispatchers(): DispatchersList = dispatchers
 
         override fun sharedPreferences() = sharedPref.sharedPreferences()
+
+        override fun string(id: Int): String = manageResources.string(id)
 
         override fun provideAdminScope() = adminScopeModule
 
