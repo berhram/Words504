@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
-import ru.easycode.words504.admintools.presentation.SaveAndReadWordUi
 import ru.easycode.words504.admintools.presentation.WordUi
 import ru.easycode.words504.databinding.WordsUiLayoutBinding
 
