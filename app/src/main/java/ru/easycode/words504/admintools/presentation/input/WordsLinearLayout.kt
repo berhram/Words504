@@ -16,6 +16,10 @@ class WordsLinearLayout : LinearLayout, WordsUiContainer {
         defStyleAttr
     )
 
+    init {
+        orientation = VERTICAL
+    }
+
     override fun save(data: List<WordUi>) = data.forEach {
         addView(WordsUiView(context).apply { save(it) })
     }
