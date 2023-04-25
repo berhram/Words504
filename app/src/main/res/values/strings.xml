@@ -2,4 +2,5 @@
     <string name="app_name">Words504</string>
     <string name="progress_text">%1$d out of %2$d</string>
     <string name="load_coroutines">go to load-coroutines</string>
+    <string name="choose_you_language">Choose you language</string>
 </resources>
