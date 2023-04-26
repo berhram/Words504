@@ -2,24 +2,37 @@ package ru.easycode.words504.initial.presentation
 
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Test
+import ru.easycode.words504.BaseTest
 import ru.easycode.words504.MainScreen
+import ru.easycode.words504.languages.presentation.ChooseLanguageScreen
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
 
-class InitialViewModelTest {
+class InitialViewModelTest : BaseTest() {
+
+    private lateinit var interactor: FakeInitialInteractor
+    private lateinit var communication: FakeInitialCommunication
+    private lateinit var navigation: FakeNavigation
+    private lateinit var viewModel: InitialViewModel
+
+    @Before
+    fun setup() {
+        interactor = FakeInitialInteractor()
+        communication = FakeInitialCommunication()
+        navigation = FakeNavigation()
+        viewModel = InitialViewModel(
+            interactor = interactor,
+            communication = communication,
+            navigation = navigation,
+            dispatchers = TestDispatchersList()
+        )
+    }
 
     @Test
     fun `first opening success`() = runBlocking {
-        val interactor = FakeInitialInteractor(InitialResult.FirstOpening())
-        val communication = FakeInitialCommunication()
-        val navigation = FakeNavigation()
-        val viewModel = InitialViewModel(
-            interactor = interactor,
-            communication = communication,
-            navigation = navigation
-        )
-
+        interactor.result = InitialResult.FirstOpening()
         viewModel.init()
         assertEquals(InitialUiState.Loading, communication.list[0])
         assertEquals(ChooseLanguageScreen, navigation.list[0])
@@ -27,15 +40,7 @@ class InitialViewModelTest {
 
     @Test
     fun `not first opening success`() = runBlocking {
-        val interactor = FakeInitialInteractor(InitialResult.NotFirstOpening())
-        val communication = FakeInitialCommunication()
-        val navigation = FakeNavigation()
-        val viewModel = InitialViewModel(
-            interactor = interactor,
-            communication = communication,
-            navigation = navigation
-        )
-
+        interactor.result = InitialResult.NotFirstOpening()
         viewModel.init()
         assertEquals(InitialUiState.Loading, communication.list[0])
         assertEquals(MainScreen, navigation.list[0])
@@ -43,15 +48,7 @@ class InitialViewModelTest {
 
     @Test
     fun `first opening failure then retry and success`() = runBlocking {
-        val interactor = FakeInitialInteractor(InitialResult.Error(message = "no connection"))
-        val communication = FakeInitialCommunication()
-        val navigation = FakeNavigation()
-        val viewModel = InitialViewModel(
-            interactor = interactor,
-            communication = communication,
-            navigation = navigation
-        )
-
+        interactor.result = InitialResult.Error(message = "no connection")
         viewModel.init()
         assertEquals(InitialUiState.Loading, communication.list[0])
         assertEquals(InitialUiState.Error(message = "no connection"), communication.list[1])
@@ -62,7 +59,10 @@ class InitialViewModelTest {
     }
 }
 
-private class FakeInitialInteractor(var result: InitialResult) : InitialInteractor {
+private class FakeInitialInteractor : InitialInteractor {
+
+    lateinit var result: InitialResult
+
     override suspend fun init(): InitialResult {
         return result
     }
@@ -84,5 +84,4 @@ private class FakeNavigation : NavigationCommunication.Update {
     override fun map(source: Screen) {
         list.add(source)
     }
-
 }
