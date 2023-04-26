@@ -1,7 +1,6 @@
 package ru.easycode.words504.admintools.sl
 
 import android.content.Context
-import android.content.SharedPreferences
 import ru.easycode.words504.admintools.data.AdminToolsSharedPreferences
 import ru.easycode.words504.admintools.presentation.SentenceUiCache
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
@@ -13,7 +12,13 @@ import ru.easycode.words504.sl.ProvideNavigation
 import ru.easycode.words504.sl.ProvideObjectStorage
 import ru.easycode.words504.sl.ProvideSimpleStorage
 
-interface AdminScopeModule : ProvideNavigation, ProvideSentenceUiCache, ProvideSimpleStorage, ProvideObjectStorage, ProvideSharedPreferences {
+interface AdminScopeModule :
+    ProvideNavigation,
+    ProvideSentenceUiCache,
+    ProvideSimpleStorage,
+    ProvideObjectStorage,
+    ProvideSharedPreferences {
+
     class Base(context: Context) : AdminScopeModule {
 
         private val navigationCommunication = NavigationCommunication.Base()
