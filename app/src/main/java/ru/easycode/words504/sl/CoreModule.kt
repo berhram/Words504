@@ -45,7 +45,7 @@ interface CoreModule :
         private val dispatchers: DispatchersList = DispatchersList.Base()
         private val manageResources: ManageResources = ManageResources.Base(context)
 
-        private val adminScopeModule = AdminScopeModule.Base(isDebug, context)
+        private val adminScopeModule = AdminScopeModule.Base(context)
         private val navigation = NavigationCommunication.Base()
 
         private val objectStorage = ObjectStorage.Base(
