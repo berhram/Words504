@@ -34,7 +34,7 @@ class InitialViewModelTest : BaseTest() {
 
     @Test
     fun `first opening success`() = runBlocking {
-        interactor.map(InitialResult.FirstOpening())
+        interactor.changeExpected(InitialResult.FirstOpening())
         viewModel.init()
         communication.same(InitialUiState.Loading, 0)
         navigation.same(ChooseLanguageScreen, 0)
@@ -42,7 +42,7 @@ class InitialViewModelTest : BaseTest() {
 
     @Test
     fun `not first opening success`() = runBlocking {
-        interactor.map(InitialResult.NotFirstOpening())
+        interactor.changeExpected(InitialResult.NotFirstOpening())
         viewModel.init()
         communication.same(InitialUiState.Loading, 0)
         navigation.same(MainScreen, 0)
@@ -50,11 +50,11 @@ class InitialViewModelTest : BaseTest() {
 
     @Test
     fun `first opening failure then retry and success`() = runBlocking {
-        interactor.map(InitialResult.Error(message = "no connection"))
+        interactor.changeExpected(InitialResult.Error(message = "no connection"))
         viewModel.init()
         communication.same(InitialUiState.Loading, 0)
         communication.same(InitialUiState.Error(message = "no connection"), 1)
-        interactor.map(InitialResult.FirstOpening())
+        interactor.changeExpected(InitialResult.FirstOpening())
         viewModel.retry()
         communication.same(InitialUiState.Loading, 2)
         navigation.same(ChooseLanguageScreen, 0)
@@ -65,15 +65,15 @@ private interface FakeInitialInteractor : InitialInteractor {
 
     fun same(other: InitialResult)
 
-    fun map(source: InitialResult)
+    fun changeExpected(expected: InitialResult)
 
     class Base : FakeInitialInteractor {
         private lateinit var result: InitialResult
 
         override fun same(other: InitialResult) = assertEquals(result, other)
 
-        override fun map(source: InitialResult) {
-            result = source
+        override fun changeExpected(expected: InitialResult) {
+            result = expected
         }
 
         override suspend fun init(): InitialResult {

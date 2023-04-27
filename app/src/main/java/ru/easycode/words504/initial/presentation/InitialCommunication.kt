@@ -1,5 +1,9 @@
 package ru.easycode.words504.initial.presentation
 
-interface InitialCommunication {
-    fun map(source: InitialUiState)
+import ru.easycode.words504.presentation.Communication
+
+interface InitialCommunication : Communication.Mutable<InitialUiState>{
+
+    class Base : Communication.Abstract<InitialUiState>(), InitialCommunication
 }
+

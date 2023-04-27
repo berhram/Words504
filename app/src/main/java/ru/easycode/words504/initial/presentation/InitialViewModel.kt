@@ -10,8 +10,9 @@ class InitialViewModel(
     private val communication: InitialCommunication,
     private val navigation: NavigationCommunication.Update,
     dispatchers: DispatchersList
-) : BaseViewModel(dispatchers), InitialInit {
+) : BaseViewModel(dispatchers), InitialInit, InitialRetry {
     override fun init() {
+        communication.map(InitialUiState.Loading)
         handle({ interactor.init() }) { initialResult ->
             initialResult.map(communication, navigation)
         }
@@ -24,5 +25,9 @@ class InitialViewModel(
 
 interface InitialInit {
     fun init()
+}
+
+interface InitialRetry{
     fun retry()
 }
+

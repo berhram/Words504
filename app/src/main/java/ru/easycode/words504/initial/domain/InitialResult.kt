@@ -15,7 +15,6 @@ interface InitialResult {
             communication: InitialCommunication,
             navigation: NavigationCommunication.Update
         ) {
-            communication.map(InitialUiState.Loading)
             navigation.map(MainScreen)
         }
     }
@@ -25,7 +24,6 @@ interface InitialResult {
             communication: InitialCommunication,
             navigation: NavigationCommunication.Update
         ) {
-            communication.map(InitialUiState.Loading)
             navigation.map(ChooseLanguageScreen)
         }
     }
@@ -35,7 +33,6 @@ interface InitialResult {
             communication: InitialCommunication,
             navigation: NavigationCommunication.Update
         ) {
-            communication.map(InitialUiState.Loading)
             communication.map(InitialUiState.Error(message))
         }
     }
