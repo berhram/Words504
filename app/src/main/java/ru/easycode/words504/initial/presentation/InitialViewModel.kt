@@ -27,7 +27,7 @@ interface InitialInit {
     fun init()
 }
 
-interface InitialRetry{
+interface InitialRetry {
     fun retry()
 }
 
