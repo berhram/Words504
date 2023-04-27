@@ -6,6 +6,8 @@ import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.MainScreen
+import ru.easycode.words504.initial.domain.InitialInteractor
+import ru.easycode.words504.initial.domain.InitialResult
 import ru.easycode.words504.languages.presentation.ChooseLanguageScreen
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
