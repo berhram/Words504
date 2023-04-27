@@ -3,6 +3,7 @@ package ru.easycode.words504
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
+import java.io.IOException
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -13,7 +14,6 @@ import ru.easycode.words504.dictionary.data.cache.entities.SentenceCache
 import ru.easycode.words504.dictionary.data.cache.entities.WordCache
 import ru.easycode.words504.translate.data.cache.TranslationsDao
 import ru.easycode.words504.translate.data.cache.entities.TranslationCache
-import java.io.IOException
 
 interface WordsDaoTest {
     fun fillFakeWordsTable()
