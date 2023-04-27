@@ -14,7 +14,7 @@ interface SentencesDao {
 
     @Query(
         "SELECT * FROM sentence_table WHERE id IN" +
-            " (SELECT sentenceId FROM words_table WHERE dictionaryForm = :dictionaryForm)",
+            " (SELECT sentenceId FROM words_table WHERE dictionaryForm = :dictionaryForm)"
     )
     fun sentences(dictionaryForm: String): List<SentenceCache>
 
