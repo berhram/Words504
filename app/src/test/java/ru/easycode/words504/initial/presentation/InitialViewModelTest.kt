@@ -21,9 +21,9 @@ class InitialViewModelTest : BaseTest() {
 
     @Before
     fun setup() {
-        interactor = FakeInitialInteractor()
-        communication = FakeInitialCommunication()
-        navigation = FakeNavigation()
+        interactor = FakeInitialInteractor.Base()
+        communication = FakeInitialCommunication.Base()
+        navigation = FakeNavigation.Base()
         viewModel = InitialViewModel(
             interactor = interactor,
             communication = communication,
@@ -34,56 +34,80 @@ class InitialViewModelTest : BaseTest() {
 
     @Test
     fun `first opening success`() = runBlocking {
-        interactor.result = InitialResult.FirstOpening()
+        interactor.map(InitialResult.FirstOpening())
         viewModel.init()
-        assertEquals(InitialUiState.Loading, communication.list[0])
-        assertEquals(ChooseLanguageScreen, navigation.list[0])
+        communication.same(InitialUiState.Loading, 0)
+        navigation.same(ChooseLanguageScreen, 0)
     }
 
     @Test
     fun `not first opening success`() = runBlocking {
-        interactor.result = InitialResult.NotFirstOpening()
+        interactor.map(InitialResult.NotFirstOpening())
         viewModel.init()
-        assertEquals(InitialUiState.Loading, communication.list[0])
-        assertEquals(MainScreen, navigation.list[0])
+        communication.same(InitialUiState.Loading, 0)
+        navigation.same(MainScreen, 0)
     }
 
     @Test
     fun `first opening failure then retry and success`() = runBlocking {
-        interactor.result = InitialResult.Error(message = "no connection")
+        interactor.map(InitialResult.Error(message = "no connection"))
         viewModel.init()
-        assertEquals(InitialUiState.Loading, communication.list[0])
-        assertEquals(InitialUiState.Error(message = "no connection"), communication.list[1])
-        interactor.result = InitialResult.FirstOpening()
+        communication.same(InitialUiState.Loading, 0)
+        communication.same(InitialUiState.Error(message = "no connection"), 1)
+        interactor.map(InitialResult.FirstOpening())
         viewModel.retry()
-        assertEquals(InitialUiState.Loading, communication.list[2])
-        assertEquals(ChooseLanguageScreen, navigation.list[0])
+        communication.same(InitialUiState.Loading, 2)
+        navigation.same(ChooseLanguageScreen, 0)
     }
 }
 
-private class FakeInitialInteractor : InitialInteractor {
+private interface FakeInitialInteractor : InitialInteractor {
 
-    lateinit var result: InitialResult
+    fun same(other: InitialResult)
 
-    override suspend fun init(): InitialResult {
-        return result
+    fun map(source: InitialResult)
+
+    class Base : FakeInitialInteractor {
+        private lateinit var result: InitialResult
+
+        override fun same(other: InitialResult) = assertEquals(result, other)
+
+        override fun map(source: InitialResult) {
+            result = source
+        }
+
+        override suspend fun init(): InitialResult {
+            return result
+        }
     }
 }
 
-private class FakeInitialCommunication : InitialCommunication {
+private interface FakeInitialCommunication : InitialCommunication {
 
-    val list = mutableListOf<InitialUiState>()
+    fun same(other: InitialUiState, index: Int)
 
-    override fun map(source: InitialUiState) {
-        list.add(source)
+    class Base : FakeInitialCommunication {
+        private val list = mutableListOf<InitialUiState>()
+
+        override fun map(source: InitialUiState) {
+            list.add(source)
+        }
+
+        override fun same(other: InitialUiState, index: Int) = assertEquals(list[index], other)
     }
 }
 
-private class FakeNavigation : NavigationCommunication.Update {
+private interface FakeNavigation : NavigationCommunication.Update {
 
-    val list = mutableListOf<Screen>()
+    fun same(other: Screen, index: Int)
 
-    override fun map(source: Screen) {
-        list.add(source)
+    class Base : FakeNavigation {
+        private val list = mutableListOf<Screen>()
+
+        override fun same(other: Screen, index: Int) = assertEquals(list[index], other)
+
+        override fun map(source: Screen) {
+            list.add(source)
+        }
     }
 }
