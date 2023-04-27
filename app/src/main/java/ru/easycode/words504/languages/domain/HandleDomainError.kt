@@ -6,7 +6,6 @@ import retrofit2.HttpException
 import retrofit2.Response
 import ru.easycode.words504.domain.HandleError
 
-
 class HandleDomainError(
     private val httpError: HandleError<Response<*>, Throwable>
 ) : HandleError<Exception, Throwable> {
