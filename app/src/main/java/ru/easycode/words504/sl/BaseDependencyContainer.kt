@@ -8,8 +8,8 @@ import ru.easycode.words504.languages.sl.ChooseLanguageModule
 import ru.easycode.words504.loading.LoadCoroutinesModule
 import ru.easycode.words504.loading.LoadTranslateViewModel
 import ru.easycode.words504.recognition.presentation.TestSTTViewModel
-import ru.easycode.words504.tts.TTSModule
-import ru.easycode.words504.tts.TTSTestViewModelFinal
+import ru.easycode.words504.tts.sl.TTSModule
+import ru.easycode.words504.tts.presentation.TTSTestViewModelFinal
 
 class BaseDependencyContainer(
     private val context: Context,

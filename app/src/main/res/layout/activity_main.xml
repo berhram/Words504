@@ -8,14 +8,11 @@
 
     <Button
         android:id="@+id/buttonTestTTS"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="16dp"
         android:text="Test TTS" />
 
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <Button
         android:id="@+id/gotoAdminButton"
         android:layout_width="match_parent"
@@ -28,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/load_coroutines"/>
+        android:text="@string/load_coroutines" />
 
     <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
         android:id="@+id/wordsIndexesInputLayout"

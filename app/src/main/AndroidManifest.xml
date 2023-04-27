@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".tts.TTSTestActivity"/>
+        <activity android:name=".tts.presentation.TTSTestActivity"/>
         <activity
             android:name=".admintools.presentation.AdminActivity"
             android:exported="false" />
