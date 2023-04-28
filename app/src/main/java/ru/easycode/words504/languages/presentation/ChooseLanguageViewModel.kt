@@ -3,6 +3,7 @@ package ru.easycode.words504.languages.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
+import ru.easycode.words504.MainScreen
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.repository.ChooseLanguageRepository
 import ru.easycode.words504.presentation.Communication
@@ -26,20 +27,16 @@ interface ChooseLanguageViewModel : ChooseLanguage {
             communication.observe(owner, observer)
 
         override fun init(saveAndRestore: SaveAndRestore<LanguageCache>) {
+            val userChoice = if (saveAndRestore.isEmpty())
+                repository.userChoice()
+            else
+                saveAndRestore.restore()
+
             communication.map(
-                if (saveAndRestore.isEmpty()) {
-                    val userChoice = repository.languages()
-                    val languages = userChoice.map {
-                        it.map(object : LanguageCache.Mapper<LanguageUi> {
-                            override fun map(key: String, name: String): LanguageUi {
-                                return LanguageUi.NotChosen(key, name)
-                            }
-                        })
-                    }
-                    ChooseLanguageState.Initial(languages)
+                if (userChoice.isEmpty()) {
+                    ChooseLanguageState.Initial(userChoice.map(mapper))
                 } else {
-                    val restore = saveAndRestore.restore()
-                    ChooseLanguageState.Chosen(restore.map(mapper))
+                    ChooseLanguageState.Chosen(userChoice.map(mapper))
                 }
             )
         }
@@ -56,7 +53,7 @@ interface ChooseLanguageViewModel : ChooseLanguage {
 
         override fun save() {
             repository.save()
-            navigation.map(ChooseLanguageScreen)
+            navigation.map(MainScreen)
         }
     }
 }

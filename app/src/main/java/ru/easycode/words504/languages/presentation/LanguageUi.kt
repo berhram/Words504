@@ -1,9 +1,10 @@
 package ru.easycode.words504.languages.presentation
 
+import android.graphics.Color
 import android.widget.TextView
-import java.io.Serializable
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.repository.ChooseLanguageRepository
+import java.io.Serializable
 
 interface LanguageUi : Serializable {
 
@@ -27,17 +28,26 @@ interface LanguageUi : Serializable {
     data class NotChosen(
         override val id: String,
         override val value: String
-    ) : Abstract(id, value){
+    ) : Abstract(id, value) {
         override fun click(chooseLanguage: ChooseLanguage) {
             chooseLanguage.choose(id)
+        }
+
+        override fun map(textView: TextView) {
+            super.map(textView)
+            textView.setBackgroundColor(Color.WHITE)
         }
     }
 
     data class Chosen(
         override val id: String,
         override val value: String
-    ) : Abstract(id, value){
+    ) : Abstract(id, value) {
         override fun click(chooseLanguage: ChooseLanguage) = Unit
+        override fun map(textView: TextView) {
+            super.map(textView)
+            textView.setBackgroundColor(Color.RED)
+        }
     }
 }
 

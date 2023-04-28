@@ -36,6 +36,7 @@ class ChooseLanguageViewHolder(view: View, private val clickListener: ClickListe
     RecyclerView.ViewHolder(view) {
     private val lang = itemView.findViewById<TextView>(R.id.tv)
     fun bind(model: LanguageUi) {
+        model.map(lang)
         itemView.setOnClickListener {
             clickListener.click(model)
         }

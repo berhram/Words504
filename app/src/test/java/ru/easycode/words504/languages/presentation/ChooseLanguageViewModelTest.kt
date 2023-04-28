@@ -320,7 +320,7 @@ class ChooseLanguageViewModelTest {
 
         viewModel.save()
         assertEquals(LanguageCache.Base("ru", "Russian"), repository.userChoice())
-        assertEquals(true, navigation.same(MainScreen))
+        navigation.same(MainScreen)
     }
 }
 
@@ -358,12 +358,14 @@ private class FakeSaveAndRestore : SaveAndRestore<LanguageCache> {
 
 private interface FakeNavigation : NavigationCommunication.Update {
 
-    fun same(other: Screen): Boolean
+    fun same(other: Screen)
 
     class Base : FakeNavigation {
         private var screen: Screen? = null
 
-        override fun same(other: Screen): Boolean = screen == other
+        override fun same(other: Screen) {
+            assertEquals(screen, other)
+        }
 
         override fun map(source: Screen) {
             screen = source
