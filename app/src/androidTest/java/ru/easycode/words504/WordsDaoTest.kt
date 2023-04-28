@@ -21,7 +21,7 @@ interface WordsDaoTest {
     fun fillFakeTranslationsTable()
 
     class Base : WordsDaoTest {
-        private lateinit var dataBase: AppDataBase
+        private lateinit var dataBase: AppDataBase.Base
         private lateinit var wordDao: WordsDao
         private lateinit var sentencesDao: SentencesDao
         private lateinit var translationsDao: TranslationsDao
@@ -29,7 +29,7 @@ interface WordsDaoTest {
         @Before
         fun setUp() {
             val context: Context = ApplicationProvider.getApplicationContext()
-            dataBase = Room.inMemoryDatabaseBuilder(context, AppDataBase::class.java)
+            dataBase = Room.inMemoryDatabaseBuilder(context, AppDataBase.Base::class.java)
                 .allowMainThreadQueries()
                 .build()
             wordDao = dataBase.wordsDao()

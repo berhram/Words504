@@ -9,9 +9,15 @@ import ru.easycode.words504.dictionary.data.cache.entities.WordCache
 import ru.easycode.words504.translate.data.cache.TranslationsDao
 import ru.easycode.words504.translate.data.cache.entities.TranslationCache
 
-@Database(entities = [SentenceCache::class, WordCache::class, TranslationCache::class], version = 1)
-abstract class AppDataBase : RoomDatabase() {
-    abstract fun wordsDao(): WordsDao
-    abstract fun sentencesDao(): SentencesDao
-    abstract fun translationDao(): TranslationsDao
+interface AppDataBase {
+
+    @Database(
+        entities = [SentenceCache::class, WordCache::class, TranslationCache::class],
+        version = 1
+    )
+    abstract class Base : RoomDatabase(), AppDataBase {
+        abstract fun wordsDao(): WordsDao
+        abstract fun sentencesDao(): SentencesDao
+        abstract fun translationDao(): TranslationsDao
+    }
 }
