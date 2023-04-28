@@ -14,7 +14,7 @@ interface LanguagesCacheDataSource {
     ) : LanguagesCacheDataSource, Mutable {
 
         override fun read(): List<LanguageCache> {
-            val defaultLanguages = emptyList<LanguageCache>()
+            val defaultLanguages = mutableListOf<LanguageCache.Base>()
             return objectStorage.read(languagesKey, defaultLanguages)
         }
 

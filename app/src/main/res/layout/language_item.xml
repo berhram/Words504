@@ -9,6 +9,7 @@
     app:cardCornerRadius="16dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <TextView
+        android:id="@+id/tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="#1C1B1F"
