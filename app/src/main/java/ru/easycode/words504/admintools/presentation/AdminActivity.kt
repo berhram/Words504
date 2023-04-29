@@ -13,6 +13,11 @@ class AdminActivity : BaseActivity<AdminViewModel>() {
         viewModel.observe(this) {
             it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
+
+        supportFragmentManager.beginTransaction()
+            .replace(binding.adminContainer.id, AdminFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onBackPressed() = Unit

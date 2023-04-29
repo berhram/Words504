@@ -4,12 +4,40 @@
     android:id="@+id/fragmentAdmin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="bottom"
     android:orientation="vertical">
 
-    <ru.easycode.words504.admintools.presentation.input.WordsLinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/adminFragmentToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/sentence_block"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
+        android:id="@+id/wordsIndexesInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:padding="16dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <ru.easycode.words504.admintools.presentation.input.WordsLinearLayout
+            android:id="@+id/wordsLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/adminAddButton"
@@ -18,10 +46,10 @@
         android:layout_gravity="end"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/add_fab_16"
         android:backgroundTint="#E91E63"
-        app:tint="@color/white"
-        android:contentDescription="@string/add_new_block" />
+        android:contentDescription="@string/add_new_block"
+        android:src="@drawable/add_fab_16"
+        app:tint="@color/white" />
 
     <Button
         android:id="@+id/adminSaveButton"
@@ -30,8 +58,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
-        app:backgroundTint="@null"
         android:background="@drawable/rounded_corner"
-        android:text="@string/admin_save" />
+        android:text="@string/admin_save"
+        app:backgroundTint="@null" />
 
 </LinearLayout>
