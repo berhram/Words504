@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.easycode.words504.R
 import ru.easycode.words504.databinding.FragmentAdminBinding
 import ru.easycode.words504.presentation.BaseFragment
 
@@ -25,11 +24,8 @@ class AdminFragment : BaseFragment<AdminViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.adminFragmentToolbar.apply {
-            setNavigationIcon(R.drawable.baseline_arrow_back_24)
-            setOnClickListener { }
-        }
+        binding.adminFragmentToolbar.setOnClickListener { }
+        binding.adminAddButton.setOnClickListener { binding.wordsLinearLayout.add() }
     }
 
     override fun onDestroyView() {
