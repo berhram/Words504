@@ -31,7 +31,4 @@ interface WordsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(word: WordCache)
-
-    @Query("DELETE FROM words_table WHERE id = :id")
-    fun deleteWord(id: Int)
 }

@@ -3,7 +3,6 @@ package ru.easycode.words504
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import java.io.IOException
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -14,6 +13,7 @@ import ru.easycode.words504.dictionary.data.cache.entities.SentenceCache
 import ru.easycode.words504.dictionary.data.cache.entities.WordCache
 import ru.easycode.words504.translate.data.cache.TranslationsDao
 import ru.easycode.words504.translate.data.cache.entities.TranslationCache
+import java.io.IOException
 
 interface WordsDaoTest {
     fun fillFakeWordsTable()
@@ -35,6 +35,8 @@ interface WordsDaoTest {
             wordDao = dataBase.wordsDao()
             translationsDao = dataBase.translationDao()
             sentencesDao = dataBase.sentencesDao()
+
+            //todo move inserts here
         }
 
         @After
@@ -44,14 +46,14 @@ interface WordsDaoTest {
         }
 
         override fun fillFakeWordsTable() {
-            wordDao.insert(WordCache(1, "А", 0, "а", 1))
-            wordDao.insert(WordCache(2, "Бе", 2, "б", 1))
+            wordDao.insert(WordCache(1, "He", 0, "а", 1))
+            wordDao.insert(WordCache(2, "goes", 2, "б", 1))
             wordDao.insert(WordCache(3, "В", 4, "в", 1))
             wordDao.insert(WordCache(4, "Г", 6, "г", 1))
             wordDao.insert(WordCache(5, "Д", 8, "д", 1))
 
-            wordDao.insert(WordCache(10, "У", 0, "у", 2))
-            wordDao.insert(WordCache(11, "Бо", 2, "б", 2))
+            wordDao.insert(WordCache(10, "She", 0, "у", 2))
+            wordDao.insert(WordCache(11, "went", 2, "б", 2))
             wordDao.insert(WordCache(12, "Ж", 4, "ж", 2))
             wordDao.insert(WordCache(13, "З", 6, "з", 2))
             wordDao.insert(WordCache(14, "К", 8, "к", 2))
@@ -63,7 +65,7 @@ interface WordsDaoTest {
         }
 
         override fun fillFakeTranslationsTable() {
-            translationsDao.insert(TranslationCache("А", "АА", "1"))
+            translationsDao.insert(TranslationCache("to go", "идти", "ru"))
             translationsDao.insert(TranslationCache("Бе", "БеБе", "1"))
             translationsDao.insert(TranslationCache("В", "ВВ", "1"))
             translationsDao.insert(TranslationCache("Г", "ГГ", "1"))
@@ -75,6 +77,36 @@ interface WordsDaoTest {
             translationsDao.insert(TranslationCache("З", "ЗЗ", "1"))
             translationsDao.insert(TranslationCache("К", "КК", "1"))
         }
+
+        @Test
+        fun test_scenario() {
+            val sourceWord = "to go"
+            val translation = translationsDao.translation(sourceWord)
+            //assert
+            val sentences = sentencesDao.sentences(sourceWord)
+            val wordComboList = sentences.map { sentence ->
+                val sentenceTranslation = translationsDao.translation(sentence.id.toString())
+                val words = wordDao.words(sentence.id)
+                val translations = words.map { word ->
+                    translationsDao.translation(word.dictionaryForm)
+                }
+
+                //assert
+                Combo()//todo
+            }
+            assertEquals(expectedCombo, combo)
+        }
+
+        private data class Combo(
+            val sentence: SentenceCache,
+            val sentenceTranslation: TranslationCache,
+            val words: List<WordCombo>
+        )
+
+        private data class WordCombo(
+            val wordCache: WordCache,
+            val translationCache: TranslationCache
+        )
 
         @Test
         fun test_all_words_by_dictionary_form() {
