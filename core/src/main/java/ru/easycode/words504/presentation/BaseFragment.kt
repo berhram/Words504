@@ -17,7 +17,7 @@ abstract class BaseFragment<T : ViewModel, V : ViewBinding> : Fragment() {
     protected abstract val viewModelClass: Class<T>
     protected val binding get() = _binding!!
 
-    abstract fun fragmentBinding(inflater: LayoutInflater, container: ViewGroup?): V
+    protected abstract fun fragmentBinding(inflater: LayoutInflater, container: ViewGroup?): V
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

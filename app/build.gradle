@@ -38,9 +38,6 @@ android {
     sourceSets {
         test.java.srcDirs += ["${project(':core').projectDir}/src/test/java"]
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
