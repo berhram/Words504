@@ -25,19 +25,10 @@ class AdminFragment : BaseFragment<AdminViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.observe(this) { }
 
         binding.adminFragmentToolbar.apply {
             setNavigationIcon(R.drawable.baseline_arrow_back_24)
             setOnClickListener { }
-        }
-
-        binding.adminAddButton.setOnClickListener {
-            binding.wordsLinearLayout.add()
-        }
-        binding.adminSaveButton.setOnClickListener {
-            val read = binding.wordsLinearLayout.read()
-            binding.wordsLinearLayout.save(read)
         }
     }
 
