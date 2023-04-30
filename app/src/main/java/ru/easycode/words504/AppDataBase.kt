@@ -10,12 +10,12 @@ import ru.easycode.words504.translate.data.cache.entities.TranslationCache
 
 interface AppDataBase {
 
+    fun wordsDao(): WordsDao
+    fun translationDao(): TranslationsDao
+
     @Database(
         entities = [SentenceCache::class, WordCache::class, TranslationCache::class],
         version = 1
     )
-    abstract class Base : RoomDatabase(), AppDataBase {
-        abstract fun wordsDao(): WordsDao
-        abstract fun translationDao(): TranslationsDao
-    }
+    abstract class Base : RoomDatabase(), AppDataBase
 }
