@@ -68,7 +68,6 @@ class InitialViewModelTest : BaseTest() {
         functionsCallsStack.checkStack(6)
     }
 
-
     private interface FakeInitialInteractor : InitialInteractor {
 
         fun same(other: InitialResult)

@@ -24,10 +24,3 @@ interface InitialInteractor {
         }
     }
 }
-
-interface InitialRepository {
-
-    fun userHasChosenLanguage(): Boolean
-
-    suspend fun init()
-}

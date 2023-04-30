@@ -48,7 +48,7 @@ abstract class BaseTest {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     protected class TestDispatchersList(
-        private val dispatcher: CoroutineDispatcher = UnconfinedTestDispatcher(),
+        private val dispatcher: CoroutineDispatcher = UnconfinedTestDispatcher()
     ) : DispatchersList {
         override fun io(): CoroutineDispatcher = dispatcher
 
