@@ -6,6 +6,7 @@ import androidx.test.core.app.ApplicationProvider
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.words504.dictionary.data.cache.DictionaryDataBase
 import ru.easycode.words504.dictionary.data.cache.WordsDao
 import ru.easycode.words504.dictionary.data.cache.entities.SentenceCache
 import ru.easycode.words504.dictionary.data.cache.entities.WordCache
@@ -13,14 +14,14 @@ import ru.easycode.words504.translate.data.cache.TranslationsDao
 import ru.easycode.words504.translate.data.cache.entities.TranslationCache
 
 class WordsDaoTest {
-    private lateinit var dataBase: AppDataBase.Base
+    private lateinit var dataBase: DictionaryDataBase.Base
     private lateinit var wordsDao: WordsDao
     private lateinit var translationsDao: TranslationsDao
 
     @Before
     fun setUp() {
         val context: Context = ApplicationProvider.getApplicationContext()
-        dataBase = Room.inMemoryDatabaseBuilder(context, AppDataBase.Base::class.java)
+        dataBase = Room.inMemoryDatabaseBuilder(context, DictionaryDataBase.Base::class.java)
             .allowMainThreadQueries()
             .build()
         wordsDao = dataBase.wordsDao()
