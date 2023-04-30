@@ -6,6 +6,7 @@ import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import okhttp3.Request
 import okio.Timeout
 import org.junit.Assert
+import org.junit.Before
 import retrofit2.Call
 import retrofit2.Callback
 import ru.easycode.words504.data.cache.storage.ObjectStorage
@@ -16,6 +17,7 @@ abstract class BaseTest {
 
     protected lateinit var functionsCallsStack: FunctionsCallsStack
 
+    @Before
     open fun init() {
         functionsCallsStack = FunctionsCallsStack.Base()
     }
@@ -44,7 +46,6 @@ abstract class BaseTest {
         }
     }
 
-
     @OptIn(ExperimentalCoroutinesApi::class)
     protected class TestDispatchersList(
         private val dispatcher: CoroutineDispatcher = UnconfinedTestDispatcher(),
@@ -56,8 +57,7 @@ abstract class BaseTest {
 
     protected class FakeSimpleStorage : SimpleStorage {
         private val map = mutableMapOf<String, String>()
-        override fun read(key: String, default: String): String =
-            map.getOrDefault(key, default)
+        override fun read(key: String, default: String): String = map.getOrDefault(key, default)
 
         override fun save(key: String, value: String) {
             map[key] = value

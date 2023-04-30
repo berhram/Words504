@@ -2,7 +2,6 @@ package ru.easycode.words504.initial.domain
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
-import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.domain.HandleError
@@ -16,8 +15,7 @@ class InitialInteractorTest : BaseTest() {
     private lateinit var handleError: FakeHandleError
     private lateinit var interactor: InitialInteractor
 
-    @Before
-    fun setUp() {
+    override fun init() {
         super.init()
         repository = FakeRepository.Base(functionsCallsStack)
         handleError = FakeHandleError.Base(functionsCallsStack)
@@ -96,8 +94,7 @@ class InitialInteractorTest : BaseTest() {
 
             override suspend fun init() {
                 functionsCallsStack.put(INIT_CALLED)
-                if (initCalledSuccessfully == false)
-                    throw FakeException()
+                if (initCalledSuccessfully == false) throw FakeException()
             }
 
             companion object {
@@ -122,8 +119,7 @@ class InitialInteractorTest : BaseTest() {
 
             override fun handle(source: Exception): String {
                 functionsCallsStack.put(HANDLE_CALLED)
-                if (source is FakeException)
-                    return "something went wrong"
+                if (source is FakeException) return "something went wrong"
                 throw java.lang.IllegalStateException("unknown exception type $source")
             }
 
