@@ -18,7 +18,7 @@ abstract class BaseTest {
     protected lateinit var functionsCallsStack: FunctionsCallsStack
 
     @Before
-    open fun init() {
+    fun init() {
         functionsCallsStack = FunctionsCallsStack.Base()
     }
 

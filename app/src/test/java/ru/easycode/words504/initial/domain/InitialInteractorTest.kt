@@ -2,6 +2,7 @@ package ru.easycode.words504.initial.domain
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.domain.HandleError
@@ -15,8 +16,8 @@ class InitialInteractorTest : BaseTest() {
     private lateinit var handleError: FakeHandleError
     private lateinit var interactor: InitialInteractor
 
-    override fun init() {
-        super.init()
+    @Before
+    fun setup() {
         repository = FakeRepository.Base(functionsCallsStack)
         handleError = FakeHandleError.Base(functionsCallsStack)
         interactor = InitialInteractor.Base(repository = repository, handleError = handleError)

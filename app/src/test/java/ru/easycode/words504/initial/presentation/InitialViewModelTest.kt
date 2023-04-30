@@ -2,6 +2,7 @@ package ru.easycode.words504.initial.presentation
 
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.MainScreen
@@ -18,8 +19,8 @@ class InitialViewModelTest : BaseTest() {
     private lateinit var navigation: FakeNavigation
     private lateinit var viewModel: InitialViewModel
 
-    override fun init() {
-        super.init()
+    @Before
+    fun setup() {
         interactor = FakeInitialInteractor.Base(functionsCallsStack)
         communication = FakeInitialCommunication.Base(functionsCallsStack)
         navigation = FakeNavigation.Base(functionsCallsStack)
