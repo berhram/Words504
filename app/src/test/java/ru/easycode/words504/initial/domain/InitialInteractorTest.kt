@@ -128,6 +128,5 @@ class InitialInteractorTest : BaseTest() {
                 const val HANDLE_CALLED = "HANDLE_CALLED"
             }
         }
-
     }
 }
