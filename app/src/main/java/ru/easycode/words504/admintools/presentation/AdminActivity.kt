@@ -4,8 +4,8 @@ import android.os.Bundle
 import ru.easycode.words504.databinding.ActivityAdminBinding
 import ru.easycode.words504.presentation.BaseActivity
 
-class AdminActivity : BaseActivity<AdminViewModel>() {
-    override val viewModelClass = AdminViewModel::class.java
+class AdminActivity : BaseActivity<AdminSentenceViewModel>() {
+    override val viewModelClass = AdminSentenceViewModel::class.java
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAdminBinding.inflate(layoutInflater)
@@ -13,11 +13,9 @@ class AdminActivity : BaseActivity<AdminViewModel>() {
         viewModel.observe(this) {
             it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
-
-        supportFragmentManager.beginTransaction()
-            .replace(binding.adminContainer.id, AdminFragment())
-            .addToBackStack(null)
-            .commit()
+        if (savedInstanceState == null) {
+            viewModel.navigate(AdminSentenceScreen)
+        }
     }
 
     override fun onBackPressed() = Unit

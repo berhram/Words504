@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import ru.easycode.words504.databinding.FragmentAdminBinding
 import ru.easycode.words504.presentation.BaseFragment
 
-class AdminFragment : BaseFragment<AdminViewModel>() {
+class AdminSentenceFragment : BaseFragment<AdminSentenceViewModel>() {
 
-    override val viewModelClass = AdminViewModel::class.java
+    override val viewModelClass = AdminSentenceViewModel::class.java
     private var _binding: FragmentAdminBinding? = null
     private val binding get() = _binding!!
 
@@ -24,8 +24,15 @@ class AdminFragment : BaseFragment<AdminViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.adminFragmentToolbar.setOnClickListener { }
+        binding.adminFragmentToolbar.setNavigationOnClickListener { viewModel.navigateBack() }
         binding.adminAddButton.setOnClickListener { binding.wordsLinearLayout.add() }
+        binding.adminSaveButton.setOnClickListener {
+            val read = binding.wordsLinearLayout.read()
+            with(binding.wordsLinearLayout) {
+                removeAllViews()
+                save(read)
+            }
+        }
     }
 
     override fun onDestroyView() {
