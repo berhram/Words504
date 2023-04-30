@@ -18,12 +18,14 @@ class InitialViewModelTest : BaseTest() {
     private lateinit var communication: FakeInitialCommunication
     private lateinit var navigation: FakeNavigation
     private lateinit var viewModel: InitialViewModel
+    private lateinit var functionCallsStack: FunctionCallsStack
 
     @Before
     fun setup() {
-        interactor = FakeInitialInteractor.Base()
-        communication = FakeInitialCommunication.Base()
-        navigation = FakeNavigation.Base()
+        functionCallsStack = FunctionCallsStack.Base()
+        interactor = FakeInitialInteractor.Base(functionCallsStack)
+        communication = FakeInitialCommunication.Base(functionCallsStack)
+        navigation = FakeNavigation.Base(functionCallsStack)
         viewModel = InitialViewModel(
             interactor = interactor,
             communication = communication,
@@ -34,30 +36,38 @@ class InitialViewModelTest : BaseTest() {
 
     @Test
     fun `first opening success`() = runBlocking {
-        interactor.changeExpected(InitialResult.FirstOpening())
+        interactor.changeExpected(InitialResult.FirstOpening)
         viewModel.init()
-        communication.same(InitialUiState.Loading, 0)
-        navigation.same(ChooseLanguageScreen, 0)
+        communication.same(InitialUiState.Loading)
+        interactor.same(InitialResult.FirstOpening)
+        navigation.same(ChooseLanguageScreen)
+        functionCallsStack.checkFunctionsCalledCount(3)
     }
 
     @Test
     fun `not first opening success`() = runBlocking {
-        interactor.changeExpected(InitialResult.NotFirstOpening())
+        interactor.changeExpected(InitialResult.NotFirstOpening)
         viewModel.init()
-        communication.same(InitialUiState.Loading, 0)
-        navigation.same(MainScreen, 0)
+        communication.same(InitialUiState.Loading)
+        interactor.same(InitialResult.NotFirstOpening)
+        navigation.same(MainScreen)
+        functionCallsStack.checkFunctionsCalledCount(3)
     }
 
     @Test
     fun `first opening failure then retry and success`() = runBlocking {
         interactor.changeExpected(InitialResult.Error(message = "no connection"))
         viewModel.init()
-        communication.same(InitialUiState.Loading, 0)
-        communication.same(InitialUiState.Error(message = "no connection"), 1)
-        interactor.changeExpected(InitialResult.FirstOpening())
+        communication.same(InitialUiState.Loading)
+        interactor.same(InitialResult.Error(message = "no connection"))
+        communication.same(InitialUiState.Error(message = "no connection"))
+
+        interactor.changeExpected(InitialResult.FirstOpening)
         viewModel.retry()
-        communication.same(InitialUiState.Loading, 2)
-        navigation.same(ChooseLanguageScreen, 0)
+        communication.same(InitialUiState.Loading)
+        interactor.same(InitialResult.FirstOpening)
+        navigation.same(ChooseLanguageScreen)
+        functionCallsStack.checkFunctionsCalledCount(6)
     }
 }
 
@@ -67,47 +77,96 @@ private interface FakeInitialInteractor : InitialInteractor {
 
     fun changeExpected(expected: InitialResult)
 
-    class Base : FakeInitialInteractor {
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeInitialInteractor {
         private lateinit var result: InitialResult
 
-        override fun same(other: InitialResult) = assertEquals(result, other)
+        override fun same(other: InitialResult) {
+            assertEquals(result, other)
+            functionCallsStack.check(INTERACTOR_CALLED)
+        }
 
         override fun changeExpected(expected: InitialResult) {
             result = expected
         }
 
         override suspend fun init(): InitialResult {
+            functionCallsStack.put(INTERACTOR_CALLED)
             return result
         }
+    }
+
+    companion object {
+        private const val INTERACTOR_CALLED = "interactor#init"
     }
 }
 
 private interface FakeInitialCommunication : InitialCommunication {
 
-    fun same(other: InitialUiState, index: Int)
+    fun same(other: InitialUiState)
 
-    class Base : FakeInitialCommunication {
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeInitialCommunication {
         private val list = mutableListOf<InitialUiState>()
+        private var index = 0
 
         override fun map(source: InitialUiState) {
+            functionCallsStack.put(COMMUNICATION_CALLED)
             list.add(source)
         }
 
-        override fun same(other: InitialUiState, index: Int) = assertEquals(list[index], other)
+        override fun same(other: InitialUiState) {
+            assertEquals(list[index++], other)
+            functionCallsStack.check(COMMUNICATION_CALLED)
+        }
+    }
+
+    companion object {
+        private const val COMMUNICATION_CALLED = "communication#map"
     }
 }
 
 private interface FakeNavigation : NavigationCommunication.Update {
 
-    fun same(other: Screen, index: Int)
+    fun same(other: Screen)
 
-    class Base : FakeNavigation {
-        private val list = mutableListOf<Screen>()
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeNavigation {
+        private lateinit var screen: Screen
 
-        override fun same(other: Screen, index: Int) = assertEquals(list[index], other)
+        override fun same(other: Screen) {
+            assertEquals(screen, other)
+            functionCallsStack.check(NAVIGATION_CALLED)
+        }
 
         override fun map(source: Screen) {
-            list.add(source)
+            functionCallsStack.put(NAVIGATION_CALLED)
+            screen = source
+        }
+
+        companion object {
+            private const val NAVIGATION_CALLED = "navigation#map"
+        }
+    }
+}
+
+private interface FunctionCallsStack {
+
+    fun put(funName: String)
+    fun check(funName: String)
+    fun checkFunctionsCalledCount(count: Int)
+
+    class Base : FunctionCallsStack {
+        private val list = mutableListOf<String>()
+        private var count = 0
+
+        override fun put(funName: String) {
+            list.add(funName)
+        }
+
+        override fun check(funName: String) {
+            assertEquals(funName, list[count++])
+        }
+
+        override fun checkFunctionsCalledCount(count: Int) {
+            assertEquals(count, list.size)
         }
     }
 }
