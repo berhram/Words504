@@ -15,9 +15,9 @@ interface WordsDao {
 
     @Query(
         "SELECT * FROM sentence_table WHERE id IN" +
-            " (SELECT sentenceId FROM words_table WHERE dictionaryForm = :dictionaryForm)",
+            " (SELECT sentenceId FROM words_table WHERE dictionaryForm = :dictionaryForm)"
     )
-    fun sentences(dictionaryForm: String): List<SentenceCache> //
+    fun sentences(dictionaryForm: String): List<SentenceCache>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(sentence: SentenceCache)
