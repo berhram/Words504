@@ -4,21 +4,21 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import ru.easycode.words504.BaseTest
 import ru.easycode.words504.domain.HandleError
 
 /**
  * @author Asatryan on 30.04.2023
  */
-class InitialInteractorTest {
+class InitialInteractorTest : BaseTest() {
 
     private lateinit var repository: FakeRepository
     private lateinit var handleError: FakeHandleError
-    private lateinit var functionsCallsStack: FunctionsCallsStack
     private lateinit var interactor: InitialInteractor
 
     @Before
     fun setUp() {
-        functionsCallsStack = FunctionsCallsStack.Base()
+        super.init()
         repository = FakeRepository.Base(functionsCallsStack)
         handleError = FakeHandleError.Base(functionsCallsStack)
         interactor = InitialInteractor.Base(repository = repository, handleError = handleError)
@@ -132,29 +132,5 @@ class InitialInteractorTest {
             }
         }
 
-    }
-
-    private interface FunctionsCallsStack {
-
-        fun put(funName: String)
-        fun checkCalled(funName: String)
-        fun checkStack(size: Int)
-
-        class Base : FunctionsCallsStack {
-            private val list = mutableListOf<String>()
-            private var count = 0
-
-            override fun put(funName: String) {
-                list.add(funName)
-            }
-
-            override fun checkCalled(funName: String) {
-                assertEquals(funName, list[count++])
-            }
-
-            override fun checkStack(size: Int) {
-                assertEquals(size, list.size)
-            }
-        }
     }
 }
