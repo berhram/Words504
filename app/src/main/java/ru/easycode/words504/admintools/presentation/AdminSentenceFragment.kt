@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import ru.easycode.words504.databinding.FragmentAdminBinding
 import ru.easycode.words504.presentation.BaseFragment
 
-class AdminSentenceFragment : BaseFragment<AdminSentenceViewModel>() {
+class AdminSentenceFragment : BaseFragment<AdminSentenceViewModel.Base>() {
 
-    override val viewModelClass = AdminSentenceViewModel::class.java
+    override val viewModelClass = AdminSentenceViewModel.Base::class.java
     private var _binding: FragmentAdminBinding? = null
     private val binding get() = _binding!!
 

@@ -4,8 +4,8 @@ import android.os.Bundle
 import ru.easycode.words504.databinding.ActivityAdminBinding
 import ru.easycode.words504.presentation.BaseActivity
 
-class AdminActivity : BaseActivity<AdminSentenceViewModel>() {
-    override val viewModelClass = AdminSentenceViewModel::class.java
+class AdminActivity : BaseActivity<AdminActivityViewModel.Base>() {
+    override val viewModelClass = AdminActivityViewModel.Base::class.java
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityAdminBinding.inflate(layoutInflater)

@@ -7,18 +7,20 @@ import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
 
-interface AdminSentenceViewModel {
+interface AdminActivityViewModel {
 
-    fun navigateBack()
+    fun navigate(screen: Screen)
 
     class Base(
         private val navigationCommunication: NavigationCommunication.Mutable
-    ) : ViewModel(), Communication.Observe<Screen>, AdminSentenceViewModel {
+    ) : ViewModel(), Communication.Observe<Screen>, AdminActivityViewModel {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) {
             navigationCommunication.observe(owner, observer)
         }
 
-        override fun navigateBack() = navigationCommunication.map(Screen.Pop)
+        override fun navigate(screen: Screen) {
+            navigationCommunication.map(screen)
+        }
     }
 }
