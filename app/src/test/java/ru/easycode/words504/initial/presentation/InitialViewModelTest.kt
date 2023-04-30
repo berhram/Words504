@@ -18,13 +18,14 @@ class InitialViewModelTest : BaseTest() {
     private lateinit var communication: FakeInitialCommunication
     private lateinit var navigation: FakeNavigation
     private lateinit var viewModel: InitialViewModel
+    private lateinit var functionCallsStack: FunctionCallsStack
 
     @Before
-    fun setUp() {
-        super.init()
-        interactor = FakeInitialInteractor.Base(functionsCallsStack)
-        communication = FakeInitialCommunication.Base(functionsCallsStack)
-        navigation = FakeNavigation.Base(functionsCallsStack)
+    fun setup() {
+        functionCallsStack = FunctionCallsStack.Base()
+        interactor = FakeInitialInteractor.Base(functionCallsStack)
+        communication = FakeInitialCommunication.Base(functionCallsStack)
+        navigation = FakeNavigation.Base(functionCallsStack)
         viewModel = InitialViewModel(
             interactor = interactor,
             communication = communication,
@@ -40,7 +41,7 @@ class InitialViewModelTest : BaseTest() {
         communication.same(InitialUiState.Loading)
         interactor.same(InitialResult.FirstOpening)
         navigation.same(ChooseLanguageScreen)
-        functionsCallsStack.checkStack(3)
+        functionCallsStack.checkFunctionsCalledCount(3)
     }
 
     @Test
@@ -50,7 +51,7 @@ class InitialViewModelTest : BaseTest() {
         communication.same(InitialUiState.Loading)
         interactor.same(InitialResult.NotFirstOpening)
         navigation.same(MainScreen)
-        functionsCallsStack.checkStack(3)
+        functionCallsStack.checkFunctionsCalledCount(3)
     }
 
     @Test
@@ -66,83 +67,106 @@ class InitialViewModelTest : BaseTest() {
         communication.same(InitialUiState.Loading)
         interactor.same(InitialResult.FirstOpening)
         navigation.same(ChooseLanguageScreen)
-        functionsCallsStack.checkStack(6)
+        functionCallsStack.checkFunctionsCalledCount(6)
+    }
+}
+
+private interface FakeInitialInteractor : InitialInteractor {
+
+    fun same(other: InitialResult)
+
+    fun changeExpected(expected: InitialResult)
+
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeInitialInteractor {
+        private lateinit var result: InitialResult
+
+        override fun same(other: InitialResult) {
+            assertEquals(result, other)
+            functionCallsStack.check(INTERACTOR_CALLED)
+        }
+
+        override fun changeExpected(expected: InitialResult) {
+            result = expected
+        }
+
+        override suspend fun init(): InitialResult {
+            functionCallsStack.put(INTERACTOR_CALLED)
+            return result
+        }
     }
 
-    private interface FakeInitialInteractor : InitialInteractor {
+    companion object {
+        private const val INTERACTOR_CALLED = "interactor#init"
+    }
+}
 
-        fun same(other: InitialResult)
+private interface FakeInitialCommunication : InitialCommunication {
 
-        fun changeExpected(expected: InitialResult)
+    fun same(other: InitialUiState)
 
-        class Base(private val functionCallsStack: FunctionsCallsStack) :
-            FakeInitialInteractor {
-            private lateinit var result: InitialResult
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeInitialCommunication {
+        private val list = mutableListOf<InitialUiState>()
+        private var index = 0
 
-            override fun same(other: InitialResult) {
-                assertEquals(result, other)
-                functionCallsStack.checkCalled(INTERACTOR_CALLED)
-            }
+        override fun map(source: InitialUiState) {
+            functionCallsStack.put(COMMUNICATION_CALLED)
+            list.add(source)
+        }
 
-            override fun changeExpected(expected: InitialResult) {
-                result = expected
-            }
+        override fun same(other: InitialUiState) {
+            assertEquals(list[index++], other)
+            functionCallsStack.check(COMMUNICATION_CALLED)
+        }
+    }
 
-            override suspend fun init(): InitialResult {
-                functionCallsStack.put(INTERACTOR_CALLED)
-                return result
-            }
+    companion object {
+        private const val COMMUNICATION_CALLED = "communication#map"
+    }
+}
+
+private interface FakeNavigation : NavigationCommunication.Update {
+
+    fun same(other: Screen)
+
+    class Base(private val functionCallsStack: FunctionCallsStack) : FakeNavigation {
+        private lateinit var screen: Screen
+
+        override fun same(other: Screen) {
+            assertEquals(screen, other)
+            functionCallsStack.check(NAVIGATION_CALLED)
+        }
+
+        override fun map(source: Screen) {
+            functionCallsStack.put(NAVIGATION_CALLED)
+            screen = source
         }
 
         companion object {
-            private const val INTERACTOR_CALLED = "interactor#init"
+            private const val NAVIGATION_CALLED = "navigation#map"
         }
     }
+}
 
-    private interface FakeInitialCommunication : InitialCommunication {
+private interface FunctionCallsStack {
 
-        fun same(other: InitialUiState)
+    fun put(funName: String)
+    fun check(funName: String)
+    fun checkFunctionsCalledCount(count: Int)
 
-        class Base(private val functionCallsStack: FunctionsCallsStack) : FakeInitialCommunication {
-            private val list = mutableListOf<InitialUiState>()
-            private var index = 0
+    class Base : FunctionCallsStack {
+        private val list = mutableListOf<String>()
+        private var count = 0
 
-            override fun map(source: InitialUiState) {
-                functionCallsStack.put(COMMUNICATION_CALLED)
-                list.add(source)
-            }
-
-            override fun same(other: InitialUiState) {
-                assertEquals(list[index++], other)
-                functionCallsStack.checkCalled(COMMUNICATION_CALLED)
-            }
+        override fun put(funName: String) {
+            list.add(funName)
         }
 
-        companion object {
-            private const val COMMUNICATION_CALLED = "communication#map"
+        override fun check(funName: String) {
+            assertEquals(funName, list[count++])
         }
-    }
 
-    private interface FakeNavigation : NavigationCommunication.Update {
-
-        fun same(other: Screen)
-
-        class Base(private val functionCallsStack: FunctionsCallsStack) : FakeNavigation {
-            private lateinit var screen: Screen
-
-            override fun same(other: Screen) {
-                assertEquals(screen, other)
-                functionCallsStack.checkCalled(NAVIGATION_CALLED)
-            }
-
-            override fun map(source: Screen) {
-                functionCallsStack.put(NAVIGATION_CALLED)
-                screen = source
-            }
-
-            companion object {
-                private const val NAVIGATION_CALLED = "navigation#map"
-            }
+        override fun checkFunctionsCalledCount(count: Int) {
+            assertEquals(count, list.size)
         }
     }
 }
