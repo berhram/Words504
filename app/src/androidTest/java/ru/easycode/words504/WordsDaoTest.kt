@@ -3,27 +3,19 @@ package ru.easycode.words504
 import android.content.Context
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
-import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import ru.easycode.words504.dictionary.data.cache.SentencesDao
 import ru.easycode.words504.dictionary.data.cache.WordsDao
 import ru.easycode.words504.dictionary.data.cache.entities.SentenceCache
 import ru.easycode.words504.dictionary.data.cache.entities.WordCache
 import ru.easycode.words504.translate.data.cache.TranslationsDao
 import ru.easycode.words504.translate.data.cache.entities.TranslationCache
-import java.io.IOException
 
 interface WordsDaoTest {
-    fun fillFakeWordsTable()
-    fun fillFakeSentenceTable()
-    fun fillFakeTranslationsTable()
-
     class Base : WordsDaoTest {
         private lateinit var dataBase: AppDataBase.Base
-        private lateinit var wordDao: WordsDao
-        private lateinit var sentencesDao: SentencesDao
+        private lateinit var wordsDao: WordsDao
         private lateinit var translationsDao: TranslationsDao
 
         @Before
@@ -32,187 +24,121 @@ interface WordsDaoTest {
             dataBase = Room.inMemoryDatabaseBuilder(context, AppDataBase.Base::class.java)
                 .allowMainThreadQueries()
                 .build()
-            wordDao = dataBase.wordsDao()
+            wordsDao = dataBase.wordsDao()
             translationsDao = dataBase.translationDao()
-            sentencesDao = dataBase.sentencesDao()
 
-            //todo move inserts here
-        }
+            wordsDao.insert(WordCache(1, "He", 0, "he", 1))
+            wordsDao.insert(WordCache(2, "goes", 3, "to go", 1))
+            wordsDao.insert(WordCache(3, "into", 8, "into", 1))
+            wordsDao.insert(WordCache(4, "the", 13, "the", 1))
+            wordsDao.insert(WordCache(5, "synagogue", 17, "synagogue", 1))
 
-        @After
-        @Throws(IOException::class)
-        fun clear() {
-            dataBase.close()
-        }
+            wordsDao.insert(WordCache(10, "She", 0, "she", 2))
+            wordsDao.insert(WordCache(11, "went", 4, "to go", 2))
+            wordsDao.insert(WordCache(12, "to", 9, "to", 2))
+            wordsDao.insert(WordCache(13, "the", 12, "the", 2))
+            wordsDao.insert(WordCache(14, "theatre", 16, "theatre", 2))
 
-        override fun fillFakeWordsTable() {
-            wordDao.insert(WordCache(1, "He", 0, "а", 1))
-            wordDao.insert(WordCache(2, "goes", 2, "б", 1))
-            wordDao.insert(WordCache(3, "В", 4, "в", 1))
-            wordDao.insert(WordCache(4, "Г", 6, "г", 1))
-            wordDao.insert(WordCache(5, "Д", 8, "д", 1))
+            wordsDao.insert(SentenceCache(1, "He goes into the synagogue"))
+            wordsDao.insert(SentenceCache(2, "She went to the theatre"))
 
-            wordDao.insert(WordCache(10, "She", 0, "у", 2))
-            wordDao.insert(WordCache(11, "went", 2, "б", 2))
-            wordDao.insert(WordCache(12, "Ж", 4, "ж", 2))
-            wordDao.insert(WordCache(13, "З", 6, "з", 2))
-            wordDao.insert(WordCache(14, "К", 8, "к", 2))
-        }
-
-        override fun fillFakeSentenceTable() {
-            sentencesDao.insert(SentenceCache(1, "А Бе В Г Д"))
-            sentencesDao.insert(SentenceCache(2, "У Бо Ж З К"))
-        }
-
-        override fun fillFakeTranslationsTable() {
+            translationsDao.insert(TranslationCache("he", "он", "ru"))
             translationsDao.insert(TranslationCache("to go", "идти", "ru"))
-            translationsDao.insert(TranslationCache("Бе", "БеБе", "1"))
-            translationsDao.insert(TranslationCache("В", "ВВ", "1"))
-            translationsDao.insert(TranslationCache("Г", "ГГ", "1"))
-            translationsDao.insert(TranslationCache("Д", "ДД", "1"))
+            translationsDao.insert(TranslationCache("into", "в", "ru"))
+            translationsDao.insert(TranslationCache("the", "этот", "ru"))
+            translationsDao.insert(TranslationCache("synagogue", "синагога", "ru"))
 
-            translationsDao.insert(TranslationCache("У", "УУ", "1"))
-            translationsDao.insert(TranslationCache("Бо", "БоБо", "1"))
-            translationsDao.insert(TranslationCache("Ж", "ЖЖ", "1"))
-            translationsDao.insert(TranslationCache("З", "ЗЗ", "1"))
-            translationsDao.insert(TranslationCache("К", "КК", "1"))
+            translationsDao.insert(TranslationCache("she", "она", "ru"))
+            translationsDao.insert(TranslationCache("to", "в", "ru"))
+            translationsDao.insert(TranslationCache("theatre", "театр", "ru"))
+
+            translationsDao.insert(TranslationCache("1", "Он ходит в синагогу", "ru"))
+            translationsDao.insert(TranslationCache("2", "Она пошла в театр", "ru"))
         }
 
         @Test
         fun test_scenario() {
             val sourceWord = "to go"
-            val translation = translationsDao.translation(sourceWord)
-            //assert
-            val sentences = sentencesDao.sentences(sourceWord)
-            val wordComboList = sentences.map { sentence ->
-                val sentenceTranslation = translationsDao.translation(sentence.id.toString())
-                val words = wordDao.words(sentence.id)
-                val translations = words.map { word ->
-                    translationsDao.translation(word.dictionaryForm)
-                }
+            val sourceTranslation = translationsDao.translation(sourceWord)
 
-                //assert
-                Combo()//todo
+            assertEquals(TranslationCache("to go", "идти", "ru"), sourceTranslation)
+
+            val sentences = wordsDao.sentences(sourceWord)
+            val comboList = sentences.map { sentence ->
+                val sentenceTranslation = translationsDao.translation(sentence.id.toString())
+                val words = wordsDao.words(sentence.id)
+                val wordsComboList = words.map { word ->
+                    val translation = translationsDao.translation(word.dictionaryForm)
+                    FakeWordCombo(word, translation)
+                }
+                FakeCombo(sentence, sentenceTranslation, wordsComboList)
             }
-            assertEquals(expectedCombo, combo)
+            val expectedCombo = listOf(
+                FakeCombo(
+                    sentence = SentenceCache(1, "He goes into the synagogue"),
+                    sentenceTranslation = TranslationCache("1", "Он ходит в синагогу", "ru"),
+                    words = listOf(
+                        FakeWordCombo(
+                            wordCache = WordCache(1, "He", 0, "he", 1),
+                            translationCache = TranslationCache("he", "он", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(2, "goes", 3, "to go", 1),
+                            translationCache = TranslationCache("to go", "идти", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(3, "into", 8, "into", 1),
+                            translationCache = TranslationCache("into", "в", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(4, "the", 13, "the", 1),
+                            translationCache = TranslationCache("the", "этот", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(5, "synagogue", 17, "synagogue", 1),
+                            translationCache = TranslationCache("synagogue", "синагога", "ru")
+                        )
+                    )
+                ),
+                FakeCombo(
+                    sentence = SentenceCache(2, "She went to the theatre"),
+                    sentenceTranslation = TranslationCache("2", "Она пошла в театр", "ru"),
+                    words = listOf(
+                        FakeWordCombo(
+                            wordCache = WordCache(10, "She", 0, "she", 2),
+                            translationCache = TranslationCache("she", "она", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(11, "went", 4, "to go", 2),
+                            translationCache = TranslationCache("to go", "идти", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(12, "to", 9, "to", 2),
+                            translationCache = TranslationCache("to", "в", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(13, "the", 12, "the", 2),
+                            translationCache = TranslationCache("the", "этот", "ru")
+                        ),
+                        FakeWordCombo(
+                            wordCache = WordCache(14, "theatre", 16, "theatre", 2),
+                            translationCache = TranslationCache("theatre", "театр", "ru")
+                        )
+                    )
+                )
+            )
+            assertEquals(expectedCombo, comboList)
         }
 
-        private data class Combo(
+        private data class FakeCombo(
             val sentence: SentenceCache,
             val sentenceTranslation: TranslationCache,
-            val words: List<WordCombo>
+            val words: List<FakeWordCombo>
         )
 
-        private data class WordCombo(
+        private data class FakeWordCombo(
             val wordCache: WordCache,
             val translationCache: TranslationCache
         )
-
-        @Test
-        fun test_all_words_by_dictionary_form() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-
-            val expected = listOf(
-                WordCache(2, "Бе", 2, "б", 1),
-                WordCache(11, "Бо", 2, "б", 2)
-            )
-            val actual = wordDao.words("б")
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_all_words_from_sentence_by_sentence_id() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-
-            val expected = listOf(
-                WordCache(10, "У", 0, "у", 2),
-                WordCache(11, "Бо", 2, "б", 2),
-                WordCache(12, "Ж", 4, "ж", 2),
-                WordCache(13, "З", 6, "з", 2),
-                WordCache(14, "К", 8, "к", 2)
-            )
-            val actual = wordDao.words(2)
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_sentence_by_sentence_id() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-            val expected = SentenceCache(1, "А Бе В Г Д")
-            val actual = sentencesDao.sentence(1)
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_all_sentences_by_word_dictionary_form() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-            val expected = listOf(
-                SentenceCache(1, "А Бе В Г Д"),
-                SentenceCache(2, "У Бо Ж З К")
-            )
-            val actual = sentencesDao.sentences("б")
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_all_word_translations_from_sentence_by_sentence_id() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-            fillFakeTranslationsTable()
-
-            val expected = listOf(
-                TranslationCache("А", "АА", "1"),
-                TranslationCache("Бе", "БеБе", "1"),
-                TranslationCache("В", "ВВ", "1"),
-                TranslationCache("Г", "ГГ", "1"),
-                TranslationCache("Д", "ДД", "1")
-            )
-            val actual = wordDao.translationWords(1)
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_all_word_translations_from_all_sentences_by_dictionary_form() {
-            fillFakeSentenceTable()
-            fillFakeWordsTable()
-            fillFakeTranslationsTable()
-
-            val expected = listOf(
-                TranslationCache("А", "АА", "1"),
-                TranslationCache("Бе", "БеБе", "1"),
-                TranslationCache("В", "ВВ", "1"),
-                TranslationCache("Г", "ГГ", "1"),
-                TranslationCache("Д", "ДД", "1"),
-                TranslationCache("У", "УУ", "1"),
-                TranslationCache("Бо", "БоБо", "1"),
-                TranslationCache("Ж", "ЖЖ", "1"),
-                TranslationCache("З", "ЗЗ", "1"),
-                TranslationCache("К", "КК", "1")
-            ).sortedBy { it.id }
-
-            val actual = wordDao.translationWords("б").sortedBy { it.id }
-            assertEquals(expected, actual)
-        }
-
-        @Test
-        fun test_insert_and_delete() {
-            assertEquals(0, wordDao.words(1).size)
-            assertEquals(null, sentencesDao.sentence(1))
-
-            wordDao.insert(WordCache(1, "Hello", 0, "hello", 1))
-            assertEquals(1, wordDao.words(1).size)
-
-            sentencesDao.insert(SentenceCache(1, "Hello world"))
-            assertEquals(SentenceCache(1, "Hello world"), sentencesDao.sentence(1))
-
-            wordDao.deleteWord(1)
-            sentencesDao.deleteSentence(1)
-            assertEquals(0, wordDao.words(1).size)
-            assertEquals(null, sentencesDao.sentence(1))
-        }
     }
 }
