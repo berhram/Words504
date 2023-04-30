@@ -80,23 +80,23 @@ interface WordsDaoTest {
                     words = listOf(
                         FakeWordCombo.Base(
                             wordCache = WordCache(1, "He", 0, "he", 1),
-                            translationCache = TranslationCache("he", "он", "ru"),
+                            translationCache = TranslationCache("he", "он", "ru")
                         ),
                         FakeWordCombo.Base(
                             wordCache = WordCache(2, "goes", 3, "to go", 1),
-                            translationCache = TranslationCache("to go", "идти", "ru"),
+                            translationCache = TranslationCache("to go", "идти", "ru")
                         ),
                         FakeWordCombo.Base(
                             wordCache = WordCache(3, "into", 8, "into", 1),
-                            translationCache = TranslationCache("into", "в", "ru"),
+                            translationCache = TranslationCache("into", "в", "ru")
                         ),
                         FakeWordCombo.Base(
                             wordCache = WordCache(4, "the", 13, "the", 1),
-                            translationCache = TranslationCache("the", "этот", "ru"),
+                            translationCache = TranslationCache("the", "этот", "ru")
                         ),
                         FakeWordCombo.Base(
                             wordCache = WordCache(5, "synagogue", 17, "synagogue", 1),
-                            translationCache = TranslationCache("synagogue", "синагога", "ru"),
+                            translationCache = TranslationCache("synagogue", "синагога", "ru")
                         )
                     )
                 ),
@@ -134,14 +134,14 @@ interface WordsDaoTest {
             data class Base(
                 private val sentence: SentenceCache,
                 private val sentenceTranslation: TranslationCache,
-                private val words: List<FakeWordCombo>,
+                private val words: List<FakeWordCombo>
             ) : FakeCombo
         }
 
         private interface FakeWordCombo {
             data class Base(
                 private val wordCache: WordCache,
-                private val translationCache: TranslationCache,
+                private val translationCache: TranslationCache
             ) : FakeWordCombo
         }
     }
