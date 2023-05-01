@@ -69,58 +69,58 @@ class WordsDaoTest {
             val words = wordsDao.words(sentence.id)
             val wordsComboList = words.map { word ->
                 val translation = translationsDao.translation(word.dictionaryForm)
-                FakeWordCombo.Base(word, translation)
+                FakeWordCombo(word, translation)
             }
-            FakeCombo.Base(sentence, sentenceTranslation, wordsComboList)
+            FakeCombo(sentence, sentenceTranslation, wordsComboList)
         }
         val expectedCombo = listOf(
-            FakeCombo.Base(
+            FakeCombo(
                 sentence = SentenceCache(1, "He goes into the synagogue"),
                 sentenceTranslation = TranslationCache("1", "Он ходит в синагогу", "ru"),
                 words = listOf(
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(1, "He", 0, "he", 1),
                         translationCache = TranslationCache("he", "он", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(2, "goes", 3, "to go", 1),
                         translationCache = TranslationCache("to go", "идти", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(3, "into", 8, "into", 1),
                         translationCache = TranslationCache("into", "в", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(4, "the", 13, "the", 1),
                         translationCache = TranslationCache("the", "этот", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(5, "synagogue", 17, "synagogue", 1),
                         translationCache = TranslationCache("synagogue", "синагога", "ru")
                     )
                 )
             ),
-            FakeCombo.Base(
+            FakeCombo(
                 sentence = SentenceCache(2, "She went to the theatre"),
                 sentenceTranslation = TranslationCache("2", "Она пошла в театр", "ru"),
                 words = listOf(
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(10, "She", 0, "she", 2),
                         translationCache = TranslationCache("she", "она", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(11, "went", 4, "to go", 2),
                         translationCache = TranslationCache("to go", "идти", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(12, "to", 9, "to", 2),
                         translationCache = TranslationCache("to", "в", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(13, "the", 12, "the", 2),
                         translationCache = TranslationCache("the", "этот", "ru")
                     ),
-                    FakeWordCombo.Base(
+                    FakeWordCombo(
                         wordCache = WordCache(14, "theatre", 16, "theatre", 2),
                         translationCache = TranslationCache("theatre", "театр", "ru")
                     )
@@ -130,18 +130,14 @@ class WordsDaoTest {
         assertEquals(expectedCombo, comboList)
     }
 
-    private interface FakeCombo {
-        data class Base(
-            private val sentence: SentenceCache,
-            private val sentenceTranslation: TranslationCache,
-            private val words: List<FakeWordCombo>
-        ) : FakeCombo
-    }
+    private data class FakeCombo(
+        private val sentence: SentenceCache,
+        private val sentenceTranslation: TranslationCache,
+        private val words: List<FakeWordCombo>
+    )
 
-    private interface FakeWordCombo {
-        data class Base(
-            private val wordCache: WordCache,
-            private val translationCache: TranslationCache
-        ) : FakeWordCombo
-    }
+    private data class FakeWordCombo(
+        private val wordCache: WordCache,
+        private val translationCache: TranslationCache
+    )
 }
