@@ -4,23 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.easycode.words504.databinding.FragmentAdminBinding
+import ru.easycode.words504.databinding.FragmentAdminSentenceBinding
 import ru.easycode.words504.presentation.BaseFragment
 
-class AdminSentenceFragment : BaseFragment<AdminSentenceViewModel.Base>() {
+class AdminSentenceFragment :
+    BaseFragment<AdminSentenceViewModel.Base, FragmentAdminSentenceBinding>() {
 
     override val viewModelClass = AdminSentenceViewModel.Base::class.java
-    private var _binding: FragmentAdminBinding? = null
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
+    override fun fragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentAdminBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+        container: ViewGroup?
+    ): FragmentAdminSentenceBinding = FragmentAdminSentenceBinding
+        .inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,10 +28,5 @@ class AdminSentenceFragment : BaseFragment<AdminSentenceViewModel.Base>() {
                 save(read)
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
