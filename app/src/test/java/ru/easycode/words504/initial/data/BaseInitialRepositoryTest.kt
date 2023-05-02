@@ -69,7 +69,7 @@ class BaseInitialRepositoryTest : BaseTest() {
             LanguageCache.Base("fr", "French"),
             LanguageCache.Base("de", "German")
         )
-        assertEquals(expected, fakeLanguagesCache.saved())
+        fakeLanguagesCache.same(expected)
         fakeLanguagesCache.checkReadCalled()
         fakeLanguagesCloud.checkLanguagesCalled()
         fakeLanguagesCache.checkSaveCalled()
@@ -127,7 +127,7 @@ class BaseInitialRepositoryTest : BaseTest() {
 
         fun checkReadCalled()
 
-        fun saved(): List<LanguageCache>
+        fun same(expected: List<LanguageCache>)
 
         fun setSaved(saved: List<LanguageCache>)
 
@@ -137,7 +137,9 @@ class BaseInitialRepositoryTest : BaseTest() {
 
             private var savedCache: List<LanguageCache>? = null
 
-            override fun saved(): List<LanguageCache> = savedCache!!
+            override fun same(expected: List<LanguageCache>) {
+                assertEquals(expected, savedCache)
+            }
 
             override fun setSaved(saved: List<LanguageCache>) {
                 savedCache = saved
