@@ -10,6 +10,7 @@ import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.cache.LanguagesCacheDataSource
 import ru.easycode.words504.languages.presentation.ChooseLanguageScreen
 import ru.easycode.words504.presentation.BaseActivity
+import ru.easycode.words504.recognition.presentation.TestVoiceRecognitionActivity
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
@@ -32,5 +33,16 @@ class MainActivity : BaseActivity<MainViewModel>() {
         base.save(list)
         if (savedInstanceState == null)
             ChooseLanguageScreen.navigate(supportFragmentManager, R.id.container)
+        binding.testButton.setOnClickListener {
+            val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.gotoAdminButton.setOnClickListener {
+            startActivity(Intent(this, AdminActivity::class.java))
+        }
+        binding.gotoLoadCoroutines.setOnClickListener {
+            startActivity(Intent(this, LoadTranslateActivity::class.java))
+        }
     }
 }
