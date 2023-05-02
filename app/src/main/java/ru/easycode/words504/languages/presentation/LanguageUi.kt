@@ -1,12 +1,10 @@
 package ru.easycode.words504.languages.presentation
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.widget.TextView
+import java.io.Serializable
 import ru.easycode.words504.R
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.repository.ChooseLanguageRepository
-import java.io.Serializable
 
 interface LanguageUi : Serializable {
 
@@ -37,7 +35,7 @@ interface LanguageUi : Serializable {
 
         override fun map(textView: TextView) {
             super.map(textView)
-            textView.setBackgroundColor(Color.WHITE)
+            textView.setBackgroundResource(R.color.choose_button)
         }
     }
 
@@ -47,10 +45,10 @@ interface LanguageUi : Serializable {
     ) : Abstract(id, value) {
         override fun click(chooseLanguage: ChooseLanguage) = Unit
 
-        @SuppressLint("ResourceAsColor")
+
         override fun map(textView: TextView) {
             super.map(textView)
-            textView.setBackgroundColor(R.color.choose_language)
+            textView.setBackgroundResource(R.color.choosen_language)
         }
     }
 }

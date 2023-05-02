@@ -14,5 +14,4 @@ interface SaveAndRestoreLanguageCache : SaveAndRestore<LanguageCache> {
             LanguageCache.Base::class.java
         ),
         SaveAndRestoreLanguageCache
-
 }

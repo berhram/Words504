@@ -30,7 +30,8 @@ class MainActivity : BaseActivity<MainViewModel>() {
             )
         )
         base.save(list)
-        if (savedInstanceState == null)
+        if (savedInstanceState == null) {
             ChooseLanguageScreen.navigate(supportFragmentManager, R.id.container)
+        }
     }
 }
