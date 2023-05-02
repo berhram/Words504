@@ -98,7 +98,7 @@ interface SentenceViewModelTest {
             override fun isEmpty(): Boolean = isEmpty
         }
 
-        private interface FakeCommunication : Communication.Mutable<SentenceUi> {
+        private interface FakeCommunication : AdminSentenceCommunication {
 
             fun same(other: SentenceUi): Boolean
 
