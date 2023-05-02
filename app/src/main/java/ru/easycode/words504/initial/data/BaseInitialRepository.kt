@@ -8,7 +8,7 @@ import ru.easycode.words504.languages.data.cloud.LanguagesCloudDataSource
 
 class BaseInitialRepository(
     private val chosenCache: ChosenLanguageCache.Read,
-    private val languagesCache: LanguagesCacheDataSource.Save,
+    private val languagesCache: LanguagesCacheDataSource.Mutable,
     private val languagesCloud: LanguagesCloudDataSource,
     private val languageMapper: LanguageCloudCacheMapper
 ) : InitialRepository {
@@ -16,7 +16,9 @@ class BaseInitialRepository(
     override fun userHasChosenLanguage(): Boolean = !chosenCache.read().isEmpty()
 
     override suspend fun init() {
-        val allLanguages = languagesCloud.languages().map { it.map(languageMapper) }
-        languagesCache.save(allLanguages)
+        if (languagesCache.read().isEmpty()) {
+            val allLanguages = languagesCloud.languages().map { it.map(languageMapper) }
+            languagesCache.save(allLanguages)
+        }
     }
 }

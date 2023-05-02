@@ -55,13 +55,14 @@ class BaseInitialRepositoryTest : BaseTest() {
     }
 
     @Test
-    fun `init save cloud to local`() = runBlocking {
+    fun `init save cloud to local if empty`() = runBlocking {
         val cloud = listOf(
             LanguageCloud.Base("en", "English"),
             LanguageCloud.Base("fr", "French"),
             LanguageCloud.Base("de", "German")
         )
         fakeLanguagesCloud.setCloud(cloud)
+        fakeLanguagesCache.setSaved(emptyList())
         repository.init()
         val expected = listOf(
             LanguageCache.Base("en", "English"),
@@ -69,9 +70,23 @@ class BaseInitialRepositoryTest : BaseTest() {
             LanguageCache.Base("de", "German")
         )
         assertEquals(expected, fakeLanguagesCache.saved())
+        fakeLanguagesCache.checkReadCalled()
         fakeLanguagesCloud.checkLanguagesCalled()
         fakeLanguagesCache.checkSaveCalled()
-        functionsCallsStack.checkStack(2)
+        functionsCallsStack.checkStack(3)
+    }
+
+    @Test
+    fun `init does nothing if not empty`() = runBlocking {
+        val saved = listOf(
+            LanguageCache.Base("en", "English"),
+            LanguageCache.Base("fr", "French"),
+            LanguageCache.Base("de", "German")
+        )
+        fakeLanguagesCache.setSaved(saved)
+        repository.init()
+        fakeLanguagesCache.checkReadCalled()
+        functionsCallsStack.checkStack(1)
     }
 
     private interface FakeChosenCache : ChosenLanguageCache.Read {
@@ -106,11 +121,15 @@ class BaseInitialRepositoryTest : BaseTest() {
         }
     }
 
-    private interface FakeLanguagesCache : LanguagesCacheDataSource.Save {
+    private interface FakeLanguagesCache : LanguagesCacheDataSource.Mutable {
 
         fun checkSaveCalled()
 
+        fun checkReadCalled()
+
         fun saved(): List<LanguageCache>
+
+        fun setSaved(saved: List<LanguageCache>)
 
         class Base(
             private val functionsCallStack: FunctionsCallsStack
@@ -120,8 +139,21 @@ class BaseInitialRepositoryTest : BaseTest() {
 
             override fun saved(): List<LanguageCache> = savedCache!!
 
+            override fun setSaved(saved: List<LanguageCache>) {
+                savedCache = saved
+            }
+
             override fun checkSaveCalled() {
                 functionsCallStack.checkCalled(SAVE_CALLED)
+            }
+
+            override fun checkReadCalled() {
+                functionsCallStack.checkCalled(READ_CALLED)
+            }
+
+            override fun read(): List<LanguageCache> {
+                functionsCallStack.put(READ_CALLED)
+                return savedCache!!
             }
 
             override fun save(data: List<LanguageCache>) {
@@ -131,6 +163,7 @@ class BaseInitialRepositoryTest : BaseTest() {
 
             companion object {
 
+                const val READ_CALLED = "READ_LANGUAGES_CACHE_CALLED"
                 const val SAVE_CALLED = "SAVE_LANGUAGES_CACHE_CALLED"
             }
         }
