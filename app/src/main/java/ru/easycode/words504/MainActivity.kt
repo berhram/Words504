@@ -8,9 +8,9 @@ import ru.easycode.words504.loading.LoadTranslateActivity
 import ru.easycode.words504.presentation.BaseActivity
 import ru.easycode.words504.recognition.presentation.TestVoiceRecognitionActivity
 
-class MainActivity : BaseActivity<MainViewModel>() {
+class MainActivity : BaseActivity<MainViewModel.Base>() {
 
-    override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
+    override val viewModelClass: Class<MainViewModel.Base> = MainViewModel.Base::class.java
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +27,12 @@ class MainActivity : BaseActivity<MainViewModel>() {
         }
         binding.gotoLoadCoroutines.setOnClickListener {
             startActivity(Intent(this, LoadTranslateActivity::class.java))
+        }
+        viewModel.observe(this) { screen ->
+            screen.navigate(supportFragmentManager, R.id.container)
+        }
+        if (savedInstanceState == null) {
+            viewModel.init()
         }
     }
 }
