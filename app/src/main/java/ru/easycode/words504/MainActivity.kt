@@ -30,8 +30,18 @@ class MainActivity : BaseActivity<MainViewModel>() {
             )
         )
         base.save(list)
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null)
             ChooseLanguageScreen.navigate(supportFragmentManager, R.id.container)
+        binding.testButton.setOnClickListener {
+            val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.gotoAdminButton.setOnClickListener {
+            startActivity(Intent(this, AdminActivity::class.java))
+        }
+        binding.gotoLoadCoroutines.setOnClickListener {
+            startActivity(Intent(this, LoadTranslateActivity::class.java))
         }
     }
 }
