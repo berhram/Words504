@@ -32,6 +32,7 @@ class ChooseLanguageFragment :
         }
         saveButton.setOnClickListener {
             viewModel.save()
+            binding.root.visibility = View.GONE
         }
         viewModel.init(SaveAndRestoreLanguageCache.Base(savedInstanceState))
     }
