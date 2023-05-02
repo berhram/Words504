@@ -43,8 +43,6 @@ abstract class TTSViewModel(
             viewModelScope.launch(dispatchers.ui()) {
                 resultCommunication.map(TTSState.Error(utteranceId))
             }
-
-            //todo написать хендлер ошибок
         }
 
         override fun stopped(utteranceId: String, interrupted: Boolean) {
@@ -53,7 +51,6 @@ abstract class TTSViewModel(
                     TTSState.Stopped("$utteranceId interrupted: $interrupted")
                 )
             }
-            // todo написать хэндлер для стопа
         }
     }
 
@@ -68,9 +65,6 @@ abstract class TTSViewModel(
     fun ttsStringList(sentences: List<String>) = ttsEngine.speak(sentences)
 
     fun stop() = ttsEngine.stop()
-
-    // TODO: подумать где выключаем tts 
-    fun shutdownTTS() = ttsEngine.shutdown()
 
     override fun observeTTSResult(owner: LifecycleOwner, observer: Observer<TTSState>) {
 

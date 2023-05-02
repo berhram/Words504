@@ -7,7 +7,8 @@ import ru.easycode.words504.tts.presentation.TTSTestViewModelFinal
 import ru.easycode.words504.tts.data.TTSEngine
 import ru.easycode.words504.tts.presentation.TTSResultCommunicationStates
 
-class TTSModule(private val core: CoreModule, private val context: Context) : Module<TTSTestViewModelFinal> {
+class TTSModule(private val core: CoreModule, private val context: Context) :
+    Module<TTSTestViewModelFinal> {
     override fun viewModel(): TTSTestViewModelFinal = TTSTestViewModelFinal(
         dispatchers = core.provideDispatchers(),
         ttsEngine = TTSEngine.Base(context),
