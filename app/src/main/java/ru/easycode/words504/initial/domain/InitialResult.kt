@@ -8,32 +8,26 @@ import ru.easycode.words504.presentation.NavigationCommunication
 
 interface InitialResult {
 
-    fun map(communication: InitialCommunication, navigation: NavigationCommunication.Update)
+    fun map(communication: InitialCommunication)
+    fun map(navigation: NavigationCommunication.Update)
 
-    class NotFirstOpening : InitialResult {
-        override fun map(
-            communication: InitialCommunication,
-            navigation: NavigationCommunication.Update
-        ) {
-            navigation.map(MainScreen)
-        }
+    object NotFirstOpening : InitialResult {
+        override fun map(navigation: NavigationCommunication.Update) = navigation.map(MainScreen)
+
+        override fun map(communication: InitialCommunication) = Unit
     }
 
-    class FirstOpening : InitialResult {
-        override fun map(
-            communication: InitialCommunication,
-            navigation: NavigationCommunication.Update
-        ) {
+    object FirstOpening : InitialResult {
+        override fun map(navigation: NavigationCommunication.Update) =
             navigation.map(ChooseLanguageScreen)
-        }
+
+        override fun map(communication: InitialCommunication) = Unit
     }
 
-    class Error(private val message: String) : InitialResult {
-        override fun map(
-            communication: InitialCommunication,
-            navigation: NavigationCommunication.Update
-        ) {
+    data class Error(private val message: String) : InitialResult {
+        override fun map(communication: InitialCommunication) =
             communication.map(InitialUiState.Error(message))
-        }
+
+        override fun map(navigation: NavigationCommunication.Update) = Unit
     }
 }
