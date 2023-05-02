@@ -7,9 +7,7 @@ import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
 
-interface AdminActivityViewModel {
-
-    fun navigate(screen: Screen)
+interface AdminActivityViewModel : AdminNavigate {
 
     class Base(
         private val navigationCommunication: NavigationCommunication.Mutable
@@ -23,4 +21,9 @@ interface AdminActivityViewModel {
             navigationCommunication.map(screen)
         }
     }
+}
+
+interface AdminNavigate {
+
+    fun navigate(screen: Screen)
 }

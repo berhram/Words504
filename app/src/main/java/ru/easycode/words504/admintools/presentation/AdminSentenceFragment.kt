@@ -11,11 +11,9 @@ class AdminSentenceFragment :
     BaseFragment<SentenceViewModel.Base, FragmentAdminSentenceBinding>(), SentenceUi.Mapper<Unit> {
 
     override val viewModelClass = SentenceViewModel.Base::class.java
-    override fun fragmentBinding(
-        inflater: LayoutInflater,
-        container: ViewGroup?
-    ): FragmentAdminSentenceBinding = FragmentAdminSentenceBinding
-        .inflate(inflater, container, false)
+
+    override fun fragmentBinding(inflater: LayoutInflater, container: ViewGroup?) =
+        FragmentAdminSentenceBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
