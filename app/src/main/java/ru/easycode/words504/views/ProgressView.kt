@@ -21,11 +21,12 @@ class ProgressView : LinearLayout {
     private var translations: ProgressAnimator = ProgressAnimator.Empty()
     private var textChange: ProgressAnimator = ProgressAnimator.Empty()
 
-
     constructor(context: Context) : super(context)
     constructor(context: Context, attributeSet: AttributeSet) : super(context, attributeSet)
     constructor(context: Context, attributeSet: AttributeSet, defStyleAttr: Int) : super(
-        context, attributeSet, defStyleAttr
+        context,
+        attributeSet,
+        defStyleAttr
     )
 
     init {
@@ -37,7 +38,8 @@ class ProgressView : LinearLayout {
 
         translations = ProgressAnimator.Translations(frameLeft, frameRight, HesitateInterpolator())
         textChange = ProgressAnimator.TextChange(
-            AnimationRepeatListener(textViewLeft, textViewRight), LinearInterpolator()
+            AnimationRepeatListener(textViewLeft, textViewRight),
+            LinearInterpolator()
         )
     }
 
@@ -48,10 +50,14 @@ class ProgressView : LinearLayout {
         val inputHeightInDp = (layoutParams.height / screenPixelDensity).toInt()
         val inputWidthInDp = (layoutParams.width / screenPixelDensity).toInt()
 
-        if (inputHeightInDp in HEIGHT_RANGE_TOO_SMALL) layoutParams.height =
-            MINIMAL_HEIGHT_IN_DP * screenPixelDensity.toInt()
-        if (inputWidthInDp in WIDTH_RANGE_TOO_SMALL) layoutParams.width =
-            (screenWidth * 0.6).toInt()
+        if (inputHeightInDp in HEIGHT_RANGE_TOO_SMALL) {
+            layoutParams.height =
+                MINIMAL_HEIGHT_IN_DP * screenPixelDensity.toInt()
+        }
+        if (inputWidthInDp in WIDTH_RANGE_TOO_SMALL) {
+            layoutParams.width =
+                (screenWidth * 0.6).toInt()
+        }
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {

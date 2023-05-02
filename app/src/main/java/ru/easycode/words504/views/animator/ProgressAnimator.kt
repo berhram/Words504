@@ -24,7 +24,8 @@ interface ProgressAnimator {
     }
 
     class TextChange(
-        private val textChangeListener: Animator.AnimatorListener, interpolator: TimeInterpolator
+        private val textChangeListener: Animator.AnimatorListener,
+        interpolator: TimeInterpolator
     ) : Abstract(interpolator) {
         override fun provide(startValue: Float, finishValue: Float): ValueAnimator =
             super.provide(startValue, finishValue).apply {
@@ -33,7 +34,9 @@ interface ProgressAnimator {
     }
 
     class Translations(
-        private val frameLeft: View, private val frameRight: View, interpolator: TimeInterpolator
+        private val frameLeft: View,
+        private val frameRight: View,
+        interpolator: TimeInterpolator
     ) : Abstract(interpolator) {
 
         override fun provide(startValue: Float, finishValue: Float): ValueAnimator =
