@@ -7,6 +7,13 @@ import android.widget.LinearLayout
 import ru.easycode.words504.databinding.ErrorLayoutBinding
 
 class ErrorView : LinearLayout, ShowError, RetryListener {
+    private val binding: ErrorLayoutBinding =
+        ErrorLayoutBinding.inflate(
+            LayoutInflater.from(context),
+            this,
+            true
+        )
+
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
@@ -14,13 +21,6 @@ class ErrorView : LinearLayout, ShowError, RetryListener {
         attrs,
         defStyleAttr
     )
-
-    private val binding: ErrorLayoutBinding =
-        ErrorLayoutBinding.inflate(
-            LayoutInflater.from(context),
-            this,
-            true
-        )
 
     override fun setRetryListener(listener: () -> Unit) =
         binding.retry.setOnClickListener { listener.invoke() }

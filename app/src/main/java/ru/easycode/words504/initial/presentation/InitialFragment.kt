@@ -12,7 +12,7 @@ class InitialFragment : BaseFragment<InitialViewModel, FragmentInitialBinding>()
 
     override fun fragmentBinding(
         inflater: LayoutInflater,
-        container: ViewGroup?,
+        container: ViewGroup?
     ): FragmentInitialBinding = FragmentInitialBinding.inflate(
         inflater,
         container,
