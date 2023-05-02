@@ -63,7 +63,6 @@ abstract class TTSViewModel(
 
     override fun observeTTSResult(owner: LifecycleOwner, observer: Observer<TTSState>) =
         resultCommunication.observe(owner, observer)
-
 }
 
 class TTSTestViewModelFinal(
