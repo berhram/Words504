@@ -11,9 +11,9 @@ interface SaveAndRestore<T : Serializable> : Empty {
 
     abstract class Abstract<T : Serializable>(
         private val bundle: Bundle?,
-        private val key: String
+        private val key: String,
+        private val clazz: Class<out T>
     ) : SaveAndRestore<T> {
-        protected abstract val clazz: Class<T>
 
         override fun save(obj: T) = bundle!!.putSerializable(key, obj)
 
