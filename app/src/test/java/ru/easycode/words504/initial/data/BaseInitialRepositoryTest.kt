@@ -12,7 +12,6 @@ import ru.easycode.words504.languages.data.cloud.LanguageCloud
 import ru.easycode.words504.languages.data.cloud.LanguageCloudCacheMapper
 import ru.easycode.words504.languages.data.cloud.LanguagesCloudDataSource
 
-
 class BaseInitialRepositoryTest : BaseTest() {
 
     private lateinit var repository: BaseInitialRepository

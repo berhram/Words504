@@ -15,7 +15,6 @@ class BaseInitialRepository(
 
     override fun userHasChosenLanguage(): Boolean = !chosenCache.read().isEmpty()
 
-
     override suspend fun init() {
         val allLanguages = languagesCloud.languages().map { it.map(languageMapper) }
         languagesCache.save(allLanguages)
