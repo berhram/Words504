@@ -1,6 +1,8 @@
 package ru.easycode.words504
 
+import android.content.Intent
 import android.os.Bundle
+import ru.easycode.words504.admintools.presentation.AdminActivity
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cache.serialization.Serialization
 import ru.easycode.words504.data.cache.storage.ObjectStorage
@@ -9,7 +11,9 @@ import ru.easycode.words504.databinding.ActivityMainBinding
 import ru.easycode.words504.languages.data.cache.LanguageCache
 import ru.easycode.words504.languages.data.cache.LanguagesCacheDataSource
 import ru.easycode.words504.languages.presentation.ChooseLanguageScreen
+import ru.easycode.words504.loading.LoadTranslateActivity
 import ru.easycode.words504.presentation.BaseActivity
+import ru.easycode.words504.recognition.presentation.TestVoiceRecognitionActivity
 
 class MainActivity : BaseActivity<MainViewModel>() {
 
