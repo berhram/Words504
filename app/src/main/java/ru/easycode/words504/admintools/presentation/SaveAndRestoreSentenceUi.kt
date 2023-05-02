@@ -9,5 +9,6 @@ interface SaveAndRestoreSentenceUi : SaveAndRestore<SentenceUi> {
             bundle,
             "SaveAndRestoreSentenceUi",
             SentenceUi.Base::class.java
-        ), SaveAndRestoreSentenceUi
+        ),
+        SaveAndRestoreSentenceUi
 }
