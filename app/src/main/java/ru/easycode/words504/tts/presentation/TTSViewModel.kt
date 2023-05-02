@@ -15,8 +15,7 @@ abstract class TTSViewModel(
     private val dispatchers: DispatchersList,
     private val ttsEngine: TTSEngine.Base,
     private val resultCommunication: TTSResultCommunicationStates.Mutable
-) : ViewModel(),
-    Init, TTSResultCommunication, TTSActions {
+) : ViewModel(), Init, TTSResultCommunication, TTSActions {
 
     private val callback = object : TTSCallback {
         override fun started(utteranceId: String) {
