@@ -39,7 +39,7 @@ class InitialModule(private val core: CoreModule) : Module<InitialViewModel> {
             languagesCache = LanguagesCacheDataSource.Base(objectStorage),
             languagesCloud = LanguagesCloudDataSource.Base(
                 service,
-                HandleDomainError(HandleHttpError()),
+                HandleDomainError(HandleHttpError())
             ),
             languageMapper = LanguageCloudCacheMapper()
         )
