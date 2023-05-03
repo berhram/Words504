@@ -3,7 +3,6 @@ package ru.easycode.words504.admintools.presentation
 import androidx.fragment.app.FragmentManager
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.SaveAndRestore
 import ru.easycode.words504.presentation.Screen
@@ -98,7 +97,7 @@ interface SentenceViewModelTest {
             override fun isEmpty(): Boolean = isEmpty
         }
 
-        private interface FakeCommunication : Communication.Mutable<SentenceUi> {
+        private interface FakeCommunication : AdminSentenceCommunication {
 
             fun same(other: SentenceUi): Boolean
 

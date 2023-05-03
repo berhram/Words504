@@ -4,4 +4,9 @@
     <string name="inputWord_hint">UI</string>
     <string name="inputIndex_hint">index</string>
     <string name="inputDictionaryForm_hint">Dictionary form</string>
+    <string name="admin_save">save</string>
+    <string name="add">add</string>
+    <string name="add_new_block">add new block</string>
+    <string name="sentence_block">Sentence block</string>
+    <string name="go_sentence_screen">go sentence screen</string>
 </resources>
