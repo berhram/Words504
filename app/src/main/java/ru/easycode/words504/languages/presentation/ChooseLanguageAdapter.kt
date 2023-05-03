@@ -29,7 +29,6 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener) :
         list.addAll(source)
         notifyDataSetChanged()
     }
-
 }
 
 class ChooseLanguageViewHolder(view: View, private val clickListener: ClickListener) :
@@ -57,8 +56,6 @@ class DiffUtilCallback(
     override fun getNewListSize() = newList.size
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].id() == newList[newItemPosition].id()
-
-
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList[oldItemPosition].equals(newList[newItemPosition])
 }

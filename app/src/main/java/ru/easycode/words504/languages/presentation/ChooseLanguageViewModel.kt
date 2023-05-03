@@ -27,11 +27,11 @@ interface ChooseLanguageViewModel : ChooseLanguage {
             communication.observe(owner, observer)
 
         override fun init(saveAndRestore: SaveAndRestore<LanguageCache>) {
-            val userChoice = if (saveAndRestore.isEmpty())
+            val userChoice = if (saveAndRestore.isEmpty()) {
                 repository.userChoice()
-            else
+            } else {
                 saveAndRestore.restore()
-
+            }
             communication.map(
                 if (userChoice.isEmpty()) {
                     ChooseLanguageState.Initial(userChoice.map(mapper))
