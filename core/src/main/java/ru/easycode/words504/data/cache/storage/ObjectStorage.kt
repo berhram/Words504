@@ -13,7 +13,7 @@ interface ObjectStorage {
 
     class Base(
         private val serialization: Serialization,
-        private val stringStorage: StringStorage,
+        private val stringStorage: StringStorage
     ) : ObjectStorage {
 
         override fun save(key: String, obj: Any) {
