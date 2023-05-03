@@ -25,7 +25,7 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener) :
     override fun getItemCount() = list.size
 
     override fun map(source: List<LanguageUi>) {
-        val diff = DiffUtilCallback(list,source)
+        val diff = DiffUtilCallback(list, source)
         val result = DiffUtil.calculateDiff(diff)
         list.clear()
         list.addAll(source)
