@@ -22,7 +22,7 @@ class ErrorView : LinearLayout, ShowError, RetryListener {
         defStyleAttr
     )
 
-    override fun setRetryListener(listener: () -> Unit) =
+    override fun addRetryListener(listener: () -> Unit) =
         binding.retry.setOnClickListener { listener.invoke() }
 
     override fun showError(message: String) {
@@ -35,5 +35,5 @@ interface ShowError {
 }
 
 interface RetryListener {
-    fun setRetryListener(listener: () -> Unit)
+    fun addRetryListener(listener: () -> Unit)
 }
