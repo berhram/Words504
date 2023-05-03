@@ -41,7 +41,6 @@ class MainActivity : BaseActivity<MainViewModel>() {
             val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
             startActivity(intent)
         }
-
         binding.gotoAdminButton.setOnClickListener {
             startActivity(Intent(this, AdminActivity::class.java))
         }
