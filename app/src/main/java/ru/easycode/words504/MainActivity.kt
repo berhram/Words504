@@ -37,6 +37,7 @@ class MainActivity : BaseActivity<MainViewModel>() {
         if (savedInstanceState == null) {
             ChooseLanguageScreen.navigate(supportFragmentManager, R.id.container)
         }
+
         binding.testButton.setOnClickListener {
             val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
             startActivity(intent)
