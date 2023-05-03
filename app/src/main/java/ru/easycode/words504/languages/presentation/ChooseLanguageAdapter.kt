@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.R
+import ru.easycode.words504.languages.presentation.adapter.GenericViewHolder
 
 class ChooseLanguageAdapter(private val clickListener: ClickListener) :
     RecyclerView.Adapter<ChooseLanguageViewHolder>(), Mapper.Unit<List<LanguageUi>> {
@@ -34,9 +35,9 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener) :
 }
 
 class ChooseLanguageViewHolder(view: View, private val clickListener: ClickListener) :
-    RecyclerView.ViewHolder(view) {
+    GenericViewHolder<LanguageUi>(view) {
     private val lang = itemView.findViewById<TextView>(R.id.tv)
-    fun bind(model: LanguageUi) {
+    override fun bind(model: LanguageUi) {
         model.map(lang)
         itemView.setOnClickListener {
             clickListener.click(model)
@@ -58,6 +59,7 @@ class DiffUtilCallback(
     override fun getNewListSize() = newList.size
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].id() == newList[newItemPosition].id()
+
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList[oldItemPosition].equals(newList[newItemPosition])
 }
