@@ -45,7 +45,6 @@ interface LanguageUi : Serializable {
     ) : Abstract(id, value) {
         override fun click(chooseLanguage: ChooseLanguage) = Unit
 
-
         override fun map(textView: TextView) {
             super.map(textView)
             textView.setBackgroundResource(R.color.choosen_language)
