@@ -4,24 +4,22 @@ import android.view.View
 
 interface InitialUiState {
 
-    object Loading : InitialUiState, ApplyProgress {
-        override fun apply(view: View) {
-            view.visibility = View.VISIBLE
+    fun apply(error: ErrorView, progress: View)
+
+    object Loading : InitialUiState {
+
+        override fun apply(error: ErrorView, progress: View) {
+            error.visibility = View.INVISIBLE
+            progress.visibility = View.VISIBLE
         }
     }
 
-    data class Error(private val message: String) : InitialUiState, ApplyError {
-        override fun apply(view: ErrorView) {
-            view.visibility = View.VISIBLE
-            view.showError(message)
+    data class Error(private val message: String) : InitialUiState {
+
+        override fun apply(error: ErrorView, progress: View) {
+            progress.visibility = View.INVISIBLE
+            error.visibility = View.VISIBLE
+            error.showError(message)
         }
-    }
-
-    interface ApplyError {
-        fun apply(view: ErrorView)
-    }
-
-    interface ApplyProgress {
-        fun apply(view: View)
     }
 }

@@ -26,12 +26,7 @@ class InitialFragment : BaseFragment<InitialViewModel, FragmentInitialBinding>()
         }
         viewModel.observe(this) { state ->
             with(binding) {
-                error.visibility = View.INVISIBLE
-                progress.visibility = View.INVISIBLE
-                when (state) {
-                    is InitialUiState.Loading -> state.apply(progress)
-                    is InitialUiState.Error -> state.apply(error)
-                }
+                state.apply(error, progress)
             }
         }
         viewModel.init()
