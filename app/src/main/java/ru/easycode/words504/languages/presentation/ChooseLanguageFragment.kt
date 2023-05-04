@@ -21,14 +21,14 @@ class ChooseLanguageFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val saveButton = view.findViewById<Button>(R.id.saveButton)
-        val recyclerView = view.findViewById<RecyclerView>(R.id.chooseLangRecyclerView)
+        val saveButton = view.findViewById<Button>(R.id.save_view)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.choose_lang_view)
         val adapter = ChooseLanguageAdapter(object : ClickListener {
             override fun click(item: LanguageUi) = item.click(viewModel)
         })
         recyclerView.adapter = adapter
         viewModel.observe(this) {
-            it.map(adapter, binding.root)
+            it.map(adapter, saveButton)
         }
         saveButton.setOnClickListener {
             viewModel.save()

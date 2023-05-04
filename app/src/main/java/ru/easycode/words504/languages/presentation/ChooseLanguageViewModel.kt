@@ -53,7 +53,6 @@ interface ChooseLanguageViewModel : ChooseLanguage {
 
         override fun save() {
             repository.save()
-            communication.map(ChooseLanguageState.Saved)
             navigation.map(MainScreen)
         }
     }

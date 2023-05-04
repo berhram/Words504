@@ -3,7 +3,7 @@
     <string name="button_test">start test</string>
     <string name="progress_text">%1$d out of %2$d</string>
     <string name="load_coroutines">go to load-coroutines</string>
-    <string name="choose_you_language">Choose you language</string>
+    <string name="choose_your_language">Choose your language</string>
     <string name="save">save</string>
     <string name="welcome">Welcome</string>
     <string name="try_again">Try again</string>

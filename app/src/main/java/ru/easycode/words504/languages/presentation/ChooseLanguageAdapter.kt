@@ -3,7 +3,6 @@ package ru.easycode.words504.languages.presentation
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.R
@@ -35,13 +34,15 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener) :
     }
 }
 
-class ChooseLanguageViewHolder(view: View, private val clickListener: ClickListener) :
-    GenericViewHolder<LanguageUi>(view) {
-    private val lang = itemView.findViewById<TextView>(R.id.tv)
-    override fun bind(model: LanguageUi) {
-        model.map(lang)
+class ChooseLanguageViewHolder(
+    private val view: View,
+    private val clickListener: ClickListener
+) : GenericViewHolder<LanguageUi>(view) {
+
+    override fun bind(item: LanguageUi) = with(view) {
+        item.map(findViewById(R.id.tv))
         itemView.setOnClickListener {
-            clickListener.click(model)
+            clickListener.click(item)
         }
     }
 }

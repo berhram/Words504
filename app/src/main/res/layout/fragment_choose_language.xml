@@ -12,12 +12,12 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="16dp"
-        android:text="@string/choose_you_language"
+        android:text="@string/choose_your_language"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         tools:text="Choose you language" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/chooseLangRecyclerView"
+        android:id="@+id/choose_lang_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -25,7 +25,7 @@
         tools:listitem="@layout/language_item" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/saveButton"
+        android:id="@+id/save_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="166dp"
