@@ -15,7 +15,7 @@
         android:text="@string/welcome" />
 
     <ProgressBar
-        android:id="@+id/progress"
+        android:id="@+id/progress_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -24,7 +24,7 @@
         tools:visibility="visible" />
 
     <ru.easycode.words504.initial.presentation.ErrorView
-        android:id="@+id/error"
+        android:id="@+id/error_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"

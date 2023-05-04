@@ -1,7 +1,7 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/langCard"
+    android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="16dp"
@@ -10,7 +10,7 @@
     app:cardCornerRadius="16dp">
 
     <TextView
-        android:id="@+id/tv"
+        android:id="@+id/text_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
