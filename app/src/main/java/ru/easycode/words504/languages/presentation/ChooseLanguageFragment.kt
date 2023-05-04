@@ -28,11 +28,10 @@ class ChooseLanguageFragment :
         })
         recyclerView.adapter = adapter
         viewModel.observe(this) {
-            it.map(adapter, saveButton)
+            it.map(adapter, binding.root)
         }
         saveButton.setOnClickListener {
             viewModel.save()
-            binding.root.visibility = View.GONE
         }
         viewModel.init(SaveAndRestoreLanguageCache.Base(savedInstanceState))
     }
