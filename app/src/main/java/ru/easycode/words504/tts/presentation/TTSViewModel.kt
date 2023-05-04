@@ -55,7 +55,7 @@ abstract class TTSViewModel(
 
     override fun init(onInitListener: OnInitListener) = ttsEngine.init(onInitListener, callback)
 
-    override fun ttsString(sentence: String) = ttsEngine.speak(sentence)
+    override fun ttsString(sentence: String) = ttsEngine.makeSentenceMedia(sentence)
 
     override fun ttsStringList(sentences: List<String>) = ttsEngine.speak(sentences)
 

@@ -41,7 +41,6 @@ class TTSTestActivity : BaseActivity<TTSTestViewModelFinal>() {
             viewModel.stop()
         }
 
-        // todo перенести логику отсюда
         viewModel.observeTTSResult(this) {
             when (it) {
                 is TTSState.Started -> {
