@@ -10,4 +10,5 @@
     <color name="choosen_language">#625B71</color>
     <color name="enable_button">#6750A4</color>
     <color name="choose_button">#FFFBFE</color>
+    <color name="initial_active_color">#6750A4</color>
 </resources>
