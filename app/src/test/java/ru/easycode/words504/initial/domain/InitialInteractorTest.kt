@@ -108,7 +108,7 @@ class InitialInteractorTest : BaseTest() {
 
     private class FakeException : Exception()
 
-    private interface FakeHandleError : HandleError<Exception, String> {
+    private interface FakeHandleError : HandleError<Throwable, String> {
 
         fun checkCalledHandle()
 
@@ -118,7 +118,7 @@ class InitialInteractorTest : BaseTest() {
                 functionsCallsStack.checkCalled(HANDLE_CALLED)
             }
 
-            override fun handle(source: Exception): String {
+            override fun handle(source: Throwable): String {
                 functionsCallsStack.put(HANDLE_CALLED)
                 if (source is FakeException) return "something went wrong"
                 throw java.lang.IllegalStateException("unknown exception type $source")

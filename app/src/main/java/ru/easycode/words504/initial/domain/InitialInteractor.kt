@@ -8,7 +8,7 @@ interface InitialInteractor {
 
     class Base(
         private val repository: InitialRepository,
-        private val handleError: HandleError<java.lang.Exception, String>
+        private val handleError: HandleError<Throwable, String>
     ) : InitialInteractor {
 
         override suspend fun init(): InitialResult = try {
@@ -18,7 +18,7 @@ interface InitialInteractor {
                 repository.init()
                 InitialResult.FirstOpening
             }
-        } catch (e: Exception) {
+        } catch (e: Throwable) {
             val message = handleError.handle(e)
             InitialResult.Error(message)
         }
