@@ -5,4 +5,7 @@
     <string name="load_coroutines">go to load-coroutines</string>
     <string name="progress_start_symbol">カ</string>
     <string name="progress_right_start_symbol">א</string>
+    <string name="welcome">Welcome</string>
+    <string name="try_again">Try again</string>
+    <string name="error">Something went wrong</string>
 </resources>
