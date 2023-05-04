@@ -1,6 +1,7 @@
 package ru.easycode.words504.languages.presentation
 
 import android.widget.Button
+import ru.easycode.words504.domain.Mapper
 
 interface ChooseLanguageState {
     fun map(adapter: Mapper.Unit<List<LanguageUi>>, saveButton: Button)

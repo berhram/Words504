@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.R
+import ru.easycode.words504.domain.Mapper
 import ru.easycode.words504.languages.presentation.adapter.GenericViewHolder
 
 class ChooseLanguageAdapter(private val clickListener: ClickListener) :
