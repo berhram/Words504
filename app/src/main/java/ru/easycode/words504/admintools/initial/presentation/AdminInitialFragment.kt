@@ -22,7 +22,7 @@ class AdminInitialFragment : BaseFragment<AdminInitialViewModel, FragmentAdminIn
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.goSentenceButton.setOnClickListener {
+        binding.goSentenceButtonView.setOnClickListener {
             viewModel.navigate(AdminSentenceScreen)
         }
     }

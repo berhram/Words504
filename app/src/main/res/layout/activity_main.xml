@@ -1,42 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@color/primary"
+        android:theme="@style/Widget.Material3.ActionBar.Solid"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/gotoAdminButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/goto_admin" />
-
-        <Button
-            android:id="@+id/gotoLoadCoroutines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:text="@string/load_coroutines" />
-
-        <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
-            android:id="@+id/wordsIndexesInputLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="16dp" />
-
-        <Button
-            android:id="@+id/testButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/button_test" />
-    </LinearLayout>
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/container_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_view"
+        tools:context=".MainActivity" />
+</androidx.constraintlayout.widget.ConstraintLayout>

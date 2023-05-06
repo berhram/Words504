@@ -17,7 +17,7 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/adminFragmentToolbar"
+                android:id="@+id/admin_toolbar_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:navigationIcon="@drawable/ic_back_black_24">
@@ -32,14 +32,14 @@
             </androidx.appcompat.widget.Toolbar>
 
             <ru.easycode.words504.admintools.presentation.input.SentenceInputLayout
-                android:id="@+id/wordsIndexesInputLayout"
+                android:id="@+id/words_indexes_input_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
                 android:padding="16dp" />
 
             <ru.easycode.words504.admintools.presentation.input.WordsLinearLayout
-                android:id="@+id/wordsLinearLayout"
+                android:id="@+id/words_linear_layout_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
@@ -52,7 +52,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/adminSaveButton"
+            android:id="@+id/admin_save_button_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -63,7 +63,7 @@
             android:layout_height="match_parent" />
 
         <Button
-            android:id="@+id/adminAddButton"
+            android:id="@+id/admin_add_button_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"

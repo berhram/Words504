@@ -24,7 +24,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/language_item" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/save_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

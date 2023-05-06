@@ -21,12 +21,12 @@ class InitialFragment : BaseFragment<InitialViewModel, FragmentInitialBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.error.addRetryListener {
+        binding.errorView.addRetryListener {
             viewModel.retry()
         }
         viewModel.observe(this) { state ->
             with(binding) {
-                state.apply(error, progress)
+                state.apply(errorView, progressView)
             }
         }
         viewModel.init()

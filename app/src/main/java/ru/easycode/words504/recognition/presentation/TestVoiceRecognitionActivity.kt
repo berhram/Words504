@@ -14,7 +14,7 @@ class TestVoiceRecognitionActivity : AppCompatActivity(), ProvideViewModel {
         setContentView(R.layout.voice_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container_voice, TestVoiceRecognitionFragment())
+                .replace(R.id.container_voice_view, TestVoiceRecognitionFragment())
                 .commit()
         }
     }

@@ -2,10 +2,11 @@
     <string name="app_name">Words504</string>
     <string name="button_test">start test</string>
     <string name="progress_text">%1$d out of %2$d</string>
-    <string name="load_coroutines">go to load-coroutines</string>
+    <string name="load_coroutines">Coroutines</string>
     <string name="choose_your_language">Choose your language</string>
     <string name="save">save</string>
     <string name="welcome">Welcome</string>
     <string name="try_again">Try again</string>
     <string name="error">Something went wrong</string>
+    <string name="stt">STT</string>
 </resources>

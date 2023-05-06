@@ -16,39 +16,31 @@ interface LanguageUi : Serializable {
 
     abstract class Abstract(
         protected open val id: String,
-        protected open val value: String
+        protected open val value: String,
+        private val backgroundId: Int
     ) : LanguageUi {
         override fun id() = id
 
         override fun map(textView: TextView) {
             textView.text = value
+            textView.setBackgroundResource(backgroundId)
         }
     }
 
     data class NotChosen(
         override val id: String,
         override val value: String
-    ) : Abstract(id, value) {
+    ) : Abstract(id, value, R.color.choose_button) {
         override fun click(chooseLanguage: ChooseLanguage) {
             chooseLanguage.choose(id)
-        }
-
-        override fun map(textView: TextView) {
-            super.map(textView)
-            textView.setBackgroundResource(R.color.choose_button)
         }
     }
 
     data class Chosen(
         override val id: String,
         override val value: String
-    ) : Abstract(id, value) {
+    ) : Abstract(id, value, R.color.choosen_language) {
         override fun click(chooseLanguage: ChooseLanguage) = Unit
-
-        override fun map(textView: TextView) {
-            super.map(textView)
-            textView.setBackgroundResource(R.color.choosen_language)
-        }
     }
 }
 
