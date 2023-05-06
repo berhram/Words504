@@ -35,7 +35,8 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener<LanguageUi>
 }
 
 class ChooseLanguageViewHolder(
-    private val binding: LanguageItemBinding, private val clickListener: ClickListener<LanguageUi>
+    private val binding: LanguageItemBinding,
+    private val clickListener: ClickListener<LanguageUi>
 ) : GenericViewHolder<LanguageUi>(binding.root) {
 
     override fun bind(item: LanguageUi) {
@@ -47,7 +48,8 @@ class ChooseLanguageViewHolder(
 }
 
 class DiffUtilCallback(
-    private val oldList: List<LanguageUi>, private val newList: List<LanguageUi>
+    private val oldList: List<LanguageUi>,
+    private val newList: List<LanguageUi>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size
