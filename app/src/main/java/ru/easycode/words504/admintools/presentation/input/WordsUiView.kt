@@ -8,13 +8,6 @@ import ru.easycode.words504.admintools.presentation.WordUi
 import ru.easycode.words504.databinding.WordsUiLayoutBinding
 
 class WordsUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
-    constructor(context: Context) : super(context)
-    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
-        context,
-        attrs,
-        defStyleAttr
-    )
 
     private val binding: WordsUiLayoutBinding =
         WordsUiLayoutBinding.inflate(
@@ -22,6 +15,14 @@ class WordsUiView : LinearLayout, SaveAndReadWordUi, WordUi.Mapper<Unit> {
             this,
             true
         )
+
+    constructor(context: Context) : super(context)
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    )
 
     override fun save(data: WordUi) = data.map(this)
 
