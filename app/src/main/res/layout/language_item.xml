@@ -3,16 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_margin="@dimen/medium"
     android:shadowColor="@color/black"
-    app:cardBackgroundColor="#FFFBFE"
-    app:cardCornerRadius="16dp">
+    app:cardBackgroundColor="@color/choose_button"
+    app:cardCornerRadius="@dimen/medium">
 
     <TextView
         android:id="@+id/languageTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textColor="#1C1B1F"
+        android:padding="@dimen/medium"
+        android:textColor="@color/text"
         tools:text="Russian" />
 </com.google.android.material.card.MaterialCardView>

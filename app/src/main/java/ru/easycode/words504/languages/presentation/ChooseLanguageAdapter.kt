@@ -1,21 +1,21 @@
 package ru.easycode.words504.languages.presentation
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import ru.easycode.words504.R
+import ru.easycode.words504.databinding.LanguageItemBinding
 import ru.easycode.words504.domain.Mapper
 import ru.easycode.words504.languages.presentation.adapter.GenericViewHolder
+import ru.easycode.words504.presentation.ClickListener
 
-class ChooseLanguageAdapter(private val clickListener: ClickListener) :
+class ChooseLanguageAdapter(private val clickListener: ClickListener<LanguageUi>) :
     RecyclerView.Adapter<ChooseLanguageViewHolder>(), Mapper.Unit<List<LanguageUi>> {
 
     private val list = mutableListOf<LanguageUi>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ChooseLanguageViewHolder(
-        LayoutInflater.from(parent.context).inflate(R.layout.language_item, parent, false),
+        LanguageItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
         clickListener
     )
 
@@ -35,25 +35,19 @@ class ChooseLanguageAdapter(private val clickListener: ClickListener) :
 }
 
 class ChooseLanguageViewHolder(
-    private val view: View,
-    private val clickListener: ClickListener
-) : GenericViewHolder<LanguageUi>(view) {
+    private val binding: LanguageItemBinding, private val clickListener: ClickListener<LanguageUi>
+) : GenericViewHolder<LanguageUi>(binding.root) {
 
-    override fun bind(item: LanguageUi) = with(view) {
-        item.map(findViewById(R.id.languageTextView))
+    override fun bind(item: LanguageUi) {
+        item.map(binding.languageTextView)
         itemView.setOnClickListener {
             clickListener.click(item)
         }
     }
 }
 
-interface ClickListener {
-    fun click(item: LanguageUi)
-}
-
 class DiffUtilCallback(
-    private val oldList: List<LanguageUi>,
-    private val newList: List<LanguageUi>
+    private val oldList: List<LanguageUi>, private val newList: List<LanguageUi>
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize() = oldList.size

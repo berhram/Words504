@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.R
 import ru.easycode.words504.databinding.FragmentChooseLanguageBinding
 import ru.easycode.words504.presentation.BaseFragment
+import ru.easycode.words504.presentation.ClickListener
 
 class ChooseLanguageFragment :
     BaseFragment<ChooseLanguageViewModel.Base, FragmentChooseLanguageBinding>() {
@@ -23,7 +24,7 @@ class ChooseLanguageFragment :
         super.onViewCreated(view, savedInstanceState)
         val saveButton = view.findViewById<Button>(R.id.saveButton)
         val recyclerView = view.findViewById<RecyclerView>(R.id.chooseLangRecyclerView)
-        val adapter = ChooseLanguageAdapter(object : ClickListener {
+        val adapter = ChooseLanguageAdapter(object : ClickListener<LanguageUi> {
             override fun click(item: LanguageUi) = item.click(viewModel)
         })
         recyclerView.adapter = adapter

@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text">#1C1B1F</color>
     <color name="choosen_language">#625B71</color>
     <color name="enable_button">#6750A4</color>
     <color name="choose_button">#FFFBFE</color>
