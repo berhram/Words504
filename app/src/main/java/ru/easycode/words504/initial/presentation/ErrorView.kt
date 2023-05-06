@@ -23,10 +23,10 @@ class ErrorView : LinearLayout, ShowError, RetryListener {
     )
 
     override fun addRetryListener(listener: () -> Unit) =
-        binding.retryView.setOnClickListener { listener.invoke() }
+        binding.retryButton.setOnClickListener { listener.invoke() }
 
     override fun showError(message: String) {
-        binding.messageView.text = message
+        binding.messageTextView.text = message
     }
 }
 

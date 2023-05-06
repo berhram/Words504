@@ -26,7 +26,7 @@ class InitialFragment : BaseFragment<InitialViewModel, FragmentInitialBinding>()
         }
         viewModel.observe(this) { state ->
             with(binding) {
-                state.apply(errorView, progressView)
+                state.apply(errorView, progressBar)
             }
         }
         viewModel.init()

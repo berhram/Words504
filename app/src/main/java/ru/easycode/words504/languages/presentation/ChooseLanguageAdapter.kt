@@ -40,7 +40,7 @@ class ChooseLanguageViewHolder(
 ) : GenericViewHolder<LanguageUi>(view) {
 
     override fun bind(item: LanguageUi) = with(view) {
-        item.map(findViewById(R.id.language_text_view))
+        item.map(findViewById(R.id.languageTextView))
         itemView.setOnClickListener {
             clickListener.click(item)
         }

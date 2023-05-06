@@ -12,7 +12,7 @@ class AdminActivity : BaseActivity<AdminActivityViewModel.Base>() {
         val binding = ActivityAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
         viewModel.observe(this) {
-            it.navigate(supportFragmentManager, binding.adminContainerView.id)
+            it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
         if (savedInstanceState == null) {
             viewModel.navigate(AdminInitialScreen)

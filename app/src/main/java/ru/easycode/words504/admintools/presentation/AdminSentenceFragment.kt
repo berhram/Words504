@@ -17,13 +17,13 @@ class AdminSentenceFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.adminToolbarView.setNavigationOnClickListener { viewModel.goBack() }
-        binding.adminAddButtonView.setOnClickListener { binding.wordsLinearLayoutView.add() }
-        binding.adminSaveButtonView.setOnClickListener {
+        binding.adminToolbar.setNavigationOnClickListener { viewModel.goBack() }
+        binding.adminAddButton.setOnClickListener { binding.wordsLinearLayout.add() }
+        binding.adminSaveButton.setOnClickListener {
             viewModel.save(
                 SentenceUi.Base(
-                    binding.wordsIndexesInputView.editText?.text.toString(),
-                    binding.wordsLinearLayoutView.read()
+                    binding.sentenceInputLayout.editText?.text.toString(),
+                    binding.wordsLinearLayout.read()
                 )
             )
         }
@@ -38,14 +38,14 @@ class AdminSentenceFragment :
         viewModel.save(
             SaveAndRestoreSentenceUi.Base(outState),
             SentenceUi.Base(
-                binding.wordsIndexesInputView.editText?.text.toString(),
-                binding.wordsLinearLayoutView.read()
+                binding.sentenceInputLayout.editText?.text.toString(),
+                binding.wordsLinearLayout.read()
             )
         )
     }
 
     override fun map(ui: String, words: List<WordUi>) {
-        binding.wordsIndexesInputView.editText?.setText(ui)
-        binding.wordsLinearLayoutView.save(words)
+        binding.sentenceInputLayout.editText?.setText(ui)
+        binding.wordsLinearLayout.save(words)
     }
 }

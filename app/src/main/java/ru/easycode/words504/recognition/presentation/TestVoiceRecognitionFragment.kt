@@ -31,7 +31,7 @@ class TestVoiceRecognitionFragment :
         }
 
         viewModel.init(savedInstanceState == null)
-        binding.speakButtonView.setOnClickListener {
+        binding.speakButton.setOnClickListener {
             viewModel.startRecord()
         }
         viewModel.observeRequestPermission(this) {

@@ -17,7 +17,7 @@
         tools:text="Choose you language" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/choose_lang_view"
+        android:id="@+id/chooseLangRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -25,12 +25,11 @@
         tools:listitem="@layout/language_item" />
 
     <Button
-        android:id="@+id/save_view"
-        android:layout_width="match_parent"
+        android:id="@+id/saveButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="166dp"
-        android:layout_marginEnd="166dp"
-        android:layout_marginBottom="49dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
         android:textColor="@color/white"
         android:background="@drawable/rounded_button"
         android:text="@string/save" />

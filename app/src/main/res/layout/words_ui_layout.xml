@@ -11,7 +11,7 @@
         android:padding="16dp">
 
         <ru.easycode.words504.presentation.CorrectTextInputEditText
-            android:id="@+id/inputWordEditText"
+            android:id="@+id/wordInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -21,11 +21,10 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:padding="16dp">
 
         <ru.easycode.words504.presentation.CorrectTextInputEditText
-            android:id="@+id/inputIndexEditText"
+            android:id="@+id/indexInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />
@@ -39,7 +38,7 @@
         android:padding="16dp">
 
         <ru.easycode.words504.presentation.CorrectTextInputEditText
-            android:id="@+id/inputDictionaryFormEditText"
+            android:id="@+id/dictionaryFormInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />

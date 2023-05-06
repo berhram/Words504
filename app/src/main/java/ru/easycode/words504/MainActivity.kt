@@ -42,9 +42,9 @@ class MainActivity : BaseActivity<MainViewModel.Base>() {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        setSupportActionBar(binding.toolbarView)
+        setSupportActionBar(binding.mainToolbar)
         viewModel.observe(this) { screen ->
-            screen.navigate(supportFragmentManager, R.id.container_view)
+            screen.navigate(supportFragmentManager, R.id.mainContainer)
         }
         if (savedInstanceState == null) {
             viewModel.init()
