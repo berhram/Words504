@@ -1,12 +1,13 @@
 package ru.easycode.words504.data
 
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.data.cache.serialization.Serialization
 
 
-class SerializationTest() {
+class SerializationTest {
     private data class FakeSerializedObject(val id: String)
 
     private val gson = Gson()
@@ -15,7 +16,10 @@ class SerializationTest() {
     @Test
     fun `test deserialize object`() {
         val actual =
-            serialization.fromJson("{\"id\":\"777\"}", FakeSerializedObject::class.java)
+            serialization.fromJson(
+                "{\"id\":\"777\"}",
+                TypeToken.get(FakeSerializedObject::class.java)
+            )
         val expected = FakeSerializedObject("777")
         assertEquals(expected, actual)
     }
