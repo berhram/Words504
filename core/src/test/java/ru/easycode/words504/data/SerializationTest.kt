@@ -6,9 +6,8 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.data.cache.serialization.Serialization
 
-
 class SerializationTest {
-    private data class FakeSerializedObject(val id: String)
+    private data class FakeSerializedObject(private val id: String)
 
     private val gson = Gson()
     private val serialization = Serialization.Base(gson)
