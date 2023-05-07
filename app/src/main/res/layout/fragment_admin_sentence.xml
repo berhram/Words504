@@ -36,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:padding="16dp" />
+                android:padding="@dimen/regular" />
 
             <ru.easycode.words504.admintools.presentation.input.WordsLinearLayout
                 android:id="@+id/wordsLinearLayout"
@@ -59,7 +59,7 @@
             android:text="@string/admin_save" />
 
         <Space
-            android:layout_width="16dp"
+            android:layout_width="@dimen/regular"
             android:layout_height="match_parent" />
 
         <Button

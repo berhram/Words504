@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/primary"
         android:textColor="@color/white"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="@dimen/regular"
         android:text="@string/try_again" />
 
 </LinearLayout>

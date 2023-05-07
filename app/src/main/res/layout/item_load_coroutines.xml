@@ -4,7 +4,7 @@
     android:id="@+id/translationTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
+    android:layout_marginVertical="@dimen/small"
     android:gravity="center_horizontal"
     android:textAppearance="@style/TextAppearance.AppCompat"
     tools:text="translate : перевод" />
