@@ -1,5 +1,6 @@
 package ru.easycode.words504
 
+import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
@@ -74,6 +75,9 @@ abstract class BaseTest {
         @Suppress("UNCHECKED_CAST")
         override fun <T : Any> read(key: String, default: T): T =
             map.getOrDefault(key, default) as T
+
+        override fun <T : Any> readList(key: String, typeToken: TypeToken<T>): T =
+            map.getOrDefault(key, emptyList<T>()) as T
     }
 
     protected abstract class FakeCall<T> : Call<T> {

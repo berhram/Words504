@@ -1,5 +1,6 @@
 package ru.easycode.words504.languages.data.cache
 
+import com.google.gson.reflect.TypeToken
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 
 interface LanguagesCacheDataSource {
@@ -13,10 +14,10 @@ interface LanguagesCacheDataSource {
         private val languagesKey: String = "LanguagesKey"
     ) : LanguagesCacheDataSource, Mutable {
 
-        override fun read(): List<LanguageCache> {
-            val defaultLanguages = emptyList<LanguageCache>()
-            return objectStorage.read(languagesKey, defaultLanguages)
-        }
+        override fun read(): List<LanguageCache> = objectStorage.readList(
+            languagesKey,
+            object : TypeToken<List<LanguageCache.Base>>() {}
+        )
 
         override fun save(data: List<LanguageCache>) = objectStorage.save(languagesKey, data)
     }
