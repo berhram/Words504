@@ -22,13 +22,13 @@ class MainViewModelTest : BaseTest() {
     fun `init emit initial screen`() {
         viewModel.init()
         fakeCommunication.checkMapCalled()
-        fakeCommunication.assertInitialScreenEmitted()
+        fakeCommunication.assertScreenEmitted(InitialScreen)
         functionsCallsStack.checkStack(1)
     }
 
     private interface FakeCommunication : NavigationCommunication.Mutable {
 
-        fun assertInitialScreenEmitted()
+        fun assertScreenEmitted(screen: Screen)
 
         fun checkMapCalled()
 
@@ -36,8 +36,8 @@ class MainViewModelTest : BaseTest() {
 
             private var emittedScreen: Screen? = null
 
-            override fun assertInitialScreenEmitted() {
-                assertEquals(InitialScreen, emittedScreen)
+            override fun assertScreenEmitted(screen: Screen) {
+                assertEquals(screen, emittedScreen)
             }
 
             override fun checkMapCalled() {
