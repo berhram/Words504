@@ -22,7 +22,7 @@
         tools:text="127 out of 234" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/translationsList"
+        android:id="@+id/translationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

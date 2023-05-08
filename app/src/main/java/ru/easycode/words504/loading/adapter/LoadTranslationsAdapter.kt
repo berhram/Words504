@@ -56,5 +56,5 @@ class WordWithTranslationViewHolder(
     private val itemBinding: ItemLoadCoroutinesBinding
 ) : RecyclerView.ViewHolder(itemBinding.root), Mapper<ItemTranslateUi, Unit> {
 
-    override fun map(source: ItemTranslateUi) = source.show(itemBinding.translationText)
+    override fun map(source: ItemTranslateUi) = source.show(itemBinding.translationTextView)
 }

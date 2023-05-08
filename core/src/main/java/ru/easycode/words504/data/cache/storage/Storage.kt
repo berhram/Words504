@@ -1,5 +1,7 @@
 package ru.easycode.words504.data.cache.storage
 
+import com.google.gson.reflect.TypeToken
+
 interface Storage : SimpleStorage, ObjectStorage {
 
     class Base(
@@ -14,5 +16,8 @@ interface Storage : SimpleStorage, ObjectStorage {
         override fun save(key: String, value: String) = simpleStorage.save(key, value)
 
         override fun save(key: String, obj: Any) = objectStorage.save(key, obj)
+
+        override fun <T : Any> readList(key: String, typeToken: TypeToken<T>): T =
+            objectStorage.readList(key, typeToken)
     }
 }

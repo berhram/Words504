@@ -17,12 +17,12 @@ class AdminSentenceFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.adminFragmentToolbar.setNavigationOnClickListener { viewModel.goBack() }
+        binding.adminToolbar.setNavigationOnClickListener { viewModel.goBack() }
         binding.adminAddButton.setOnClickListener { binding.wordsLinearLayout.add() }
         binding.adminSaveButton.setOnClickListener {
             viewModel.save(
                 SentenceUi.Base(
-                    binding.wordsIndexesInputLayout.editText?.text.toString(),
+                    binding.sentenceInputLayout.editText?.text.toString(),
                     binding.wordsLinearLayout.read()
                 )
             )
@@ -38,14 +38,14 @@ class AdminSentenceFragment :
         viewModel.save(
             SaveAndRestoreSentenceUi.Base(outState),
             SentenceUi.Base(
-                binding.wordsIndexesInputLayout.editText?.text.toString(),
+                binding.sentenceInputLayout.editText?.text.toString(),
                 binding.wordsLinearLayout.read()
             )
         )
     }
 
     override fun map(ui: String, words: List<WordUi>) {
-        binding.wordsIndexesInputLayout.editText?.setText(ui)
+        binding.sentenceInputLayout.editText?.setText(ui)
         binding.wordsLinearLayout.save(words)
     }
 }
