@@ -7,7 +7,6 @@
     android:orientation="vertical">
 
     <ru.easycode.words504.views.ProgressView
-
         android:id="@+id/progressView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

@@ -5,64 +5,38 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <FrameLayout
-        android:id="@+id/frameRight"
+    <TextView
+        android:id="@+id/rightIconTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/cloudBlue"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/progress_item_left" />
-
-        <TextView
-            android:id="@+id/rightIconTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:text="@string/progress_start_symbol"
-            android:textColor="@color/white"
-            android:textDirection="ltr"
-            android:textStyle="bold"
-
-            app:autoSizeMaxTextSize="24sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeStepGranularity="2sp"
-            app:autoSizeTextType="uniform" />
-
-    </FrameLayout>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/progress_item_left"
+        android:gravity="center"
+        android:text="@string/progress_start_symbol"
+        android:textColor="@color/white"
+        android:textDirection="ltr"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:autoSizeTextType="uniform" />
 
     <Space
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
 
-    <FrameLayout
-
-        android:id="@+id/frameLeft"
+    <TextView
+        android:id="@+id/leftIconTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/cloudWhite"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/progress_item_right" />
-
-        <TextView
-            android:id="@+id/leftIconTextView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="@string/progress_right_start_symbol"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:autoSizeMaxTextSize="24sp"
-            app:autoSizeMinTextSize="12sp"
-            app:autoSizeStepGranularity="1sp"
-            app:autoSizeTextType="uniform" />
-    </FrameLayout>
-
+        android:layout_height="wrap_content"
+        android:background="@drawable/progress_item_right"
+        android:gravity="center"
+        android:text="@string/progress_right_start_symbol"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="1sp"
+        app:autoSizeTextType="uniform" />
 </merge>
