@@ -4,7 +4,8 @@
     <dimen name="regular">16dp</dimen>
     <dimen name="medium">24dp</dimen>
     <dimen name="large">32dp</dimen>
-    <dimen name="progress_item_size">48dp</dimen>
-    <dimen name="corner_radius">8dp</dimen>
+    <dimen name="huge">48dp</dimen>
+    <dimen name="min_text">12dp</dimen>
     <dimen name="stroke_width">1dp</dimen>
+    <dimen name="granularity_step">2dp</dimen>
 </resources>

@@ -57,8 +57,6 @@ class ProgressView : LinearLayout {
         super.onSizeChanged(w, h, oldw, oldh)
         val leftBorder = 0f
         val rightBorder = measuredWidth.toFloat() - textViewLeft.measuredWidth.toFloat()
-//        val leftBorder = textViewLeft.measuredWidth.toFloat()
-//        val rightBorder = measuredWidth.toFloat()+leftBorder
         translations.provide(leftBorder, rightBorder).start()
         textChange.provide(0f, 1f).start()
     }

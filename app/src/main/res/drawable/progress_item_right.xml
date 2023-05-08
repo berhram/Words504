@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
-    <solid android:color="#4285F4" />
+    <solid android:color="@color/progress_background" />
     <size
-        android:width="@dimen/progress_item_size"
-        android:height="@dimen/progress_item_size" />
+        android:width="@dimen/huge"
+        android:height="@dimen/huge" />
 
     <stroke
         android:width="@dimen/stroke_width"
-        android:color="#000000" />
+        android:color="@color/black" />
 
     <corners
-        android:bottomLeftRadius="@dimen/corner_radius"
-        android:topLeftRadius="@dimen/corner_radius"
-        android:topRightRadius="@dimen/corner_radius" />
+        android:bottomLeftRadius="@dimen/small"
+        android:topLeftRadius="@dimen/small"
+        android:topRightRadius="@dimen/small" />
 
 
 </shape>

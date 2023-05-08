@@ -16,9 +16,9 @@
         android:textColor="@color/white"
         android:textDirection="ltr"
         android:textStyle="bold"
-        app:autoSizeMaxTextSize="24sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="2sp"
+        app:autoSizeMaxTextSize="@dimen/medium"
+        app:autoSizeMinTextSize="@dimen/min_text"
+        app:autoSizeStepGranularity="@dimen/granularity_step"
         app:autoSizeTextType="uniform" />
 
     <Space
@@ -35,8 +35,8 @@
         android:text="@string/progress_right_start_symbol"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:autoSizeMaxTextSize="24sp"
-        app:autoSizeMinTextSize="12sp"
-        app:autoSizeStepGranularity="1sp"
+        app:autoSizeMaxTextSize="@dimen/medium"
+        app:autoSizeMinTextSize="@dimen/min_text"
+        app:autoSizeStepGranularity="@dimen/granularity_step"
         app:autoSizeTextType="uniform" />
 </merge>

@@ -8,4 +8,5 @@
     <color name="choose_button">#FFFBFE</color>
     <color name="primary_variant">#625B71</color>
     <color name="primary">#6750A4</color>
+    <color name="progress_background">#4285F4</color>
 </resources>
