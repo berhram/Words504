@@ -30,8 +30,11 @@ class ProgressView : LinearLayout {
         LayoutInflater.from(context).inflate(R.layout.progress_view, this, true)
         textViewLeft = findViewById(R.id.leftIconTextView)
         textViewRight = findViewById(R.id.rightIconTextView)
-        translations =
-            ProgressAnimator.Translations(textViewLeft, textViewRight, AccelerateDecelerateInterpolator())
+        translations = ProgressAnimator.Translations(
+            textViewLeft,
+            textViewRight,
+            AccelerateDecelerateInterpolator()
+        )
         textChange = ProgressAnimator.TextChange(
             AnimationRepeatListener(textViewLeft, textViewRight),
             LinearInterpolator()
