@@ -37,6 +37,7 @@ class ProgressView : LinearLayout {
         )
     }
 
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         val screenWidth = context.resources.displayMetrics.widthPixels
