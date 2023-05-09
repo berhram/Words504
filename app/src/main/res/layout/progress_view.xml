@@ -8,7 +8,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/rightIconTextView"
+        android:id="@+id/leftIconTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -29,7 +29,7 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/leftIconTextView"
+        android:id="@+id/rightIconTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/progress_item_right"

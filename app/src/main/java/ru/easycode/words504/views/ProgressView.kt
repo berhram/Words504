@@ -27,8 +27,8 @@ class ProgressView : LinearLayout {
 
     init {
         LayoutInflater.from(context).inflate(R.layout.progress_view, this, true)
-        textViewLeft = getChildAt(0) as TextView
-        textViewRight = getChildAt(2) as TextView
+        textViewLeft = findViewById(R.id.leftIconTextView)
+        textViewRight = findViewById(R.id.rightIconTextView)
         translations =
             ProgressAnimator.Translations(textViewLeft, textViewRight, LinearInterpolator())
         textChange = ProgressAnimator.TextChange(
@@ -49,7 +49,7 @@ class ProgressView : LinearLayout {
                 MINIMAL_HEIGHT_IN_DP * screenPixelDensity.toInt()
         }
         if (inputWidthInDp in WIDTH_RANGE_TOO_SMALL) {
-            layoutParams.width = (screenWidth * 0.6).toInt()
+            layoutParams.width = (screenWidth * MINIMAL_WIDTH_IN_PERCENT).toInt()
         }
     }
 
@@ -65,5 +65,6 @@ class ProgressView : LinearLayout {
         private val WIDTH_RANGE_TOO_SMALL = 1..299
         private val HEIGHT_RANGE_TOO_SMALL = 1..31
         private const val MINIMAL_HEIGHT_IN_DP = 32
+        private const val MINIMAL_WIDTH_IN_PERCENT = 0.6
     }
 }
