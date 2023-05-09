@@ -18,7 +18,7 @@
         android:textColor="@color/white"
         android:textDirection="ltr"
         android:textStyle="bold"
-        app:autoSizeMaxTextSize="@dimen/medium"
+        app:autoSizeMaxTextSize="@dimen/max_progress_text"
         app:autoSizeMinTextSize="@dimen/min_text"
         app:autoSizeStepGranularity="@dimen/granularity_step"
         app:autoSizeTextType="uniform" />
@@ -37,7 +37,7 @@
         android:text="@string/progress_right_start_symbol"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:autoSizeMaxTextSize="@dimen/medium"
+        app:autoSizeMaxTextSize="@dimen/max_progress_text"
         app:autoSizeMinTextSize="@dimen/min_text"
         app:autoSizeStepGranularity="@dimen/granularity_step"
         app:autoSizeTextType="uniform" />

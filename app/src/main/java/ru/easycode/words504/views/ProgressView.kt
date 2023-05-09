@@ -3,6 +3,7 @@ package ru.easycode.words504.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -30,7 +31,7 @@ class ProgressView : LinearLayout {
         textViewLeft = findViewById(R.id.leftIconTextView)
         textViewRight = findViewById(R.id.rightIconTextView)
         translations =
-            ProgressAnimator.Translations(textViewLeft, textViewRight, LinearInterpolator())
+            ProgressAnimator.Translations(textViewLeft, textViewRight, AccelerateDecelerateInterpolator())
         textChange = ProgressAnimator.TextChange(
             AnimationRepeatListener(textViewLeft, textViewRight),
             LinearInterpolator()
