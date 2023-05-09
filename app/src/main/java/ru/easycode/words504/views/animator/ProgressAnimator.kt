@@ -56,6 +56,6 @@ interface ProgressAnimator {
     }
 
     companion object {
-        private const val OSCILLATION_TIME_IN_MS = 1500L
+        private const val OSCILLATION_TIME_IN_MS = 1000L
     }
 }

@@ -10,9 +10,6 @@
         android:width="@dimen/stroke_width"
         android:color="@color/black" />
 
-    <corners
-        android:bottomRightRadius="@dimen/small"
-        android:topLeftRadius="@dimen/small"
-        android:topRightRadius="@dimen/small" />
+    <corners android:radius="@dimen/small" />
 
 </shape>

@@ -27,6 +27,6 @@ class AnimationRepeatListener(
     }
 
     companion object {
-        private val listOfLetters = listOf("א", "Я", "R", "カ")
+        private val listOfLetters = listOf("א", "文", "R", "カ")
     }
 }
