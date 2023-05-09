@@ -4,4 +4,9 @@
     <dimen name="regular">16dp</dimen>
     <dimen name="medium">24dp</dimen>
     <dimen name="large">32dp</dimen>
+    <dimen name="huge">48dp</dimen>
+    <dimen name="min_text">12sp</dimen>
+    <dimen name="max_progress_text">24sp</dimen>
+    <dimen name="stroke_width">1dp</dimen>
+    <dimen name="granularity_step">2sp</dimen>
 </resources>

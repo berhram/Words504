@@ -17,7 +17,7 @@ class LoadTranslateActivity : BaseActivity<LoadTranslateViewModel>() {
         with(binding) {
             translationsRecyclerView.adapter = adapter
             viewModel.observe(this@LoadTranslateActivity) { result ->
-                result.show(progressTextView, adapter)
+                result.show(progressView, progressTextView, adapter)
                 translationsRecyclerView.smoothScrollToPosition(adapter.itemCount)
             }
         }
