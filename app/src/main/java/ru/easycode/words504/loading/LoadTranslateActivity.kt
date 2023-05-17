@@ -15,10 +15,10 @@ class LoadTranslateActivity : BaseActivity<LoadTranslateViewModel>() {
 
         val adapter = LoadTranslationsAdapter()
         with(binding) {
-            translationsList.adapter = adapter
+            translationsRecyclerView.adapter = adapter
             viewModel.observe(this@LoadTranslateActivity) { result ->
-                result.show(progressTextView, adapter)
-                translationsList.smoothScrollToPosition(adapter.itemCount)
+                result.show(progressView, progressTextView, adapter)
+                translationsRecyclerView.smoothScrollToPosition(adapter.itemCount)
             }
         }
     }

@@ -1,5 +1,7 @@
 package ru.easycode.words504.admintools.presentation
 
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.NavigationCommunication
@@ -16,8 +18,11 @@ interface SentenceViewModel {
     class Base(
         private val sentenceUiCache: SentenceUiCache.Mutable,
         private val navigation: NavigationCommunication.Update,
-        private val communication: Communication.Mutable<SentenceUi>
-    ) : ViewModel(), SentenceViewModel {
+        private val communication: AdminSentenceCommunication
+    ) : ViewModel(), SentenceViewModel, Communication.Observe<SentenceUi> {
+
+        override fun observe(owner: LifecycleOwner, observer: Observer<SentenceUi>) =
+            communication.observe(owner, observer)
 
         override fun init(saveAndRestore: SaveAndRestore<SentenceUi>) {
             communication.map(
@@ -41,4 +46,8 @@ interface SentenceViewModel {
             navigation.map(Screen.Pop)
         }
     }
+}
+
+interface AdminSentenceCommunication : Communication.Mutable<SentenceUi> {
+    class Base : Communication.Abstract<SentenceUi>(), AdminSentenceCommunication
 }

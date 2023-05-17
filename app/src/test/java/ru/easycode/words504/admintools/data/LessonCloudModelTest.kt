@@ -1,5 +1,6 @@
 package ru.easycode.words504.admintools.data
 
+import com.google.gson.reflect.TypeToken
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import ru.easycode.words504.admintools.data.cloud.ExerciseItemCloud
@@ -20,7 +21,8 @@ class LessonCloudModelTest {
         val jsonString = javaClass.classLoader?.getResource(PATH_FILE)?.readText() ?: ""
 
         val serialization = Serialization.Base()
-        val lessonCloud = serialization.fromJson(jsonString, LessonCloud.Base::class.java)
+        val lessonCloud =
+            serialization.fromJson(jsonString, TypeToken.get(LessonCloud.Base::class.java))
 
         val expected = LessonCloud.Base(
             expectedQuoteCloud(),

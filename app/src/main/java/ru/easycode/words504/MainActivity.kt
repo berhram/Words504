@@ -7,31 +7,45 @@ import ru.easycode.words504.databinding.ActivityMainBinding
 import ru.easycode.words504.loading.LoadTranslateActivity
 import ru.easycode.words504.presentation.BaseActivity
 import ru.easycode.words504.recognition.presentation.TestVoiceRecognitionActivity
-import ru.easycode.words504.tts.presentation.TTSTestActivity
 
-class MainActivity : BaseActivity<MainViewModel>() {
+class MainActivity : BaseActivity<MainViewModel.Base>() {
 
-    override val viewModelClass: Class<MainViewModel> = MainViewModel::class.java
+    override val viewModelClass: Class<MainViewModel.Base> = MainViewModel.Base::class.java
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.coroutines -> {
+            startActivity(Intent(this, LoadTranslateActivity::class.java))
+            true
+        }
+
+        R.id.stt -> {
+            startActivity(Intent(this, TestVoiceRecognitionActivity::class.java))
+            true
+        }
+
+        R.id.admin -> {
+            startActivity(Intent(this, AdminActivity::class.java))
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        binding.testButton.setOnClickListener {
-            val intent = Intent(this, TestVoiceRecognitionActivity::class.java)
-            startActivity(intent)
+        setSupportActionBar(binding.mainToolbar)
+        viewModel.observe(this) { screen ->
+            screen.navigate(supportFragmentManager, R.id.mainContainer)
         }
-
-        binding.buttonTestTTS.setOnClickListener {
-            startActivity(Intent(this, TTSTestActivity::class.java))
-        }
-
-        binding.gotoAdminButton.setOnClickListener {
-            startActivity(Intent(this, AdminActivity::class.java))
-        }
-        binding.gotoLoadCoroutines.setOnClickListener {
-            startActivity(Intent(this, LoadTranslateActivity::class.java))
+        if (savedInstanceState == null) {
+            viewModel.init()
         }
     }
 }

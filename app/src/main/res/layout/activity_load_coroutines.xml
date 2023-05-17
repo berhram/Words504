@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ru.easycode.words504.views.ProgressView
+        android:id="@+id/progressView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <TextView
         android:id="@+id/progressTextView"
         android:layout_width="match_parent"
@@ -16,7 +21,7 @@
         tools:text="127 out of 234" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/translationsList"
+        android:id="@+id/translationsRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

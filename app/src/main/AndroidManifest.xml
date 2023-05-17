@@ -7,8 +7,7 @@
 
     <queries>
         <intent>
-            <action
-                android:name="android.speech.RecognitionService" />
+            <action android:name="android.speech.RecognitionService" />
         </intent>
     </queries>
 
@@ -44,7 +43,8 @@
         <activity android:name=".tts.presentation.TTSTestActivity"/>
         <activity
             android:name=".admintools.presentation.AdminActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".loading.LoadTranslateActivity"
             android:exported="true" />

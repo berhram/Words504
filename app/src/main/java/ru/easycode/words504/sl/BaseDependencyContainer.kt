@@ -19,9 +19,10 @@ class BaseDependencyContainer(
 
     override fun <T : ViewModel> module(clazz: Class<T>): Module<*> = when (clazz) {
         LoadTranslateViewModel::class.java -> LoadCoroutinesModule(core)
-        MainViewModel::class.java -> MainModule()
+        MainViewModel.Base::class.java -> MainModule(core)
         ChooseLanguageViewModel.Base::class.java -> ChooseLanguageModule(core)
         TestSTTViewModel::class.java -> STTModule(context, core)
+        InitialViewModel::class.java -> InitialModule(core)
         TTSTestViewModelFinal::class.java -> TTSModule(core, context)
         else -> error.module(clazz)
     }
