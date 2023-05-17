@@ -21,7 +21,6 @@ interface TTSEngine {
         private lateinit var tts: TextToSpeech
         private val queue: LinkedBlockingQueue<String> = LinkedBlockingQueue()
         private var counter = 0
-        // todo будет использоваться для определения названия файла, потом поменять
 
         override fun init(onInitListener: OnInitListener, callback: TTSCallback) {
             tts = TextToSpeech(context, onInitListener)

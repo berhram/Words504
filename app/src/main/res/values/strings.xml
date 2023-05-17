@@ -15,5 +15,6 @@
     <string name="end_of_text">Конец текста</string>
     <string name="last_sentence">Предыдущее сообщение</string>
     <string name="stopped_speech">произношение было остановлено</string>
+    <string name="tts">TTS</string>
 
 </resources>

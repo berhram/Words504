@@ -2,11 +2,14 @@ package ru.easycode.words504
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import ru.easycode.words504.admintools.presentation.AdminActivity
 import ru.easycode.words504.databinding.ActivityMainBinding
 import ru.easycode.words504.loading.LoadTranslateActivity
 import ru.easycode.words504.presentation.BaseActivity
 import ru.easycode.words504.recognition.presentation.TestVoiceRecognitionActivity
+import ru.easycode.words504.tts.presentation.TTSTestActivity
 
 class MainActivity : BaseActivity<MainViewModel.Base>() {
 
@@ -25,6 +28,11 @@ class MainActivity : BaseActivity<MainViewModel.Base>() {
 
         R.id.admin -> {
             startActivity(Intent(this, AdminActivity::class.java))
+            true
+        }
+
+        R.id.tts -> {
+            startActivity(Intent(this, TTSTestActivity::class.java))
             true
         }
 

@@ -10,4 +10,7 @@
     <item android:id="@+id/stt"
         app:showAsAction="never"
         android:title="@string/stt" />
+    <item android:id="@+id/tts"
+        app:showAsAction="never"
+        android:title="@string/tts" />
 </menu>
