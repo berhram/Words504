@@ -17,7 +17,7 @@ interface AdminLessonsListViewModel {
         private val repository: LessonsListRepository,
         private val communication: LessonsListCommunication,
         private val mapper: LessonCache.Mapper<LessonUi>,
-        private val navigation: NavigationCommunication.Update,
+        private val navigation: NavigationCommunication.Update
     ) : ViewModel(), AdminNavigate, AdminLessonsListViewModel {
 
         override fun init() {
