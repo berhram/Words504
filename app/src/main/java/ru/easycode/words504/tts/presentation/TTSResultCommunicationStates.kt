@@ -1,7 +1,6 @@
 package ru.easycode.words504.tts.presentation
 
 import ru.easycode.words504.presentation.Communication
-import ru.easycode.words504.tts.TTSState
 
 interface TTSResultCommunicationStates {
 
