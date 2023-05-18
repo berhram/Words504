@@ -6,6 +6,7 @@ import ru.easycode.words504.admintools.lessonslist.presentation.AdminLessonsList
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonState
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonUi
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonsListCommunication
+import ru.easycode.words504.admintools.lessonslist.presentation.ShareCommunication
 import ru.easycode.words504.presentation.Screen
 import ru.easycode.words504.sl.CoreModule
 import ru.easycode.words504.sl.Module
@@ -17,6 +18,7 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
         return AdminLessonsListViewModel.Base(
             repository = LessonsListRepositoryImp(),
             communication = LessonsListCommunication.Base(),
+            shareCommunication = ShareCommunication.Base(),
             mapper = Mapper(),
             navigation = coreModule.provideAdminScope().provideNavigation()
         )
@@ -29,9 +31,7 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
             TODO("Not yet implemented")
         }
 
-        override fun lessonToString(id: String): String {
-            TODO("Not yet implemented")
-        }
+        override fun lessonToString(id: String): String = ""
     }
 
     // todo remove it after true implementation
