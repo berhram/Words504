@@ -45,6 +45,5 @@ interface TTSViewModel : Communication.Observe<TTSState>, TTSCallback {
 
         override fun observe(owner: LifecycleOwner, observer: Observer<TTSState>) =
             resultCommunication.observe(owner, observer)
-
     }
 }

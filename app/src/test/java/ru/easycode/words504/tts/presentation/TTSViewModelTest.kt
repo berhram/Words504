@@ -106,7 +106,6 @@ class TTSViewModelTest : BaseTest() {
 
         fun assertState(state: TTSState)
 
-
         class Base : FakeCommunications {
 
             private var savedState: TTSState? = null
