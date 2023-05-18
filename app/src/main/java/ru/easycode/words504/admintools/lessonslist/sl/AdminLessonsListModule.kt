@@ -6,6 +6,7 @@ import ru.easycode.words504.admintools.lessonslist.presentation.AdminLessonsList
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonState
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonUi
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonsListCommunication
+import ru.easycode.words504.presentation.Screen
 import ru.easycode.words504.sl.CoreModule
 import ru.easycode.words504.sl.Module
 
@@ -17,19 +18,25 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
             repository = LessonsListRepositoryImp(),
             communication = LessonsListCommunication.Base(),
             mapper = Mapper(),
-            navigation = coreModule.provideAdminScope().provideNavigation(),
-            dispatchersList = coreModule.provideDispatchers()
+            navigation = coreModule.provideAdminScope().provideNavigation()
         )
     }
 
     // todo remove it after true implementation
     private class LessonsListRepositoryImp : LessonsListRepository {
-        override suspend fun lessons(): List<LessonCache> = emptyList()
+        override fun lessons(): List<LessonCache> = emptyList()
+        override fun lesson(): LessonCache {
+            TODO("Not yet implemented")
+        }
+
+        override fun lessonToString(id: String): String {
+            TODO("Not yet implemented")
+        }
     }
 
     // todo remove it after true implementation
     private class Mapper : LessonCache.Mapper<LessonUi> {
-        override fun map(id: Int, isComplete: Boolean) =
-            LessonUi(id, if (isComplete) LessonState.Complete else LessonState.InWork)
+        override fun map(id: String, isComplete: Boolean, lastEditScreen: Screen) =
+            LessonUi(id, if (isComplete) LessonState.Complete else LessonState.InProgress)
     }
 }

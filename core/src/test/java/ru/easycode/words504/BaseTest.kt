@@ -13,18 +13,14 @@ import retrofit2.Callback
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.presentation.DispatchersList
-import ru.easycode.words504.presentation.NavigationCommunication
-import ru.easycode.words504.presentation.Screen
 
 abstract class BaseTest {
 
     protected lateinit var functionsCallsStack: FunctionsCallsStack
-    protected lateinit var fakeNavigation: FakeNavigation
 
     @Before
     fun init() {
         functionsCallsStack = FunctionsCallsStack.Base()
-        fakeNavigation = FakeNavigation.Base(functionsCallsStack)
     }
 
     protected interface FunctionsCallsStack {
@@ -99,28 +95,5 @@ abstract class BaseTest {
         override fun request(): Request = Request.Builder().build()
 
         override fun timeout(): Timeout = Timeout()
-    }
-
-    protected interface FakeNavigation : NavigationCommunication.Update {
-
-        fun same(other: Screen)
-
-        class Base(private val functionCallsStack: FunctionsCallsStack) : FakeNavigation {
-            private lateinit var screen: Screen
-
-            override fun same(other: Screen) {
-                Assert.assertEquals(screen, other)
-                functionCallsStack.checkCalled(NAVIGATION_CALLED)
-            }
-
-            override fun map(source: Screen) {
-                functionCallsStack.put(NAVIGATION_CALLED)
-                screen = source
-            }
-
-            companion object {
-                private const val NAVIGATION_CALLED = "navigation#map"
-            }
-        }
     }
 }
