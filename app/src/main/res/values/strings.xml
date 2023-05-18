@@ -18,5 +18,6 @@
     <string name="tts">TTS</string>
     <string name="write_here">Write here</string>
     <string name="last_said_sentence">Последнее предложение озвучено:</string>
+    <string name="turn_up_volume">Please turn the volume up</string>
 
 </resources>

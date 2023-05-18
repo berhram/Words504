@@ -6,10 +6,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.easycode.words504.R
 import ru.easycode.words504.presentation.DispatchersList
-import ru.easycode.words504.tts.TTSState
+import ru.easycode.words504.presentation.ManageResources
+import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSCallback
 import ru.easycode.words504.tts.data.TTSEngine
+import java.util.Date
 
 
 interface TTSViewModel : TTSResultCommunication, TTSCallback {
@@ -21,12 +24,19 @@ interface TTSViewModel : TTSResultCommunication, TTSCallback {
     class Base(
         private val dispatchers: DispatchersList,
         private val ttsEngine: TTSEngine.Base,
-        private val resultCommunication: TTSResultCommunicationStates.Mutable
+        private val resultCommunication: TTSResultCommunicationStates.Mutable,
+        private val mediaLevel: MediaLevel,
+        private val manageResources: ManageResources
     ) : ViewModel(), TTSViewModel {
 
         override fun finished() {
             viewModelScope.launch(dispatchers.ui()) {
-                resultCommunication.map(TTSState.Finished())
+                val message = if (mediaLevel.isLowLevel()) {
+                    manageResources.string(R.string.turn_up_volume)
+                } else {
+                    ""
+                }
+                resultCommunication.map(TTSState.Finished("${Date()}", message))
             }
         }
 

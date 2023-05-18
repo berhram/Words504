@@ -23,7 +23,7 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
             viewModel.ttsString(binding.textInputEditText.text.toString())
         }
         viewModel.observeTTSResult(this) {
-            it.show(binding.lastTextView)
+            it.show(binding.lastTextView, binding.messageTextView)
         }
     }
 }
