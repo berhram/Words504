@@ -1,4 +1,4 @@
-package ru.easycode.words504.admintools.initial.presentation
+package ru.easycode.words504.admintools.lessonslist.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,9 @@ import ru.easycode.words504.admintools.presentation.AdminSentenceScreen
 import ru.easycode.words504.databinding.FragmentAdminInitialBinding
 import ru.easycode.words504.presentation.BaseFragment
 
-/**
- * @author Asatryan on 02.05.2023
- */
-class AdminInitialFragment : BaseFragment<AdminInitialViewModel, FragmentAdminInitialBinding>() {
+class AdminLessonsListFragment : BaseFragment<AdminLessonsListViewModel, FragmentAdminInitialBinding>() {
 
-    override val viewModelClass = AdminInitialViewModel::class.java
+    override val viewModelClass = AdminLessonsListViewModel::class.java
 
     override fun fragmentBinding(
         inflater: LayoutInflater,
