@@ -5,6 +5,7 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import java.util.Date
 import kotlinx.coroutines.launch
 import ru.easycode.words504.R
 import ru.easycode.words504.presentation.DispatchersList
@@ -12,8 +13,6 @@ import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSCallback
 import ru.easycode.words504.tts.data.TTSEngine
-import java.util.Date
-
 
 interface TTSViewModel : TTSResultCommunication, TTSCallback {
 
