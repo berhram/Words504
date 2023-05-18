@@ -6,7 +6,7 @@ import ru.easycode.words504.sl.CoreModule
 import ru.easycode.words504.sl.Module
 import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSEngine
-import ru.easycode.words504.tts.presentation.TTSResultCommunicationStates
+import ru.easycode.words504.tts.presentation.TTSCommunication
 import ru.easycode.words504.tts.presentation.TTSViewModel
 
 class TTSModule(private val core: CoreModule, private val context: Context) :
@@ -15,7 +15,7 @@ class TTSModule(private val core: CoreModule, private val context: Context) :
     override fun viewModel(): TTSViewModel.Base = TTSViewModel.Base(
         dispatchers = core.provideDispatchers(),
         ttsEngine = TTSEngine.Base(context),
-        resultCommunication = TTSResultCommunicationStates.Base(),
+        resultCommunication = TTSCommunication.Base(),
         mediaLevel = MediaLevel.Base(context),
         manageResources = ManageResources.Base(context)
     )

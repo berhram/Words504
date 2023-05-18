@@ -22,8 +22,8 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
         binding.buttonSpeak.setOnClickListener {
             viewModel.ttsString(binding.textInputEditText.text.toString())
         }
-        viewModel.observeTTSResult(this) {
-            it.show(binding.lastTextView, binding.messageTextView)
+        viewModel.observe(this) {
+            it.show(binding.messageTextView)
         }
     }
 }

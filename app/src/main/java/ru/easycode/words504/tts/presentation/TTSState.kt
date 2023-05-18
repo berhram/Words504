@@ -4,15 +4,14 @@ import android.widget.TextView
 
 interface TTSState {
 
-    fun show(lastFinished: TextView, message: TextView)
+    fun show(messageView: TextView)
 
-    abstract class Abstract(private val last: String, private val messageText: String) : TTSState {
+    abstract class Abstract(private val message: String) : TTSState {
 
-        override fun show(lastFinished: TextView, message: TextView) {
-            lastFinished.text = last
-            message.text = messageText
+        override fun show(messageView: TextView) {
+            messageView.text = message
         }
     }
 
-    class Finished(last: String, message: String) : Abstract(last, message)
+    data class Finished(private val message: String) : Abstract(message)
 }

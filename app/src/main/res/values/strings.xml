@@ -11,13 +11,8 @@
     <string name="try_again">Try again</string>
     <string name="error">Something went wrong</string>
     <string name="stt">STT</string>
-    <string name="current_text">Текущий текст</string>
-    <string name="end_of_text">Конец текста</string>
-    <string name="last_sentence">Предыдущее сообщение</string>
-    <string name="stopped_speech">произношение было остановлено</string>
     <string name="tts">TTS</string>
     <string name="write_here">Write here</string>
-    <string name="last_said_sentence">Последнее предложение озвучено:</string>
     <string name="turn_up_volume">Please turn the volume up</string>
 
 </resources>
