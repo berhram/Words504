@@ -10,7 +10,7 @@ import ru.easycode.words504.languages.sl.ChooseLanguageModule
 import ru.easycode.words504.loading.LoadCoroutinesModule
 import ru.easycode.words504.loading.LoadTranslateViewModel
 import ru.easycode.words504.recognition.presentation.TestSTTViewModel
-import ru.easycode.words504.tts.presentation.TTSTestViewModelFinal
+import ru.easycode.words504.tts.presentation.TTSViewModel
 import ru.easycode.words504.tts.sl.TTSModule
 
 class BaseDependencyContainer(
@@ -25,7 +25,7 @@ class BaseDependencyContainer(
         ChooseLanguageViewModel.Base::class.java -> ChooseLanguageModule(core)
         TestSTTViewModel::class.java -> STTModule(context, core)
         InitialViewModel::class.java -> InitialModule(core)
-        TTSTestViewModelFinal::class.java -> TTSModule(core, context)
+        TTSViewModel.Base::class.java -> TTSModule(core, context)
         else -> error.module(clazz)
     }
 }

@@ -8,32 +8,19 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/previousTitle"
+        android:id="@+id/lastTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Предыдущая часть: " />
+        android:layout_marginTop="8dp"
+        android:text="@string/last_said_sentence" />
 
     <TextView
-        android:id="@+id/previousPhraseTextView"
+        android:id="@+id/lastTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Предыдущая часть"
-        android:layout_marginHorizontal="16dp"/>
-
-    <TextView
-        android:id="@+id/currentTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Текущее предложение: "
-        android:layout_marginTop="8dp"/>
-
-    <TextView
-        android:id="@+id/currentPhraseTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="Текущее предложение"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginHorizontal="16dp"/>
+        tools:text="Текущее предложение" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
@@ -45,7 +32,7 @@
             android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Write here" />
+            android:hint="@string/write_here" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -54,28 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:text="Speak"
+        android:text="@string/speak"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textInputEditText" />
-
-    <Button
-        android:id="@+id/buttonSpeakBySentences"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:enabled="false"
-        android:text="Speak by sentences" />
-
-    <Button
-        android:id="@+id/buttonStop"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:text="Stop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonSpeak" />
-
-
 </LinearLayout>

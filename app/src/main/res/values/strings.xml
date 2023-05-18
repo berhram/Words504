@@ -16,5 +16,7 @@
     <string name="last_sentence">Предыдущее сообщение</string>
     <string name="stopped_speech">произношение было остановлено</string>
     <string name="tts">TTS</string>
+    <string name="write_here">Write here</string>
+    <string name="last_said_sentence">Последнее предложение озвучено:</string>
 
 </resources>
