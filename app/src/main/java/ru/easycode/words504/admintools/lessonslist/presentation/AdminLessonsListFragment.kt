@@ -8,9 +8,10 @@ import ru.easycode.words504.admintools.presentation.AdminSentenceScreen
 import ru.easycode.words504.databinding.FragmentAdminInitialBinding
 import ru.easycode.words504.presentation.BaseFragment
 
-class AdminLessonsListFragment : BaseFragment<AdminLessonsListViewModel, FragmentAdminInitialBinding>() {
+class AdminLessonsListFragment :
+    BaseFragment<AdminLessonsListViewModel.Base, FragmentAdminInitialBinding>() {
 
-    override val viewModelClass = AdminLessonsListViewModel::class.java
+    override val viewModelClass = AdminLessonsListViewModel.Base::class.java
 
     override fun fragmentBinding(
         inflater: LayoutInflater,

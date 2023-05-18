@@ -15,7 +15,7 @@ class AdminDependencyContainer(
 ) : DependencyContainer {
     override fun <T : ViewModel> module(clazz: Class<T>): Module<*> = when (clazz) {
         AdminActivityViewModel.Base::class.java -> AdminMainModule(core)
-        AdminLessonsListViewModel::class.java -> AdminLessonsListModule(core)
+        AdminLessonsListViewModel.Base::class.java -> AdminLessonsListModule(core)
         SentenceViewModel.Base::class.java -> AdminSentenceModule(core)
         else -> error.module(clazz)
     }
