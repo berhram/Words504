@@ -6,7 +6,11 @@ interface TTSState {
 
     fun show(messageView: TextView, startedView: TextView, finishedView: TextView)
 
-    abstract class Abstract(private val message: String, private val started: String, private val finished: String) : TTSState {
+    abstract class Abstract(
+        private val message: String,
+        private val started: String,
+        private val finished: String
+    ) : TTSState {
 
         override fun show(messageView: TextView, startedView: TextView, finishedView: TextView) {
             messageView.text = message
