@@ -15,12 +15,13 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
         setContentView(binding.root)
         viewModel.init {
             binding.buttonSpeak.isEnabled = true
+            binding.buttonSpeakAsOne.isEnabled = true
         }
         binding.buttonSpeak.setOnClickListener {
-            viewModel.ttsString(binding.textInputEditText.text.toString())
+            viewModel.speak(binding.textInputEditText.text.toString().split(" "))
         }
-        binding.buttonSpeak.setOnClickListener {
-            viewModel.ttsString(binding.textInputEditText.text.toString())
+        binding.buttonSpeakAsOne.setOnClickListener {
+            viewModel.speak(listOf(binding.textInputEditText.text.toString()))
         }
         viewModel.observe(this) {
             it.show(binding.messageTextView)

@@ -14,5 +14,6 @@
     <string name="tts">TTS</string>
     <string name="write_here">Write here</string>
     <string name="turn_up_volume">Please turn the volume up</string>
+    <string name="speak_as_one">Speak as one sentence</string>
 
 </resources>

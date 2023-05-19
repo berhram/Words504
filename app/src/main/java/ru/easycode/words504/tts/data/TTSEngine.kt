@@ -8,7 +8,8 @@ import java.util.Locale
 interface TTSEngine {
 
     fun init(initCallback: TextToSpeech.OnInitListener, ttsCallback: TTSCallback)
-    fun speak(phrase: String)
+
+    fun speak(phrases: List<String>)
 
     class Base(private val context: Context) : TTSEngine {
 
@@ -20,18 +21,23 @@ interface TTSEngine {
             tts.language = Locale.ENGLISH
             callback = ttsCallback
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+
                 override fun onStart(utteranceId: String) = Unit
 
                 override fun onDone(utteranceId: String) {
-                    ttsCallback.finished()
+                    ttsCallback.finished(utteranceId)
                 }
 
                 override fun onError(utteranceId: String) = Unit
             })
         }
 
-        override fun speak(phrase: String) {
-            tts.speak(phrase, TextToSpeech.QUEUE_FLUSH, null, phrase)
+        override fun speak(phrases: List<String>) {
+            tts.stop()
+            phrases.forEach { phrase ->
+                if (phrase.isEmpty()) return
+                tts.speak(phrase, TextToSpeech.QUEUE_ADD, null, phrase)
+            }
         }
     }
 }

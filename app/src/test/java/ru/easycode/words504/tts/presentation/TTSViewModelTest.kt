@@ -36,11 +36,11 @@ class TTSViewModelTest : BaseTest() {
             manageResources = fakeManageResource
         )
         viewModel.init { }
-        viewModel.ttsString("Lalala")
+        viewModel.speak(listOf("Lalala"))
         fakeTTSEngine.assertInitCalled()
         fakeMediaLevel.assertIsLowLevelCalled()
         fakeTTSEngine.assertSpeakCalled()
-        fakeCommunication.assertState(TTSState.Finished(""))
+        fakeCommunication.assertState(TTSState.Finished("Lalala"))
         functionsCallsStack.checkStack(3)
     }
 
@@ -55,7 +55,7 @@ class TTSViewModelTest : BaseTest() {
             manageResources = fakeManageResource
         )
         viewModel.init { }
-        viewModel.ttsString("Lalala")
+        viewModel.speak(listOf("Lalala"))
         fakeTTSEngine.assertInitCalled()
         fakeMediaLevel.assertIsLowLevelCalled()
         fakeManageResource.assertStringCalled()
@@ -81,8 +81,8 @@ class TTSViewModelTest : BaseTest() {
                 functionsCallsStack.put(INIT_CALLED)
             }
 
-            override fun speak(phrase: String) {
-                callback.finished()
+            override fun speak(phrases: List<String>) {
+                phrases.forEach { callback.finished(it) }
                 functionsCallsStack.put(SPEAK_CALLED)
             }
 
@@ -102,7 +102,7 @@ class TTSViewModelTest : BaseTest() {
         }
     }
 
-    private interface FakeCommunications : TTSCommunication {
+    private interface FakeCommunications : TTSStateCommunication {
 
         fun assertState(state: TTSState)
 
@@ -125,8 +125,7 @@ class TTSViewModelTest : BaseTest() {
         fun assertIsLowLevelCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val isLowLevel: Boolean
+            private val functionsCallsStack: FunctionsCallsStack, private val isLowLevel: Boolean
         ) : FakeMediaLevel {
 
             override fun isLowLevel(): Boolean {
@@ -150,8 +149,7 @@ class TTSViewModelTest : BaseTest() {
         fun assertStringCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val message: String
+            private val functionsCallsStack: FunctionsCallsStack, private val message: String
         ) : FakeManageResource {
 
             override fun assertStringCalled() {

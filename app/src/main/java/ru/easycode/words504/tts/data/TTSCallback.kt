@@ -2,5 +2,5 @@ package ru.easycode.words504.tts.data
 
 interface TTSCallback {
 
-    fun finished()
+    fun finished(phrase: String)
 }
