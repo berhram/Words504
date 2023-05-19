@@ -7,25 +7,32 @@ import java.util.Locale
 
 interface TTSEngine {
 
-    fun init(initCallback: TextToSpeech.OnInitListener, ttsCallback: TTSCallback)
+    fun init(initCallback: TextToSpeech.OnInitListener)
+
+    fun addObserver(observer: TTSObserver)
 
     fun speak(phrases: List<String>)
 
     class Base(private val context: Context) : TTSEngine {
 
         private lateinit var tts: TextToSpeech
-        private lateinit var callback: TTSCallback
+        private val observers: MutableList<TTSObserver> = mutableListOf()
 
-        override fun init(initCallback: TextToSpeech.OnInitListener, ttsCallback: TTSCallback) {
+        override fun addObserver(observer: TTSObserver) {
+            observers.add(observer)
+        }
+
+        override fun init(initCallback: TextToSpeech.OnInitListener) {
             tts = TextToSpeech(context, initCallback)
             tts.language = Locale.ENGLISH
-            callback = ttsCallback
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
 
-                override fun onStart(utteranceId: String) = Unit
+                override fun onStart(utteranceId: String) {
+                    observers.forEach { it.started(utteranceId) }
+                }
 
                 override fun onDone(utteranceId: String) {
-                    ttsCallback.finished(utteranceId)
+                    observers.forEach { it.finished(utteranceId) }
                 }
 
                 override fun onError(utteranceId: String) = Unit

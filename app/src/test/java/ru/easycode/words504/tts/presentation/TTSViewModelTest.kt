@@ -7,8 +7,8 @@ import org.junit.Test
 import ru.easycode.words504.BaseTest
 import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.tts.MediaLevel
-import ru.easycode.words504.tts.data.TTSCallback
 import ru.easycode.words504.tts.data.TTSEngine
+import ru.easycode.words504.tts.data.TTSObserver
 
 class TTSViewModelTest : BaseTest() {
 
@@ -22,7 +22,7 @@ class TTSViewModelTest : BaseTest() {
     fun setup() {
         fakeTTSEngine = FakeTTSEngine.Base(functionsCallsStack)
         fakeCommunication = FakeCommunications.Base()
-        fakeManageResource = FakeManageResource.Base(functionsCallsStack, "Low volume!")
+        fakeManageResource = FakeManageResource.Base(functionsCallsStack, "test")
     }
 
     @Test
@@ -39,9 +39,10 @@ class TTSViewModelTest : BaseTest() {
         viewModel.speak(listOf("Lalala"))
         fakeTTSEngine.assertInitCalled()
         fakeMediaLevel.assertIsLowLevelCalled()
+        fakeManageResource.assertStringCalled()
         fakeTTSEngine.assertSpeakCalled()
-        fakeCommunication.assertState(TTSState.Finished("Lalala"))
-        functionsCallsStack.checkStack(3)
+        fakeCommunication.assertState(TTSState.Finished("test: Lalala"))
+        functionsCallsStack.checkStack(4)
     }
 
     @Test
@@ -59,9 +60,8 @@ class TTSViewModelTest : BaseTest() {
         fakeTTSEngine.assertInitCalled()
         fakeMediaLevel.assertIsLowLevelCalled()
         fakeManageResource.assertStringCalled()
-        fakeTTSEngine.assertSpeakCalled()
-        fakeCommunication.assertState(TTSState.Finished("Low volume!"))
-        functionsCallsStack.checkStack(4)
+        fakeCommunication.assertState(TTSState.Message("test"))
+        functionsCallsStack.checkStack(3)
     }
 
     private interface FakeTTSEngine : TTSEngine {
@@ -74,15 +74,18 @@ class TTSViewModelTest : BaseTest() {
             private val functionsCallsStack: FunctionsCallsStack
         ) : FakeTTSEngine {
 
-            private lateinit var callback: TTSCallback
+            private val observers: MutableList<TTSObserver> = mutableListOf()
 
-            override fun init(initCallback: TextToSpeech.OnInitListener, ttsCallback: TTSCallback) {
-                callback = ttsCallback
+            override fun init(initCallback: TextToSpeech.OnInitListener) {
                 functionsCallsStack.put(INIT_CALLED)
             }
 
+            override fun addObserver(observer: TTSObserver) {
+                observers.add(observer)
+            }
+
             override fun speak(phrases: List<String>) {
-                phrases.forEach { callback.finished(it) }
+                phrases.forEach { phrase -> observers.forEach { it.finished(phrase) } }
                 functionsCallsStack.put(SPEAK_CALLED)
             }
 
@@ -125,8 +128,7 @@ class TTSViewModelTest : BaseTest() {
         fun assertIsLowLevelCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val isLowLevel: Boolean
+            private val functionsCallsStack: FunctionsCallsStack, private val isLowLevel: Boolean
         ) : FakeMediaLevel {
 
             override fun isLowLevel(): Boolean {
@@ -150,8 +152,7 @@ class TTSViewModelTest : BaseTest() {
         fun assertStringCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val message: String
+            private val functionsCallsStack: FunctionsCallsStack, private val message: String
         ) : FakeManageResource {
 
             override fun assertStringCalled() {

@@ -24,7 +24,7 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
             viewModel.speak(listOf(binding.textInputEditText.text.toString()))
         }
         viewModel.observe(this) {
-            it.show(binding.messageTextView)
+            it.show(binding.messageTextView, binding.startedTextView, binding.finishedTextView)
         }
     }
 }
