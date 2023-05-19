@@ -6,6 +6,3 @@ interface TTSStateCommunication : Communication.Mutable<TTSState> {
 
     class Base : Communication.Abstract<TTSState>(), TTSStateCommunication
 }
-
-
-
