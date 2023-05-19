@@ -30,15 +30,17 @@ interface TTSViewModel : Communication.Observe<TTSState>, TTSObserver {
 
         override fun started(phrase: String) {
             viewModelScope.launch(dispatchers.ui()) {
-                resultCommunication.map(TTSState.Started("${manageResources.string(R.string.started)}: $phrase"))
-
+                resultCommunication.map(
+                    TTSState.Started("${manageResources.string(R.string.started)}: $phrase")
+                )
             }
         }
 
         override fun finished(phrase: String) {
             viewModelScope.launch(dispatchers.ui()) {
-                resultCommunication.map(TTSState.Finished("${manageResources.string(R.string.finished)}: $phrase"))
-
+                resultCommunication.map(
+                    TTSState.Finished("${manageResources.string(R.string.finished)}: $phrase")
+                )
             }
         }
 
