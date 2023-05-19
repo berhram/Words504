@@ -128,7 +128,8 @@ class TTSViewModelTest : BaseTest() {
         fun assertIsLowLevelCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack, private val isLowLevel: Boolean
+            private val functionsCallsStack: FunctionsCallsStack,
+            private val isLowLevel: Boolean
         ) : FakeMediaLevel {
 
             override fun isLowLevel(): Boolean {
@@ -152,7 +153,8 @@ class TTSViewModelTest : BaseTest() {
         fun assertStringCalled()
 
         class Base(
-            private val functionsCallsStack: FunctionsCallsStack, private val message: String
+            private val functionsCallsStack: FunctionsCallsStack,
+            private val message: String
         ) : FakeManageResource {
 
             override fun assertStringCalled() {
