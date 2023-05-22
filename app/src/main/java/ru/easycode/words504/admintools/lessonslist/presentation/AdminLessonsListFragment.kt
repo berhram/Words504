@@ -1,4 +1,4 @@
-package ru.easycode.words504.admintools.initial.presentation
+package ru.easycode.words504.admintools.lessonslist.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,27 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import ru.easycode.words504.admintools.core.presentation.Choose
-import ru.easycode.words504.admintools.presentation.AdminSentenceScreen
-import ru.easycode.words504.databinding.FragmentAdminInitialBinding
+import ru.easycode.words504.databinding.FragmentAdminLessonsListBinding
 import ru.easycode.words504.presentation.BaseFragment
 
 /**
  * @author Asatryan on 02.05.2023
  */
-class AdminInitialFragment : BaseFragment<AdminInitialViewModel, FragmentAdminInitialBinding>() {
+class AdminLessonsListFragment : BaseFragment<AdminLessonsListViewModel.Base, FragmentAdminLessonsListBinding>() {
 
-    override val viewModelClass = AdminInitialViewModel::class.java
+    override val viewModelClass = AdminLessonsListViewModel.Base::class.java
 
     override fun fragmentBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
-    ) = FragmentAdminInitialBinding.inflate(inflater, container, false)
+    ) = FragmentAdminLessonsListBinding.inflate(inflater, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sentenceButton.setOnClickListener {
-            viewModel.navigate(AdminSentenceScreen)
-        }
         binding.customViewGroup.init(
             listOf(
                 Choose.Base("1", "type1"),
