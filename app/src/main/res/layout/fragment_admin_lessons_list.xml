@@ -9,4 +9,10 @@
         android:text="@string/go_sentence_screen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <ru.easycode.words504.admintools.core.presentation.ChooseCustomViewGroup
+        android:layout_marginHorizontal="16dp"
+        android:layout_width="match_parent"
+        android:id="@+id/customViewGroup"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
