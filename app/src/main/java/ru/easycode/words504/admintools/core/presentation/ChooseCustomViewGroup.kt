@@ -13,7 +13,7 @@ import ru.easycode.words504.R
 /**
  * @author Asatryan on 22.05.2023
  */
-class ChooseCustomViewGroup : FrameLayout {
+class ChooseCustomViewGroup : FrameLayout, ChooseView {
 
     private val chipGroup: ViewGroup
 
@@ -30,7 +30,7 @@ class ChooseCustomViewGroup : FrameLayout {
         chipGroup = findViewById(R.id.chipGroup)
     }
 
-    fun init(list: List<Choose>, onClick: (String) -> Unit) = list.forEach { choose ->
+    override fun init(list: List<Choose>, onClick: (String) -> Unit) = list.forEach { choose ->
         val chip = Chip(context)
         chip.layoutParams = LayoutParams(WRAP_CONTENT, WRAP_CONTENT)
         choose.apply(chip) {
@@ -42,6 +42,11 @@ class ChooseCustomViewGroup : FrameLayout {
         chip.text = choose.text()
         chipGroup.addView(chip)
     }
+}
+
+interface ChooseView {
+
+    fun init(list: List<Choose>, onClick: (String) -> Unit)
 }
 
 interface Choose {

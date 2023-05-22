@@ -38,7 +38,7 @@ class AdminInitialFragment : BaseFragment<AdminInitialViewModel, FragmentAdminIn
                 Choose.Base("7", "type7"),
                 Choose.Base("8", "type8"),
                 Choose.Base("9", "type9"),
-                Choose.Base("10", "type10"),
+                Choose.Base("10", "type10")
             )
         ) {
             Toast.makeText(requireContext(), "Chosen $it", Toast.LENGTH_LONG).show()
