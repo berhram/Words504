@@ -5,12 +5,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import ru.easycode.words504.initial.presentation.InitialScreen
 import ru.easycode.words504.presentation.Communication
+import ru.easycode.words504.presentation.Init
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
 
-interface MainViewModel {
-
-    fun init()
+interface MainViewModel : Init {
 
     class Base(private val navigation: NavigationCommunication.Mutable) :
         ViewModel(),
