@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import ru.easycode.words504.admintools.presentation.AdminSentenceScreen
 import ru.easycode.words504.databinding.FragmentAdminInitialBinding
 import ru.easycode.words504.presentation.BaseFragment
 
@@ -20,8 +19,6 @@ class AdminLessonsListFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.sentenceButton.setOnClickListener {
-            viewModel.navigate(AdminSentenceScreen)
-        }
+        //todo
     }
 }

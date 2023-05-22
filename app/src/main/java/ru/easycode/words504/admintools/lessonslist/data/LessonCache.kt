@@ -9,12 +9,4 @@ interface LessonCache {
     }
 
     fun <T> map(mapper: Mapper<T>): T
-
-    class Complete : Mapper<Boolean> {
-        override fun map(id: String, isComplete: Boolean, lastEditScreen: Screen) = isComplete
-    }
-
-    class LastEditScreen : Mapper<Screen> {
-        override fun map(id: String, isComplete: Boolean, lastEditScreen: Screen) = lastEditScreen
-    }
 }
