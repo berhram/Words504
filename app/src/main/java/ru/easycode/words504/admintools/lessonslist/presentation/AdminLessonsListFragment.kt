@@ -12,7 +12,8 @@ import ru.easycode.words504.presentation.BaseFragment
 /**
  * @author Asatryan on 02.05.2023
  */
-class AdminLessonsListFragment : BaseFragment<AdminLessonsListViewModel.Base, FragmentAdminLessonsListBinding>() {
+class AdminLessonsListFragment :
+    BaseFragment<AdminLessonsListViewModel.Base, FragmentAdminLessonsListBinding>() {
 
     override val viewModelClass = AdminLessonsListViewModel.Base::class.java
 
