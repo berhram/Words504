@@ -2,8 +2,9 @@ package ru.easycode.words504.presentation
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import java.io.Serializable
 
-interface Screen {
+interface Screen : Serializable {
 
     fun navigate(manager: FragmentManager, containerId: Int)
 
