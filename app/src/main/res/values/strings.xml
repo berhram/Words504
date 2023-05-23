@@ -11,4 +11,7 @@
     <string name="try_again">Try again</string>
     <string name="error">Something went wrong</string>
     <string name="stt">STT</string>
+    <string name="in_progress">In progress</string>
+    <string name="complete">Complete</string>
+    <string name="share_json_lesson">Share JSON Lesson</string>
 </resources>
