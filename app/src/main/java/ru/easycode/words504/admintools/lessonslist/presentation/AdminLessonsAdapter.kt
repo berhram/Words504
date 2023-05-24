@@ -1,20 +1,16 @@
 package ru.easycode.words504.admintools.lessonslist.presentation
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ru.easycode.words504.databinding.AdminLessonItemBinding
 import ru.easycode.words504.domain.Mapper
-import ru.easycode.words504.presentation.adapter.AbstractDiffUtilCallback
 import ru.easycode.words504.presentation.adapter.GenericViewHolder
 
 interface AdminLessonsAdapter : Mapper.Unit<List<LessonUi>> {
-    fun provideContext(): Context
 
     class Base(
-        private val context: Context,
         private val clicksListener: LessonUiClickListener
     ) : RecyclerView.Adapter<AdminLessonsViewHolder>(), AdminLessonsAdapter {
 
@@ -30,8 +26,6 @@ interface AdminLessonsAdapter : Mapper.Unit<List<LessonUi>> {
         override fun onBindViewHolder(holder: AdminLessonsViewHolder, position: Int) {
             holder.bind(list[position])
         }
-
-        override fun provideContext(): Context = context
 
         override fun map(source: List<LessonUi>) {
             val diff = DiffCallBack(list, source)
@@ -64,7 +58,10 @@ class AdminLessonsViewHolder(
 class DiffCallBack(
     private val oldList: List<LessonUi>,
     private val newList: List<LessonUi>
-) : AbstractDiffUtilCallback<LessonUi>(oldList, newList) {
+) : DiffUtil.Callback() {
+    override fun getOldListSize(): Int = oldList.size
+
+    override fun getNewListSize(): Int = newList.size
 
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean =
         oldList[oldItemPosition].id() == newList[newItemPosition].id()

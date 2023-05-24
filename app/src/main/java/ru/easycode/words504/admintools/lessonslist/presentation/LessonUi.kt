@@ -10,33 +10,28 @@ interface LessonUi {
     fun id(): String
     fun map(icon: ImageView, name: TextView, state: TextView)
 
-    data class Base(
-        private val id: String,
-        private val status: LessonState
+    abstract class Abstract(
+        protected open val id: String
     ) : LessonUi {
 
-        override fun id(): String = id
+        protected abstract val stateIconColorResId: Int
+        protected abstract val stateTextResId: Int
 
+        override fun id(): String = id
         override fun map(icon: ImageView, name: TextView, state: TextView) {
             name.text = id
-            icon.setColorFilter(
-                ContextCompat.getColor(
-                    icon.context,
-                    if (status is LessonState.InProgress) {
-                        R.color.admin_in_progress
-                    } else {
-                        R.color.admin_complete
-                    }
-                )
-            )
-
-            state.text = state.context.getText(
-                if (status is LessonState.InProgress) {
-                    R.string.in_progress
-                } else {
-                    R.string.complete
-                }
-            )
+            icon.setColorFilter(ContextCompat.getColor(icon.context, stateIconColorResId))
+            state.text = state.context.getText(stateTextResId)
         }
+    }
+
+    data class Complete(override val id: String) : Abstract(id) {
+        override val stateIconColorResId = R.color.admin_complete
+        override val stateTextResId = R.string.complete
+    }
+
+    data class InProgress(override val id: String) : Abstract(id) {
+        override val stateIconColorResId = R.color.admin_in_progress
+        override val stateTextResId = R.string.in_progress
     }
 }

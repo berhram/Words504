@@ -1,25 +1,24 @@
 package ru.easycode.words504.admintools.lessonslist.presentation
 
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.FileProvider
-import java.io.File
 import ru.easycode.words504.BuildConfig
 import ru.easycode.words504.R
+import java.io.File
 
 interface LessonsUi {
-    fun map(adapter: AdminLessonsAdapter)
+    fun map(adapter: AdminLessonsAdapter, context: Context)
 
     data class Initial(private val list: List<LessonUi>) : LessonsUi {
-        override fun map(adapter: AdminLessonsAdapter) = adapter.map(list)
+        override fun map(adapter: AdminLessonsAdapter, context: Context) = adapter.map(list)
     }
 
     data class Share(private val value: String) : LessonsUi {
 
-        override fun map(adapter: AdminLessonsAdapter) {
-            val context = adapter.provideContext()
-
+        override fun map(adapter: AdminLessonsAdapter, context: Context) {
             val tempFile = File(context.cacheDir, "lesson.json")
                 .apply { writeText(value) }
 

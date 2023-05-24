@@ -20,7 +20,6 @@ class AdminLessonsListFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val adapter = AdminLessonsAdapter.Base(
-            requireContext(),
             object : LessonUiClickListener {
                 override fun share(item: LessonUi) {
                     viewModel.share(item.id())
@@ -32,7 +31,7 @@ class AdminLessonsListFragment :
             }
         )
         viewModel.observe(this) {
-            it.map(adapter)
+            it.map(adapter, requireContext())
         }
         viewModel.init()
         with(binding) {

@@ -4,7 +4,6 @@ import android.util.Log
 import ru.easycode.words504.admintools.lessonslist.data.LessonCache
 import ru.easycode.words504.admintools.lessonslist.domain.LessonsListRepository
 import ru.easycode.words504.admintools.lessonslist.presentation.AdminLessonsListViewModel
-import ru.easycode.words504.admintools.lessonslist.presentation.LessonState
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonUi
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonsListCommunication
 import ru.easycode.words504.sl.CoreModule
@@ -50,6 +49,6 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
     // todo remove it after true implementation
     private class Mapper : LessonCache.Mapper<LessonUi> {
         override fun map(id: String, isComplete: Boolean) =
-            LessonUi.Base(id, if (isComplete) LessonState.Complete else LessonState.InProgress)
+            if (isComplete) LessonUi.Complete(id) else LessonUi.InProgress(id)
     }
 }
