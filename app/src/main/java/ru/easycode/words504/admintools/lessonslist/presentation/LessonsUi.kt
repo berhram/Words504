@@ -5,9 +5,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.core.content.FileProvider
+import java.io.File
 import ru.easycode.words504.BuildConfig
 import ru.easycode.words504.R
-import java.io.File
 
 interface LessonsUi {
     fun map(adapter: AdminLessonsAdapter, context: Context)
