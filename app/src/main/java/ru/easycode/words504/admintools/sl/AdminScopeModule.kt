@@ -1,6 +1,8 @@
 package ru.easycode.words504.admintools.sl
 
 import android.content.Context
+import androidx.room.Room
+import ru.easycode.words504.admintools.core.cache.AdminDataBase
 import ru.easycode.words504.admintools.data.AdminToolsSharedPreferences
 import ru.easycode.words504.admintools.presentation.SentenceUiCache
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
@@ -17,7 +19,8 @@ interface AdminScopeModule :
     ProvideSentenceUiCache,
     ProvideSimpleStorage,
     ProvideObjectStorage,
-    ProvideSharedPreferences {
+    ProvideSharedPreferences,
+    ProvideAdminDatabase {
 
     class Base(context: Context) : AdminScopeModule {
 
@@ -34,6 +37,16 @@ interface AdminScopeModule :
             simpleStorage
         )
 
+        private val dataBase by lazy {
+            return@lazy Room.databaseBuilder(
+                context.applicationContext,
+                AdminDataBase.Base::class.java,
+                "admin_database"
+            )
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+
         override fun provideNavigation() = navigationCommunication
 
         override fun provideSentenceUiCache() = sentenceUiCache
@@ -43,5 +56,7 @@ interface AdminScopeModule :
         override fun provideObjectStorage() = objectStorage
 
         override fun sharedPreferences() = sharedPref.sharedPreferences()
+
+        override fun provideAdminDatabase() = dataBase
     }
 }
