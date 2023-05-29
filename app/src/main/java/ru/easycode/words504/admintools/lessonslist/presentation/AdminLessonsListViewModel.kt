@@ -3,6 +3,10 @@ package ru.easycode.words504.admintools.lessonslist.presentation
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import ru.easycode.words504.admintools.chooseLessonType.presentation.ChooseLessonTypeScreen
+import ru.easycode.words504.admintools.data.cloud.LessonCloud
+import ru.easycode.words504.admintools.data.cloud.LessonQuoteCloud
+import ru.easycode.words504.admintools.data.cloud.LessonTextCloud
+import ru.easycode.words504.admintools.data.cloud.SentenceCloud
 import ru.easycode.words504.admintools.lessonslist.data.cache.LessonCache
 import ru.easycode.words504.admintools.lessonslist.domain.LessonsListRepository
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.ReviewLessonContentScreen
@@ -39,9 +43,15 @@ interface AdminLessonsListViewModel : Init {
 
         // todo remove it later
         private suspend fun saveData() {
-            repository.save(LessonCache.Base("lesson1", true, "json string"))
-            repository.save(LessonCache.Base("lesson2", false, "json string"))
-            repository.save(LessonCache.Base("lesson3", false, "json string"))
+            val lessonCloud = LessonCloud.Base(
+                quote = LessonQuoteCloud.Base(emptyList(), "author"),
+                words = emptyList(),
+                text = LessonTextCloud.Base(SentenceCloud.Base("title", emptyList()), emptyList()),
+                exercises = emptyList()
+            )
+            repository.save(LessonCache.Base("lesson1", true, lessonCloud))
+            repository.save(LessonCache.Base("lesson2", false, lessonCloud))
+            repository.save(LessonCache.Base("lesson3", false, lessonCloud))
         }
 
         override fun chooseLesson(id: String) {

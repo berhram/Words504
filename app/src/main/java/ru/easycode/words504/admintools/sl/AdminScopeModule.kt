@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import ru.easycode.words504.admintools.core.cache.AdminDataBase
 import ru.easycode.words504.admintools.data.AdminToolsSharedPreferences
+import ru.easycode.words504.admintools.lessonslist.data.cache.LessonConverters
 import ru.easycode.words504.admintools.presentation.SentenceUiCache
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cache.serialization.Serialization
@@ -44,6 +45,7 @@ interface AdminScopeModule :
                 "admin_database"
             )
                 .fallbackToDestructiveMigration()
+                .addTypeConverter(LessonConverters.Base(Serialization.Base()))
                 .build()
         }
 
