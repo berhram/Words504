@@ -1,7 +1,7 @@
 package ru.easycode.words504.admintools.sl
 
 import android.content.Context
-import androidx.room.Room
+import ru.easycode.words504.RoomDatabaseWrapper
 import ru.easycode.words504.admintools.core.cache.AdminDataBase
 import ru.easycode.words504.admintools.data.AdminToolsSharedPreferences
 import ru.easycode.words504.admintools.lessonslist.data.cache.LessonConverters
@@ -11,6 +11,7 @@ import ru.easycode.words504.data.cache.serialization.Serialization
 import ru.easycode.words504.data.cache.storage.ObjectStorage
 import ru.easycode.words504.data.cache.storage.SimpleStorage
 import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.sl.ProvideDatabase
 import ru.easycode.words504.sl.ProvideNavigation
 import ru.easycode.words504.sl.ProvideObjectStorage
 import ru.easycode.words504.sl.ProvideSimpleStorage
@@ -21,7 +22,7 @@ interface AdminScopeModule :
     ProvideSimpleStorage,
     ProvideObjectStorage,
     ProvideSharedPreferences,
-    ProvideAdminDatabase {
+    ProvideDatabase<AdminDataBase> {
 
     class Base(context: Context) : AdminScopeModule {
 
@@ -33,21 +34,15 @@ interface AdminScopeModule :
 
         private val simpleStorage = SimpleStorage.Base(sharedPref)
 
-        private val objectStorage = ObjectStorage.Base(
-            Serialization.Base(),
-            simpleStorage
-        )
+        private val serialization = Serialization.Base()
 
-        private val dataBase by lazy {
-            return@lazy Room.databaseBuilder(
-                context.applicationContext,
-                AdminDataBase.Base::class.java,
-                "admin_database"
-            )
-                .fallbackToDestructiveMigration()
-                .addTypeConverter(LessonConverters.Base(Serialization.Base()))
-                .build()
-        }
+        private val objectStorage = ObjectStorage.Base(serialization, simpleStorage)
+
+        private val dataBase = RoomDatabaseWrapper(
+            context.applicationContext,
+            AdminDataBase.Base::class.java,
+            "admin_database"
+        ).create(LessonConverters.Base(Serialization.Base()))
 
         override fun provideNavigation() = navigationCommunication
 
@@ -59,6 +54,6 @@ interface AdminScopeModule :
 
         override fun sharedPreferences() = sharedPref.sharedPreferences()
 
-        override fun provideAdminDatabase() = dataBase
+        override fun provideDatabase() = dataBase
     }
 }

@@ -16,7 +16,7 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
         val adminScope = coreModule.provideAdminScope()
         return AdminLessonsListViewModel.Base(
             repository = LessonsListRepositoryBase(
-                adminScope.provideAdminDatabase().lessonsDao(),
+                adminScope.provideDatabase().lessonsDao(),
                 ChosenLessonIdCache.Base(adminScope.provideObjectStorage()),
                 Serialization.Base()
             ),
