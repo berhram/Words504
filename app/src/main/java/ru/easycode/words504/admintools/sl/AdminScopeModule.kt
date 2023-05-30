@@ -1,11 +1,11 @@
 package ru.easycode.words504.admintools.sl
 
 import android.content.Context
-import ru.easycode.words504.RoomDatabaseWrapper
 import ru.easycode.words504.admintools.core.cache.AdminDataBase
 import ru.easycode.words504.admintools.data.AdminToolsSharedPreferences
 import ru.easycode.words504.admintools.lessonslist.data.cache.LessonConverters
 import ru.easycode.words504.admintools.presentation.SentenceUiCache
+import ru.easycode.words504.core.cache.RoomDatabaseWrapper
 import ru.easycode.words504.data.cache.preferences.ProvideSharedPreferences
 import ru.easycode.words504.data.cache.serialization.Serialization
 import ru.easycode.words504.data.cache.storage.ObjectStorage
@@ -42,7 +42,7 @@ interface AdminScopeModule :
             context.applicationContext,
             AdminDataBase.Base::class.java,
             "admin_database"
-        ).create(LessonConverters.Base(Serialization.Base()))
+        ).create(LessonConverters(serialization))
 
         override fun provideNavigation() = navigationCommunication
 

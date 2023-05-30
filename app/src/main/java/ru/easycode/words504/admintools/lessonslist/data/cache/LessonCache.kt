@@ -15,7 +15,7 @@ interface LessonCache {
     fun <T> map(mapper: Mapper<T>): T
 
     @Entity(tableName = "admin_lessons_table")
-    @TypeConverters(LessonConverters.Base::class)
+    @TypeConverters(LessonConverters::class)
     data class Base(
         @PrimaryKey
         @ColumnInfo(name = "id")

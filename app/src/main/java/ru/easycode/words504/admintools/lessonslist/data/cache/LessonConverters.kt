@@ -4,21 +4,17 @@ import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.reflect.TypeToken
 import ru.easycode.words504.admintools.data.cloud.LessonCloud
+import ru.easycode.words504.data.cache.GenericConverter
 import ru.easycode.words504.data.cache.serialization.Serialization
 
-interface LessonConverters {
-    fun toLessonJson(lessonCloud: LessonCloud.Base): String
-    fun fromLessonJson(json: String): LessonCloud.Base
+@ProvidedTypeConverter
+class LessonConverters(private val serialization: Serialization) :
+    GenericConverter<LessonCloud.Base, String> {
 
-    @ProvidedTypeConverter
-    class Base(private val serialization: Serialization) : LessonConverters {
+    @TypeConverter
+    override fun fromObject(obj: LessonCloud.Base): String = serialization.toJson(obj)
 
-        @TypeConverter
-        override fun toLessonJson(lessonCloud: LessonCloud.Base): String =
-            serialization.toJson(lessonCloud)
-
-        @TypeConverter
-        override fun fromLessonJson(json: String): LessonCloud.Base =
-            serialization.fromJson(json, TypeToken.get(LessonCloud.Base::class.java))
-    }
+    @TypeConverter
+    override fun toObject(value: String): LessonCloud.Base =
+        serialization.fromJson(value, TypeToken.get(LessonCloud.Base::class.java))
 }
