@@ -1,9 +1,11 @@
 package ru.easycode.words504.admintools.lessonslist.domain
 
-import ru.easycode.words504.admintools.lessonslist.data.LessonCache
+import ru.easycode.words504.admintools.lessonslist.data.cache.LessonCache
 
 interface LessonsListRepository {
-    fun lessons(): List<LessonCache>
+    suspend fun save(lessonCache: LessonCache.Base)
+    suspend fun lesson(id: String): LessonCache.Base
+    suspend fun lessons(): List<LessonCache>
+    suspend fun lessonToString(id: String): String
     fun chooseLesson(id: String)
-    fun lessonToString(id: String): String
 }
