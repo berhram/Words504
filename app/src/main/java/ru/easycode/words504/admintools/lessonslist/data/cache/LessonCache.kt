@@ -9,7 +9,7 @@ import ru.easycode.words504.admintools.data.cloud.LessonCloud
 interface LessonCache {
 
     interface Mapper<T> {
-        fun map(id: String, isComplete: Boolean): T
+        fun map(id: String, isComplete: Boolean, lessonCloud: LessonCloud): T
     }
 
     fun <T> map(mapper: Mapper<T>): T
@@ -25,6 +25,6 @@ interface LessonCache {
         @ColumnInfo(name = "lessonCloud")
         val lessonCloud: LessonCloud.Base
     ) : LessonCache {
-        override fun <T> map(mapper: Mapper<T>): T = mapper.map(id, isComplete)
+        override fun <T> map(mapper: Mapper<T>): T = mapper.map(id, isComplete, lessonCloud)
     }
 }

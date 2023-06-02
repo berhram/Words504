@@ -7,5 +7,6 @@ interface LessonsListRepository {
     suspend fun lesson(id: String): LessonCache.Base
     suspend fun lessons(): List<LessonCache>
     suspend fun lessonToString(id: String): String
+    suspend fun chosenLesson(): LessonCache.Base
     fun chooseLesson(id: String)
 }

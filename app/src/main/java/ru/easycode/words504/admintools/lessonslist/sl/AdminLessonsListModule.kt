@@ -2,7 +2,7 @@ package ru.easycode.words504.admintools.lessonslist.sl
 
 import ru.easycode.words504.admintools.lessonslist.data.LessonsListRepositoryBase
 import ru.easycode.words504.admintools.lessonslist.data.cache.ChosenLessonIdCache
-import ru.easycode.words504.admintools.lessonslist.data.cache.LessonCacheMapper
+import ru.easycode.words504.admintools.lessonslist.data.cache.LessonCacheToUiMapper
 import ru.easycode.words504.admintools.lessonslist.presentation.AdminLessonsListViewModel
 import ru.easycode.words504.admintools.lessonslist.presentation.LessonsListCommunication
 import ru.easycode.words504.data.cache.serialization.Serialization
@@ -21,7 +21,7 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
                 Serialization.Base()
             ),
             communication = LessonsListCommunication.Base(),
-            mapper = LessonCacheMapper(),
+            mapper = LessonCacheToUiMapper(),
             navigation = coreModule.provideAdminScope().provideNavigation(),
             dispatchersList = coreModule.provideDispatchers()
         )
