@@ -11,7 +11,7 @@ import ru.easycode.words504.presentation.ManageResources
 
 class LessonCloudToContentUiMapper(
     private val manageResources: ManageResources,
-    val mapper: LessonExerciseCloud.Mapper<ExerciseType>
+    private val mapper: LessonExerciseCloud.Mapper<ExerciseType>
 ) :
     LessonCloud.Mapper<List<ReviewLessonContentUi>> {
     override fun map(
@@ -21,12 +21,12 @@ class LessonCloudToContentUiMapper(
         exercises: List<LessonExerciseCloud>
     ): List<ReviewLessonContentUi> {
         val contentList = mutableListOf<ReviewLessonContentUi>()
-        if (quote.isNotEmpty()) contentList.add(ReviewLessonContentUi.Quote(manageResources))
+        if (!quote.isEmpty()) contentList.add(ReviewLessonContentUi.Quote(manageResources))
+        if (!text.isEmpty()) contentList.add(ReviewLessonContentUi.Text(manageResources))
         if (words.isNotEmpty()) contentList.add(ReviewLessonContentUi.Words(manageResources))
-        if (text.isNotEmpty()) contentList.add(ReviewLessonContentUi.Text(manageResources))
 
         exercises.forEach { exercise ->
-            if (exercise.isNotEmpty()) {
+            if (!exercise.isEmpty()) {
                 contentList.add(
                     ReviewLessonContentUi.Exercise(
                         manageResources,
