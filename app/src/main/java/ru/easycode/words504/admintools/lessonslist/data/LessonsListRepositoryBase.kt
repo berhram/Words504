@@ -10,7 +10,7 @@ class LessonsListRepositoryBase(
     private val lessonsDao: LessonsDao,
     private val chosenLessonIdCache: ChosenLessonIdCache.Mutable,
     private val serialization: Serialization
-) : LessonsListRepository {
+) : LessonsListRepository.Mutable {
 
     override suspend fun lesson(id: String): LessonCache.Base = lessonsDao.lesson(id)
 

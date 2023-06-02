@@ -19,7 +19,7 @@ interface ReviewLessonContentViewModel : Init, Communication.Observe<ReviewLesso
     fun choseContent(content: ReviewLessonContentUi)
 
     class Base(
-        private val repository: LessonsListRepository,
+        private val repository: LessonsListRepository.Read,
         private val mapper: LessonCache.Mapper<List<ReviewLessonContentUi>>,
         private val communication: Communication.Mutable<ReviewLessonContentState>,
         private val navigation: NavigationCommunication.Update,

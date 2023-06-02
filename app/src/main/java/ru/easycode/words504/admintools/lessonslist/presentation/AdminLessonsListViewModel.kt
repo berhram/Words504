@@ -19,7 +19,7 @@ interface AdminLessonsListViewModel : Init {
     fun addLesson()
 
     class Base(
-        private val repository: LessonsListRepository,
+        private val repository: LessonsListRepository.Mutable,
         private val communication: Communication.Mutable<LessonsUi>,
         private val mapper: LessonCache.Mapper<LessonUi>,
         private val navigation: NavigationCommunication.Update,
