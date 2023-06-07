@@ -4,7 +4,6 @@ import ru.easycode.words504.admintools.lessonslist.data.LessonsListRepositoryBas
 import ru.easycode.words504.admintools.lessonslist.data.cache.ChosenLessonIdCache
 import ru.easycode.words504.admintools.reviewLessonContent.mappers.LessonCacheToContentUiMapper
 import ru.easycode.words504.admintools.reviewLessonContent.mappers.LessonCloudToContentUiMapper
-import ru.easycode.words504.admintools.reviewLessonContent.mappers.LessonExerciseTypeMapper
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.ReviewLessonContentCommunication
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.ReviewLessonContentViewModel
 import ru.easycode.words504.data.cache.serialization.Serialization
@@ -21,10 +20,8 @@ class ReviewLessonContentModule(private val coreModule: CoreModule) :
                 chosenLessonIdCache = ChosenLessonIdCache.Base(adminScope.provideObjectStorage()),
                 Serialization.Base()
             ),
-            mapper = LessonCacheToContentUiMapper(
-                LessonCloudToContentUiMapper(coreModule, LessonExerciseTypeMapper())
-            ),
-            communication = ReviewLessonContentCommunication(),
+            mapper = LessonCacheToContentUiMapper(LessonCloudToContentUiMapper(coreModule)),
+            communication = ReviewLessonContentCommunication.Base(),
             navigation = adminScope.provideNavigation(),
             dispatchersList = coreModule.provideDispatchers()
         )

@@ -20,7 +20,7 @@ class LessonsListRepositoryBase(
 
     override suspend fun lessonToString(id: String): String = serialization.toJson(lesson(id))
 
-    override fun chooseLesson(id: String) = chosenLessonIdCache.save(id)
+    override fun saveChooseLesson(id: String) = chosenLessonIdCache.save(id)
 
     override suspend fun chosenLesson(): LessonCache.Base = lesson(chosenLessonIdCache.read())
 }

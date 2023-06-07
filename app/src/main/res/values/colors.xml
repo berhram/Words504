@@ -13,4 +13,5 @@
     <color name="admin_state">#99000000</color>
     <color name="admin_in_progress">#FBDB34</color>
     <color name="admin_complete">#5DB075</color>
+    <color name="admin_review_content_item">#0A000000</color>
 </resources>

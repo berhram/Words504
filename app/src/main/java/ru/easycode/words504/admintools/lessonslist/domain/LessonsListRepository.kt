@@ -12,7 +12,7 @@ interface LessonsListRepository {
 
     interface Save {
         suspend fun save(lessonCache: LessonCache.Base)
-        fun chooseLesson(id: String)
+        fun saveChooseLesson(id: String)
     }
 
     interface Mutable : Read, Save
