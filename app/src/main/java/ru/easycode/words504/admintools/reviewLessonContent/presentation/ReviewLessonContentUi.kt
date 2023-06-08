@@ -1,7 +1,10 @@
 package ru.easycode.words504.admintools.reviewLessonContent.presentation
 
 import ru.easycode.words504.R
-import ru.easycode.words504.admintools.data.cloud.ExerciseType
+import ru.easycode.words504.admintools.data.cloud.LessonExerciseCloud
+import ru.easycode.words504.admintools.data.cloud.LessonQuoteCloud
+import ru.easycode.words504.admintools.data.cloud.LessonTextCloud
+import ru.easycode.words504.admintools.data.cloud.LessonWordCloud
 import ru.easycode.words504.admintools.lessonexercise.presentation.AdminLessonExerciseScreen
 import ru.easycode.words504.admintools.lessonquote.presentation.AdminLessonQuoteScreen
 import ru.easycode.words504.admintools.lessontext.presentation.AdminLessonTextScreen
@@ -19,28 +22,39 @@ interface ReviewLessonContentUi {
         override fun id(): String = manageResources.string(resId)
     }
 
-    class Quote(manageResources: ManageResources) : Abstract(manageResources) {
+    data class Quote(
+        private val manageResources: ManageResources,
+        private val data: LessonQuoteCloud
+    ) : Abstract(manageResources) {
         override val resId = R.string.lesson_quote
         override fun map(navigation: NavigationCommunication.Update) =
             navigation.map(AdminLessonQuoteScreen)
     }
 
-    class Words(manageResources: ManageResources) : Abstract(manageResources) {
+    data class Words(
+        private val manageResources: ManageResources,
+        private val data: List<LessonWordCloud>
+    ) : Abstract(manageResources) {
         override val resId = R.string.lesson_words
         override fun map(navigation: NavigationCommunication.Update) =
             navigation.map(AdminLessonWordsScreen)
     }
 
-    class Text(manageResources: ManageResources) : Abstract(manageResources) {
+    data class Text(
+        private val manageResources: ManageResources,
+        private val data: LessonTextCloud
+    ) : Abstract(manageResources) {
         override val resId = R.string.lesson_text
         override fun map(navigation: NavigationCommunication.Update) =
             navigation.map(AdminLessonTextScreen)
     }
 
-    class Exercise(private val manageResources: ManageResources, private val type: ExerciseType) :
-        Abstract(manageResources) {
+    data class Exercise(
+        private val manageResources: ManageResources,
+        private val data: LessonExerciseCloud
+    ) : Abstract(manageResources) {
         override val resId = R.string.lesson_exercise
-        override fun id(): String = manageResources.string(resId) + " ${type.name}"
+        override fun id(): String = manageResources.string(resId)
 
         override fun map(navigation: NavigationCommunication.Update) =
             navigation.map(AdminLessonExerciseScreen)
