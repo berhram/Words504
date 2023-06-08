@@ -1,5 +1,6 @@
 package ru.easycode.words504.admintools.presentation
 
+import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.FragmentManager
 import org.junit.Assert.assertEquals
 import org.junit.Test
@@ -128,6 +129,7 @@ interface SentenceViewModelTest {
 
         private class ScreenEmpty : Screen {
             override fun navigate(manager: FragmentManager, containerId: Int) = Unit
+            override fun showTitle(actionBar: ActionBar) = Unit
         }
     }
 }
