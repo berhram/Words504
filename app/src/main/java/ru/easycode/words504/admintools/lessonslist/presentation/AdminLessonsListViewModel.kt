@@ -36,7 +36,7 @@ interface AdminLessonsListViewModel : Init {
 
         override fun chooseLesson(id: String) {
             repository.saveChooseLesson(id)
-            navigation.map(ReviewLessonContentScreen)
+            navigation.map(ReviewLessonContentScreen(id))
         }
 
         override fun addLesson() = navigation.map(ChooseLessonTypeScreen)

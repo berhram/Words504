@@ -18,4 +18,5 @@
     <string name="lesson_words">Words</string>
     <string name="lesson_text">Text</string>
     <string name="lesson_exercise">Exercise</string>
+    <string name="admin_lessons">Lessons list</string>
 </resources>
