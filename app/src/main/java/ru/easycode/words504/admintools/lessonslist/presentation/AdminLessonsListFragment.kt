@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import ru.easycode.words504.databinding.FragmentAdminLessonsListBinding
 import ru.easycode.words504.presentation.BaseFragment
 
@@ -38,5 +39,6 @@ class AdminLessonsListFragment :
             lessonsRecycler.adapter = adapter
             addButton.setOnClickListener { viewModel.addLesson() }
         }
+        (requireActivity() as AppCompatActivity).title = viewModel.title()
     }
 }

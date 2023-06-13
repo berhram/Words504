@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import ru.easycode.words504.databinding.FragmentLessonReviewContentBinding
 import ru.easycode.words504.presentation.BaseFragment
 import ru.easycode.words504.presentation.ClickListener
@@ -22,16 +23,18 @@ class ReviewLessonContentFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         val adapter = ReviewLessonContentAdapter(object : ClickListener<ReviewLessonContentUi> {
             override fun click(item: ReviewLessonContentUi) {
                 viewModel.choseContent(item)
             }
         })
-        binding.recycler.adapter = adapter
+        binding.recyclerView.adapter = adapter
 
         viewModel.init()
         viewModel.observe(this) { state ->
             state.map(adapter)
         }
+        (requireActivity() as AppCompatActivity).supportActionBar?.title = viewModel.title()
     }
 }

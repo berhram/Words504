@@ -23,6 +23,7 @@ class AdminLessonsListModule(private val coreModule: CoreModule) :
             communication = LessonsListCommunication.Base(),
             mapper = LessonCacheToUiMapper(),
             navigation = coreModule.provideAdminScope().provideNavigation(),
+            resources = coreModule,
             dispatchersList = coreModule.provideDispatchers()
         )
     }

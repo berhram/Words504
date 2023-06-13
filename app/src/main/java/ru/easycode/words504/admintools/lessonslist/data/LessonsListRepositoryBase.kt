@@ -22,5 +22,5 @@ class LessonsListRepositoryBase(
 
     override fun saveChooseLesson(id: String) = chosenLessonIdCache.save(id)
 
-    override suspend fun chosenLesson(): LessonCache.Base = lesson(chosenLessonIdCache.read())
+    override fun chosenLessonId(): String = chosenLessonIdCache.read()
 }

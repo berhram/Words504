@@ -4,9 +4,9 @@
     android:id="@+id/nameTextView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginVertical="8dp"
+    android:layout_marginVertical="@dimen/small"
     android:background="@color/admin_review_content_item"
     android:gravity="center_horizontal"
-    android:padding="8dp"
+    android:padding="@dimen/small"
     android:textSize="22sp"
     tools:text="Quote" />

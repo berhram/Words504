@@ -4,13 +4,17 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import ru.easycode.words504.admintools.lessonslist.data.cache.LessonCache
 import ru.easycode.words504.admintools.lessonslist.domain.LessonsListRepository
+import ru.easycode.words504.admintools.presentation.Title
 import ru.easycode.words504.presentation.BaseViewModel
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.Init
 import ru.easycode.words504.presentation.NavigationCommunication
 
-interface ReviewLessonContentViewModel : Init, Communication.Observe<ReviewLessonContentState> {
+interface ReviewLessonContentViewModel :
+    Init,
+    Title,
+    Communication.Observe<ReviewLessonContentState> {
 
     fun choseContent(content: ReviewLessonContentUi)
 
@@ -25,10 +29,15 @@ interface ReviewLessonContentViewModel : Init, Communication.Observe<ReviewLesso
         override fun choseContent(content: ReviewLessonContentUi) = content.map(navigation)
 
         override fun init() {
-            handle({ repository.chosenLesson().map(mapper) }) {
+            handle({
+                repository.lesson(repository.chosenLessonId())
+                    .map(mapper)
+            }) {
                 communication.map(ReviewLessonContentState.Initial(it))
             }
         }
+
+        override fun title(): String = repository.chosenLessonId()
 
         override fun observe(owner: LifecycleOwner, observer: Observer<ReviewLessonContentState>) {
             communication.observe(owner, observer)
