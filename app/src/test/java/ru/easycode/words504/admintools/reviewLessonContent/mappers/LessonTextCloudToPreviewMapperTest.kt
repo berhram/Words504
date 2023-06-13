@@ -16,7 +16,7 @@ class LessonTextCloudToPreviewMapperTest {
                 ui = "Text title",
                 words = listOf(
                     WordCloud.Base(ui = "Text", index = 0, dictionaryForm = "text"),
-                    WordCloud.Base(ui = "title", index = 6, dictionaryForm = "title"),
+                    WordCloud.Base(ui = "title", index = 6, dictionaryForm = "title")
                 )
             ),
             sentences = listOf(
@@ -49,7 +49,7 @@ class LessonTextCloudToPreviewMapperTest {
                             dictionaryForm = "sentence"
                         )
                     )
-                ),
+                )
             )
         )
 

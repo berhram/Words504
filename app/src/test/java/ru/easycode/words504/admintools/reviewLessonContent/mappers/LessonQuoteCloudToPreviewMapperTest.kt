@@ -27,7 +27,7 @@ class LessonQuoteCloudToPreviewMapperTest {
                         WordCloud.Base(ui = "second", index = 0, dictionaryForm = "second"),
                         WordCloud.Base(ui = "sentence", index = 0, dictionaryForm = "sentence")
                     )
-                ),
+                )
             ),
             author = "Ekaterina"
         )

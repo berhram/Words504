@@ -7,7 +7,8 @@ interface ExercisePreview {
 
     fun <T : Any> map(mapper: Mapper<T>): T
 
-    data class Base(private val type: String, private val questions: List<String>) : ExercisePreview {
+    data class Base(private val type: String, private val questions: List<String>) :
+        ExercisePreview {
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(type, questions)
     }
 }
