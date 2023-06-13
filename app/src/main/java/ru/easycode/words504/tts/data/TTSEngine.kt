@@ -3,8 +3,6 @@ package ru.easycode.words504.tts.data
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import androidx.lifecycle.LiveData
-import ru.easycode.words504.presentation.SingleLiveEvent
 import java.util.LinkedList
 import java.util.Locale
 import java.util.Queue
@@ -87,3 +85,4 @@ interface TTSEngine {
         }
     }
 }
+

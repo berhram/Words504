@@ -14,13 +14,11 @@ import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSEngine
 import ru.easycode.words504.tts.data.TTSObserver
 
-interface TTSViewModel : TTSCommunication.Observe {
+interface TTSViewModel : Communication.Observe<TTSState>, TTSObserver {
 
     fun init(onInitListener: OnInitListener)
 
     fun speak(phrases: List<String>)
-
-    fun addObserver(observer: TTSObserver)
 
     class Base(
         private val dispatchers: DispatchersList,
@@ -30,10 +28,6 @@ interface TTSViewModel : TTSCommunication.Observe {
         private val manageResources: ManageResources
     ) : ViewModel(), TTSViewModel {
 
-        override fun addObserver(observer: TTSObserver) {
-            ttsEngine.addObserver(observer)
-        }
-
         override fun started(phrase: String) {
             viewModelScope.launch(dispatchers.ui()) {
                 resultCommunication.map(
@@ -42,7 +36,7 @@ interface TTSViewModel : TTSCommunication.Observe {
             }
         }
 
-        override fun processed(phrase: String) {
+        override fun finished(phrase: String) {
             viewModelScope.launch(dispatchers.ui()) {
                 resultCommunication.map(
                     TTSState.Finished("${manageResources.string(R.string.finished)}: $phrase")
@@ -64,5 +58,8 @@ interface TTSViewModel : TTSCommunication.Observe {
             ttsEngine.init(onInitListener)
             ttsEngine.addObserver(this)
         }
+
+        override fun observe(owner: LifecycleOwner, observer: Observer<TTSState>) =
+            resultCommunication.observe(owner, observer)
     }
 }
