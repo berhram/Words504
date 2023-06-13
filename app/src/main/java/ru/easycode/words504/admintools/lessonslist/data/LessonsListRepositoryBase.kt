@@ -8,9 +8,9 @@ import ru.easycode.words504.data.cache.serialization.Serialization
 
 class LessonsListRepositoryBase(
     private val lessonsDao: LessonsDao,
-    private val chosenLessonIdCache: ChosenLessonIdCache.Save,
+    private val chosenLessonIdCache: ChosenLessonIdCache.Mutable,
     private val serialization: Serialization
-) : LessonsListRepository {
+) : LessonsListRepository.Mutable {
 
     override suspend fun lesson(id: String): LessonCache.Base = lessonsDao.lesson(id)
 
@@ -20,5 +20,7 @@ class LessonsListRepositoryBase(
 
     override suspend fun lessonToString(id: String): String = serialization.toJson(lesson(id))
 
-    override fun chooseLesson(id: String) = chosenLessonIdCache.save(id)
+    override fun saveChooseLesson(id: String) = chosenLessonIdCache.save(id)
+
+    override fun chosenLessonId(): String = chosenLessonIdCache.read()
 }

@@ -7,7 +7,7 @@ interface LessonCloud {
     interface Mapper<T : Any> {
         fun map(
             quote: LessonQuoteCloud,
-            words: List<WordToLearnCloud>,
+            words: List<LessonWordCloud>,
             text: LessonTextCloud,
             exercises: List<LessonExerciseCloud>
         ): T
@@ -19,7 +19,7 @@ interface LessonCloud {
         @SerializedName("quote")
         private val quote: LessonQuoteCloud.Base,
         @SerializedName("wordsToLearn")
-        private val words: List<WordToLearnCloud.Base>,
+        private val words: List<LessonWordCloud.Base>,
         @SerializedName("text")
         private val text: LessonTextCloud.Base,
         @SerializedName("exercises")

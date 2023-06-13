@@ -14,4 +14,9 @@
     <string name="in_progress">In progress</string>
     <string name="complete">Complete</string>
     <string name="share_json_lesson">Share JSON Lesson</string>
+    <string name="lesson_quote">Quote</string>
+    <string name="lesson_words">Words</string>
+    <string name="lesson_text">Text</string>
+    <string name="lesson_exercise">Exercise</string>
+    <string name="admin_lessons">Lessons list</string>
 </resources>

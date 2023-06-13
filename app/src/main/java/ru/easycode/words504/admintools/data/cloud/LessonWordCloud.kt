@@ -1,8 +1,9 @@
 package ru.easycode.words504.admintools.data.cloud
 
 import com.google.gson.annotations.SerializedName
+import ru.easycode.words504.data.Empty
 
-interface WordToLearnCloud {
+interface LessonWordCloud : Empty {
 
     interface Mapper<T : Any> {
         fun map(
@@ -21,8 +22,10 @@ interface WordToLearnCloud {
         private val definitions: List<SentenceCloud.Base>,
         @SerializedName("examples")
         private val examples: List<SentenceCloud.Base>
-    ) : WordToLearnCloud {
+    ) : LessonWordCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(id, definitions, examples)
+
+        override fun isEmpty(): Boolean = definitions.isEmpty()
     }
 }
