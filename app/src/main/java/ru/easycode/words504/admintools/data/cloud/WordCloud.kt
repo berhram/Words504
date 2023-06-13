@@ -10,6 +10,10 @@ interface WordCloud {
             index: Int,
             dictionaryForm: String
         ): T
+
+        object Ui : Mapper<String> {
+            override fun map(ui: String, index: Int, dictionaryForm: String): String = ui
+        }
     }
 
     fun <T : Any> map(mapper: Mapper<T>): T
