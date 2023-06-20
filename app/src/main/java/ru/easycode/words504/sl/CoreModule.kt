@@ -12,6 +12,10 @@ import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.tts.data.ProvideTTSObserversStorage
+import ru.easycode.words504.tts.data.TTSObserversStorage
+import ru.easycode.words504.tts.presentation.ProvideTTSCommunication
+import ru.easycode.words504.tts.presentation.TTSCommunication
 
 interface CoreModule :
     ProvideSharedPreferences,
@@ -19,6 +23,8 @@ interface CoreModule :
     ProvideHttpClientBuilder,
     ProvideNavigation,
     ProvideObjectStorage,
+    ProvideTTSCommunication,
+    ProvideTTSObserversStorage,
     ManageResources {
 
     fun provideDispatchers(): DispatchersList
@@ -53,6 +59,10 @@ interface CoreModule :
             SimpleStorage.Base(this)
         )
 
+        private val ttsCommunication = TTSCommunication.Base()
+
+        private val ttsObserversStorage = TTSObserversStorage.Base
+
         override fun provideDispatchers(): DispatchersList = dispatchers
 
         override fun sharedPreferences() = sharedPref.sharedPreferences()
@@ -67,5 +77,9 @@ interface CoreModule :
         override fun provideNavigation() = navigation
 
         override fun provideObjectStorage() = objectStorage
+
+        override fun provideTTSCommunication() = ttsCommunication
+
+        override fun provideTTSObserversStorage() = ttsObserversStorage
     }
 }

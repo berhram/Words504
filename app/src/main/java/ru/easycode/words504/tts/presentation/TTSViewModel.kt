@@ -10,22 +10,29 @@ import ru.easycode.words504.R
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.ManageResources
+import ru.easycode.words504.presentation.Navigate
+import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.presentation.Screen
 import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSEngine
 import ru.easycode.words504.tts.data.TTSObserver
 
-interface TTSViewModel : Communication.Observe<TTSState>, TTSObserver {
+interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
 
     fun init(onInitListener: OnInitListener)
 
     fun speak(phrases: List<String>)
+
+    fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>)
 
     class Base(
         private val dispatchers: DispatchersList,
         private val ttsEngine: TTSEngine,
         private val resultCommunication: TTSStateCommunication,
         private val mediaLevel: MediaLevel,
-        private val manageResources: ManageResources
+        private val manageResources: ManageResources,
+        private val ttsCommunication: TTSCommunication.Observe,
+        private val navigationCommunication: NavigationCommunication.Mutable
     ) : ViewModel(), TTSViewModel {
 
         override fun started(phrase: String) {
@@ -44,6 +51,10 @@ interface TTSViewModel : Communication.Observe<TTSState>, TTSObserver {
             }
         }
 
+        override fun navigate(screen: Screen) {
+            navigationCommunication.map(screen)
+        }
+
         override fun speak(phrases: List<String>) {
             if (mediaLevel.isLowLevel()) {
                 resultCommunication.map(
@@ -54,12 +65,16 @@ interface TTSViewModel : Communication.Observe<TTSState>, TTSObserver {
             }
         }
 
+        override fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>) {
+            ttsCommunication.observe(owner, observer)
+        }
+
         override fun init(onInitListener: OnInitListener) {
             ttsEngine.init(onInitListener)
             ttsEngine.addObserver(this)
         }
 
-        override fun observe(owner: LifecycleOwner, observer: Observer<TTSState>) =
-            resultCommunication.observe(owner, observer)
+        override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) =
+            navigationCommunication.observe(owner, observer)
     }
 }

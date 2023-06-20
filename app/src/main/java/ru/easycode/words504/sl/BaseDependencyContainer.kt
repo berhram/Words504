@@ -10,8 +10,10 @@ import ru.easycode.words504.languages.sl.ChooseLanguageModule
 import ru.easycode.words504.loading.LoadCoroutinesModule
 import ru.easycode.words504.loading.LoadTranslateViewModel
 import ru.easycode.words504.recognition.presentation.TestSTTViewModel
+import ru.easycode.words504.tts.presentation.TTSTestFragmentViewModel
 import ru.easycode.words504.tts.presentation.TTSViewModel
 import ru.easycode.words504.tts.sl.TTSModule
+import ru.easycode.words504.tts.sl.TTSTestModule
 
 class BaseDependencyContainer(
     private val context: Context,
@@ -26,6 +28,7 @@ class BaseDependencyContainer(
         TestSTTViewModel::class.java -> STTModule(context, core)
         InitialViewModel::class.java -> InitialModule(core)
         TTSViewModel.Base::class.java -> TTSModule(core, context)
+        TTSTestFragmentViewModel.Base::class.java -> TTSTestModule(core)
         else -> error.module(clazz)
     }
 }

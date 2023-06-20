@@ -13,18 +13,16 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
         super.onCreate(savedInstanceState)
         binding = ActivityTtsBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel.init {
-            binding.buttonSpeak.isEnabled = true
-            binding.buttonSpeakAsOne.isEnabled = true
+        if (savedInstanceState == null) {
+            viewModel.navigate(TTSTestScreen)
         }
-        binding.buttonSpeak.setOnClickListener {
-            viewModel.speak(binding.textInputEditText.text.toString().split(" "))
-        }
-        binding.buttonSpeakAsOne.setOnClickListener {
-            viewModel.speak(listOf(binding.textInputEditText.text.toString()))
-        }
+        viewModel.init {}
+
         viewModel.observe(this) {
-            it.show(binding.messageTextView, binding.startedTextView, binding.finishedTextView)
+            it.navigate(supportFragmentManager, binding.ttsContainer.id)
+        }
+        viewModel.observeTts(this) {
+            viewModel.speak(it)
         }
     }
 }

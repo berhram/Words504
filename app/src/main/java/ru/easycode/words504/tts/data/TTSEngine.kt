@@ -19,15 +19,16 @@ interface TTSEngine {
 
     fun resume()
 
-    class Base(private val context: Context) : TTSEngine {
+    class Base(private val context: Context, private val observersStorage: TTSObserversStorage) :
+        TTSEngine {
 
         private lateinit var tts: TextToSpeech
-        private val observers: MutableList<TTSObserver> = mutableListOf()
+
         private val wordsQueue: Queue<String> = LinkedList()
         private var isPaused: Boolean = false
 
         override fun addObserver(observer: TTSObserver) {
-            observers.add(observer)
+            observersStorage.add(observer)
         }
 
         override fun init(initCallback: TextToSpeech.OnInitListener) {
@@ -42,14 +43,16 @@ interface TTSEngine {
                 }
 
                 override fun onStart(utteranceId: String) {
-                    observers.forEach { it.started(utteranceId) }
+                    observersStorage.observers()
+                        .forEach { it.started(utteranceId) }
                 }
 
                 override fun onDone(utteranceId: String) {
-                    observers.forEach { it.finished(utteranceId) }
+                    observersStorage.observers()
+                        .forEach { it.finished(utteranceId) }
                     if (!isPaused) {
                         wordsQueue.poll()?.let {
-                            speak(listOf(it))
+                            ttsSpeak(it)
                         }
                     }
                 }
@@ -64,7 +67,7 @@ interface TTSEngine {
             wordsQueue.clear()
             wordsQueue.addAll(phrases)
             wordsQueue.poll()?.let {
-                tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
+                ttsSpeak(it)
             }
         }
 
@@ -83,6 +86,9 @@ interface TTSEngine {
                 }
             }
         }
+
+        private fun ttsSpeak(text: String) {
+            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
+        }
     }
 }
-
