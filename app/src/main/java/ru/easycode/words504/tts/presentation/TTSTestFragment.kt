@@ -22,6 +22,12 @@ class TTSTestFragment : BaseFragment<TTSTestFragmentViewModel.Base, FragmentTtsT
             speakButton.setOnClickListener {
                 viewModel.speak(textView.text.toString())
             }
+            stopButton.setOnClickListener {
+
+            }
+            playButton.setOnClickListener {
+
+            }
         }
     }
 }

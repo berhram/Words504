@@ -9,6 +9,10 @@ interface TTSTestFragmentViewModel : TTSObserver {
 
     fun speak(text: String)
 
+    fun stop()
+
+    fun resume()
+
     class Base(
         private val ttsCommunication: TTSCommunication.Update,
         private val ttsObserversStorage: TTSObserversStorage
@@ -20,6 +24,14 @@ interface TTSTestFragmentViewModel : TTSObserver {
 
         override fun speak(text: String) {
             ttsCommunication.map(text.split("."))
+        }
+
+        override fun stop() {
+            TODO("Not yet implemented")
+        }
+
+        override fun resume() {
+            TODO("Not yet implemented")
         }
 
         override fun started(phrase: String) {

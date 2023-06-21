@@ -11,11 +11,23 @@
         android:layout_height="wrap_content"
         android:text="@string/tts_test_text"
         android:textColor="@color/black"
-        android:textSize="28sp" />
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/speakButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/speak" />
+
+    <Button
+        android:id="@+id/playButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/play" />
+
+    <Button
+        android:id="@+id/stopButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/stop" />
 </LinearLayout>
