@@ -19,5 +19,10 @@
     <string name="tts_test_text">Many studies about language learning ask the question: What makes a good language learner? There are some things that good language learners do and some things they don\'t do. Here are some of the most useful suggestions from studies.</string>
     <string name="stop">Stop</string>
     <string name="play">Play</string>
+    <string name="error_synthesis">Synthesis error</string>
+    <string name="error_service">Service error</string>
+    <string name="error_output">Output error</string>
+    <string name="error_voice">Not installed yet voice data error</string>
+    <string name="error_invalid_request">Invalid request error</string>
 
 </resources>

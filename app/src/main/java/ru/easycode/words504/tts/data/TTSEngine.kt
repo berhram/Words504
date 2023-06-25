@@ -3,6 +3,7 @@ package ru.easycode.words504.tts.data
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import ru.easycode.words504.tts.domain.TTSErrorsFactory
 import java.util.LinkedList
 import java.util.Locale
 import java.util.Queue
@@ -19,7 +20,11 @@ interface TTSEngine {
 
     fun resume()
 
-    class Base(private val context: Context, private val observersStorage: TTSObserversStorage) :
+    class Base(
+        private val context: Context,
+        private val observersStorage: TTSObserversStorage,
+        private val errorFactory: TTSErrorsFactory
+    ) :
         TTSEngine {
 
         private lateinit var tts: TextToSpeech
@@ -43,13 +48,11 @@ interface TTSEngine {
                 }
 
                 override fun onStart(utteranceId: String) {
-                    observersStorage.observers()
-                        .forEach { it.started(utteranceId) }
+                    observersStorage.notify { it.started(utteranceId) }
                 }
 
                 override fun onDone(utteranceId: String) {
-                    observersStorage.observers()
-                        .forEach { it.finished(utteranceId) }
+                    observersStorage.notify { it.finished(utteranceId) }
                     if (!isPaused) {
                         wordsQueue.poll()?.let {
                             ttsSpeak(it)
@@ -57,7 +60,14 @@ interface TTSEngine {
                     }
                 }
 
+                @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
                 override fun onError(utteranceId: String) = Unit
+
+                override fun onError(utteranceId: String, errorCode: Int) {
+                    observersStorage.notify {
+                        it.error(errorFactory.createError(errorCode))
+                    }
+                }
             })
         }
 
