@@ -16,14 +16,17 @@ import ru.easycode.words504.presentation.Screen
 import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.data.TTSEngine
 import ru.easycode.words504.tts.data.TTSObserver
+import ru.easycode.words504.tts.domain.TTSError
 
 interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
 
     fun init(onInitListener: OnInitListener)
 
     fun speak(phrases: List<String>)
+    fun changeState(state: TTSControlState)
 
     fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>)
+    fun observeTTSControl(owner: LifecycleOwner, observer: Observer<TTSControlState>)
 
     class Base(
         private val dispatchers: DispatchersList,
@@ -32,6 +35,7 @@ interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
         private val mediaLevel: MediaLevel,
         private val manageResources: ManageResources,
         private val ttsCommunication: TTSCommunication.Observe,
+        private val ttsControlCommunication: TTSControlCommunication.Observe,
         private val navigationCommunication: NavigationCommunication.Mutable
     ) : ViewModel(), TTSViewModel {
 
@@ -51,6 +55,8 @@ interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
             }
         }
 
+        override fun error(error: TTSError) {}
+
         override fun navigate(screen: Screen) {
             navigationCommunication.map(screen)
         }
@@ -65,8 +71,16 @@ interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
             }
         }
 
+        override fun changeState(state: TTSControlState) {
+            state.map(ttsEngine)
+        }
+
         override fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>) {
             ttsCommunication.observe(owner, observer)
+        }
+
+        override fun observeTTSControl(owner: LifecycleOwner, observer: Observer<TTSControlState>) {
+            ttsControlCommunication.observe(owner, observer)
         }
 
         override fun init(onInitListener: OnInitListener) {

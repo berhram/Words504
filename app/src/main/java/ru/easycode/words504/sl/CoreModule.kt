@@ -12,10 +12,15 @@ import ru.easycode.words504.data.cloud.ProvideOkHttpClientBuilder
 import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.ManageResources
 import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.tts.data.ObserversStorage
+import ru.easycode.words504.tts.data.ProvideTTSControlObserversStorage
 import ru.easycode.words504.tts.data.ProvideTTSObserversStorage
-import ru.easycode.words504.tts.data.TTSObserversStorage
+import ru.easycode.words504.tts.data.TTSControlObserver
+import ru.easycode.words504.tts.data.TTSObserver
 import ru.easycode.words504.tts.presentation.ProvideTTSCommunication
+import ru.easycode.words504.tts.presentation.ProvideTTSControlCommunication
 import ru.easycode.words504.tts.presentation.TTSCommunication
+import ru.easycode.words504.tts.presentation.TTSControlCommunication
 
 interface CoreModule :
     ProvideSharedPreferences,
@@ -25,6 +30,8 @@ interface CoreModule :
     ProvideObjectStorage,
     ProvideTTSCommunication,
     ProvideTTSObserversStorage,
+    ProvideTTSControlObserversStorage,
+    ProvideTTSControlCommunication,
     ManageResources {
 
     fun provideDispatchers(): DispatchersList
@@ -61,7 +68,11 @@ interface CoreModule :
 
         private val ttsCommunication = TTSCommunication.Base()
 
-        private val ttsObserversStorage = TTSObserversStorage.Base
+        private val ttsObserversStorage = ObserversStorage.Base<TTSObserver>()
+
+        private val ttsControlObserversStorage = ObserversStorage.Base<TTSControlObserver>()
+
+        private val ttsControlCommunication = TTSControlCommunication.Base()
 
         override fun provideDispatchers(): DispatchersList = dispatchers
 
@@ -81,5 +92,9 @@ interface CoreModule :
         override fun provideTTSCommunication() = ttsCommunication
 
         override fun provideTTSObserversStorage() = ttsObserversStorage
+
+        override fun provideTTSControlObserversStorage() = ttsControlObserversStorage
+
+        override fun provideTTSControlCommunication() = ttsControlCommunication
     }
 }

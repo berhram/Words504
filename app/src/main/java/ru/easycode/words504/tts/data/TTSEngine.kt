@@ -8,7 +8,7 @@ import java.util.LinkedList
 import java.util.Locale
 import java.util.Queue
 
-interface TTSEngine {
+interface TTSEngine : TTSControl {
 
     fun init(initCallback: TextToSpeech.OnInitListener)
 
@@ -16,13 +16,10 @@ interface TTSEngine {
 
     fun speak(phrases: List<String>)
 
-    fun pause()
-
-    fun resume()
-
     class Base(
         private val context: Context,
-        private val observersStorage: TTSObserversStorage,
+        private val observersStorage: ObserversStorage<TTSObserver>,
+        private val controlObserversStorage: ObserversStorage<TTSControlObserver>,
         private val errorFactory: TTSErrorsFactory
     ) :
         TTSEngine {
@@ -44,11 +41,18 @@ interface TTSEngine {
                     super.onStop(utteranceId, interrupted)
                     if (interrupted && !isPaused) {
                         wordsQueue.offer(utteranceId)
+                        // TODO надо расставить в правильных местах колбэки TTSControlObserver для панельки управления
+                        controlObserversStorage.notify { it.stopped() }
+                    } else {
+                        // TODO надо расставить в правильных местах колбэки TTSControlObserver для панельки управления
+                        controlObserversStorage.notify { it.paused() }
                     }
                 }
 
                 override fun onStart(utteranceId: String) {
                     observersStorage.notify { it.started(utteranceId) }
+                    // TODO надо расставить в правильных местах колбэки TTSControlObserver для панельки управления
+                    controlObserversStorage.notify { it.resumed() }
                 }
 
                 override fun onDone(utteranceId: String) {
@@ -60,6 +64,7 @@ interface TTSEngine {
                     }
                 }
 
+                // TODO не получилось эмулировать ошибку, у меня и без интернета читает
                 @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
                 override fun onError(utteranceId: String) = Unit
 
@@ -88,6 +93,7 @@ interface TTSEngine {
             }
         }
 
+        // TODO Если во время чтения предложения поставить паузу, а потом возобновить, то читать начинает со следующего предложения
         override fun resume() {
             if (isPaused) {
                 isPaused = false
@@ -95,6 +101,11 @@ interface TTSEngine {
                     tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
                 }
             }
+        }
+
+        override fun stop() {
+            tts.stop()
+            wordsQueue.clear()
         }
 
         private fun ttsSpeak(text: String) {

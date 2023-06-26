@@ -23,11 +23,20 @@ class TTSTestFragment : BaseFragment<TTSTestFragmentViewModel.Base, FragmentTtsT
                 viewModel.speak(textView.text.toString())
             }
             stopButton.setOnClickListener {
-
+                viewModel.stop()
             }
-            playButton.setOnClickListener {
-
+            pauseButton.setOnClickListener {
+                viewModel.pause()
             }
+            resumeButton.setOnClickListener {
+                viewModel.resume()
+            }
+            clearLogButton.setOnClickListener {
+                logTextView.text = ""
+            }
+        }
+        viewModel.observe(this) {
+            it.map(binding.logTextView)
         }
     }
 }

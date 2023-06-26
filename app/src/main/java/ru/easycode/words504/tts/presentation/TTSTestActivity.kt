@@ -24,5 +24,8 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
         viewModel.observeTts(this) {
             viewModel.speak(it)
         }
+        viewModel.observeTTSControl(this) {
+            viewModel.changeState(it)
+        }
     }
 }
