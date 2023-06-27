@@ -19,8 +19,7 @@ interface TTSEngine : TTSControl {
         private val observersStorage: ObserversStorage<TTSObserver>,
         private val controlObserversStorage: ObserversStorage<TTSControlObserver>,
         private val errorFactory: TTSErrorsFactory
-    ) :
-        TTSEngine {
+    ) : TTSEngine {
 
         private lateinit var tts: TextToSpeech
 
@@ -37,24 +36,21 @@ interface TTSEngine : TTSControl {
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStop(utteranceId: String?, interrupted: Boolean) {
                     super.onStop(utteranceId, interrupted)
-                    if (interrupted && !isPaused) {
-                        controlObserversStorage.notify { it.stopped() }
-                    } else {
-                        controlObserversStorage.notify { it.paused() }
-                    }
+                    controlObserversStorage.notify { it.paused() }
                 }
 
                 override fun onStart(utteranceId: String) {
+                    if (isPaused) {
+                        isPaused = false
+                        controlObserversStorage.notify { it.resumed() }
+                    }
                     observersStorage.notify { it.started(utteranceId) }
-                    controlObserversStorage.notify { it.resumed() }
                 }
 
                 override fun onDone(utteranceId: String) {
                     wordsQueue.removeLast()
                     observersStorage.notify { it.finished(utteranceId) }
-                    if (!isPaused) {
-                        ttsSpeak(wordsQueue.last())
-                    }
+                    ttsSpeak()
                 }
 
                 @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
@@ -73,31 +69,26 @@ interface TTSEngine : TTSControl {
             tts.stop()
             wordsQueue.clear()
             wordsQueue.addAll(phrases)
-            ttsSpeak(wordsQueue.last())
+            ttsSpeak()
         }
 
         override fun pause() {
-            if (tts.isSpeaking) {
+            if (!isPaused) {
                 isPaused = true
                 tts.stop()
             }
         }
 
-
         override fun resume() {
             if (isPaused) {
-                isPaused = false
-                tts.speak(wordsQueue.last(), TextToSpeech.QUEUE_FLUSH, null, wordsQueue.last())
+                ttsSpeak()
             }
         }
 
-        override fun stop() {
-            tts.stop()
-            wordsQueue.clear()
-        }
-
-        private fun ttsSpeak(text: String) {
-            tts.speak(text, TextToSpeech.QUEUE_FLUSH, null, text)
+        private fun ttsSpeak() {
+            wordsQueue.lastOrNull()?.let {
+                tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
+            }
         }
     }
 }

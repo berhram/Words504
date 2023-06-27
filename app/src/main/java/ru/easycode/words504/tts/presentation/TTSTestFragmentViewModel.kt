@@ -34,7 +34,7 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
         }
 
         override fun speak(text: String) {
-            ttsCommunication.map(text.split(".", ":", "?"))
+            ttsCommunication.map(text.split(".", ":", "?").reversed())
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<TTSTestFragmentUIState>) {
@@ -66,8 +66,6 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
             }
         }
 
-        override fun stop() = ttsControlCommunication.map(TTSControlState.Stop)
-
         override fun pause() = ttsControlCommunication.map(TTSControlState.Pause)
 
         override fun resume() = ttsControlCommunication.map(TTSControlState.Resume)
@@ -83,12 +81,6 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
         override fun resumed() {
             viewModelScope.launch(dispatchersList.ui()) {
                 uiStateCommunication.map(TTSTestFragmentUIState.Resume("", manageResources))
-            }
-        }
-
-        override fun stopped() {
-            viewModelScope.launch(dispatchersList.ui()) {
-                uiStateCommunication.map(TTSTestFragmentUIState.Stop("", manageResources))
             }
         }
 

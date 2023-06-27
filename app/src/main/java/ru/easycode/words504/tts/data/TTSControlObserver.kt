@@ -5,6 +5,4 @@ interface TTSControlObserver {
     fun paused()
 
     fun resumed()
-
-    fun stopped()
 }

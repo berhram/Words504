@@ -33,10 +33,6 @@ interface TTSTestFragmentUIState {
         override val prefix: String = manageResources.string(R.string.resume)
     }
 
-    class Stop(text: String, manageResources: ManageResources) : Abstract(text) {
-        override val prefix: String = manageResources.string(R.string.stop)
-    }
-
     class Error(message: String, manageResources: ManageResources) : Abstract(message) {
         override val prefix: String = manageResources.string(R.string.error)
     }

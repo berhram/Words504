@@ -5,6 +5,4 @@ interface TTSControl {
     fun pause()
 
     fun resume()
-
-    fun stop()
 }

@@ -16,10 +16,4 @@ interface TTSControlState {
             ttsEngine.resume()
         }
     }
-
-    object Stop : TTSControlState {
-        override fun map(ttsEngine: TTSEngine) {
-            ttsEngine.stop()
-        }
-    }
 }
