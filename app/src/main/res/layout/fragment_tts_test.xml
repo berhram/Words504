@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/small"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="@dimen/small">
 
     <TextView
         android:id="@+id/textView"
@@ -27,25 +27,14 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/pauseButton"
+        android:id="@+id/controlButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/pause"
-        app:layout_constraintEnd_toStartOf="@+id/resumeButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/speakButton" />
-
-    <Button
-        android:id="@+id/resumeButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/resume"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/pauseButton"
-        app:layout_constraintTop_toBottomOf="@+id/speakButton" />
-
 
     <TextView
         android:id="@+id/logTextView"
@@ -53,11 +42,10 @@
         android:layout_height="0dp"
         android:textColor="@color/black"
         app:flow_wrapMode="aligned"
-        android:scrollbarAlwaysDrawVerticalTrack="true"
         app:layout_constraintBottom_toTopOf="@+id/clearLogButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pauseButton" />
+        app:layout_constraintTop_toBottomOf="@+id/controlButton" />
 
     <Button
         android:id="@+id/clearLogButton"

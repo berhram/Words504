@@ -48,7 +48,7 @@ interface TTSEngine : TTSControl {
                 }
 
                 override fun onDone(utteranceId: String) {
-                    wordsQueue.removeLast()
+                    wordsQueue.removeFirst()
                     observersStorage.notify { it.finished(utteranceId) }
                     ttsSpeak()
                 }
@@ -86,7 +86,7 @@ interface TTSEngine : TTSControl {
         }
 
         private fun ttsSpeak() {
-            wordsQueue.lastOrNull()?.let {
+            wordsQueue.firstOrNull()?.let {
                 tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
             }
         }

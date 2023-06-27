@@ -34,7 +34,7 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
         }
 
         override fun speak(text: String) {
-            ttsCommunication.map(text.split(".", ":", "?").reversed())
+            ttsCommunication.map(text.split(". ", ": ", "? "))
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<TTSTestFragmentUIState>) {
