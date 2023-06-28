@@ -29,13 +29,9 @@ class TestVoiceRecognitionFragment :
         viewModel.observeRequestPermission(this) {
             it.handle(this, launcher)
         }
-
         viewModel.init(savedInstanceState == null)
         binding.speakButton.setOnClickListener {
             viewModel.startRecord()
-        }
-        viewModel.observeRequestPermission(this) {
-            it.handle(this, launcher)
         }
         viewModel.observeRecognitionResult(this) {
             it.show(binding.resultTextView)
