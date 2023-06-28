@@ -72,15 +72,11 @@ interface TTSEngine : TTSControl {
             ttsSpeak()
         }
 
-        override fun pause() {
+        override fun changePlayback() {
             if (!isPaused) {
                 isPaused = true
                 tts.stop()
-            }
-        }
-
-        override fun resume() {
-            if (isPaused) {
+            } else {
                 ttsSpeak()
             }
         }

@@ -18,7 +18,6 @@ class TTSTestFragment : BaseFragment<TTSTestFragmentViewModel.Base, FragmentTtsT
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var currentUIState: TTSTestFragmentUIState? = null
         with(binding) {
             speakButton.setOnClickListener {
                 viewModel.speak(textView.text.toString())
@@ -27,17 +26,10 @@ class TTSTestFragment : BaseFragment<TTSTestFragmentViewModel.Base, FragmentTtsT
                 logTextView.text = ""
             }
             controlButton.setOnClickListener {
-                currentUIState?.let {
-                    if (it is TTSTestFragmentUIState.Start || it is TTSTestFragmentUIState.Resume) {
-                        viewModel.pause()
-                    } else {
-                        viewModel.resume()
-                    }
-                }
+                viewModel.changePlayback()
             }
         }
         viewModel.observe(this) {
-            currentUIState = it
             it.map(binding.logTextView, binding.controlButton)
         }
     }

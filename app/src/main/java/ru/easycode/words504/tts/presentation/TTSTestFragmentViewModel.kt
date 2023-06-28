@@ -66,9 +66,7 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
             }
         }
 
-        override fun pause() = ttsControlCommunication.map(TTSControlState.Pause)
-
-        override fun resume() = ttsControlCommunication.map(TTSControlState.Resume)
+        override fun changePlayback() = ttsControlCommunication.map(Unit)
 
         override fun paused() {
             viewModelScope.launch(dispatchersList.ui()) {

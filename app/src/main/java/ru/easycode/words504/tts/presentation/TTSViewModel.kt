@@ -23,10 +23,12 @@ interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
     fun init(onInitListener: OnInitListener)
 
     fun speak(phrases: List<String>)
-    fun changeState(state: TTSControlState)
+
+    fun changePlayback()
 
     fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>)
-    fun observeTTSControl(owner: LifecycleOwner, observer: Observer<TTSControlState>)
+
+    fun observeTTSControl(owner: LifecycleOwner, observer: Observer<Unit>)
 
     class Base(
         private val dispatchers: DispatchersList,
@@ -71,15 +73,15 @@ interface TTSViewModel : Communication.Observe<Screen>, TTSObserver, Navigate {
             }
         }
 
-        override fun changeState(state: TTSControlState) {
-            state.map(ttsEngine)
+        override fun changePlayback() {
+            ttsEngine.changePlayback()
         }
 
         override fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>) {
             ttsCommunication.observe(owner, observer)
         }
 
-        override fun observeTTSControl(owner: LifecycleOwner, observer: Observer<TTSControlState>) {
+        override fun observeTTSControl(owner: LifecycleOwner, observer: Observer<Unit>) {
             ttsControlCommunication.observe(owner, observer)
         }
 

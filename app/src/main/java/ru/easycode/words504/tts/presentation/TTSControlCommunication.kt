@@ -4,11 +4,11 @@ import ru.easycode.words504.presentation.Communication
 
 interface TTSControlCommunication {
 
-    interface Update : Communication.Update<TTSControlState>
+    interface Update : Communication.Update<Unit>
 
-    interface Observe : Communication.Observe<TTSControlState>
+    interface Observe : Communication.Observe<Unit>
 
     interface Mutable : Update, Observe
 
-    class Base : Communication.Abstract<TTSControlState>(), Mutable
+    class Base : Communication.Abstract<Unit>(), Mutable
 }
