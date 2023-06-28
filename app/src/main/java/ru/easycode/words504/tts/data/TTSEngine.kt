@@ -14,6 +14,8 @@ interface TTSEngine : TTSControl {
 
     fun speak(phrases: List<String>)
 
+    fun speakNextInQueue()
+
     class Base(
         private val context: Context,
         private val observersStorage: ObserversStorage<TTSObserver>,
@@ -50,7 +52,7 @@ interface TTSEngine : TTSControl {
                 override fun onDone(utteranceId: String) {
                     wordsQueue.removeFirst()
                     observersStorage.notify { it.finished(utteranceId) }
-                    ttsSpeak()
+                    speakNextInQueue()
                 }
 
                 @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
@@ -69,7 +71,7 @@ interface TTSEngine : TTSControl {
             tts.stop()
             wordsQueue.clear()
             wordsQueue.addAll(phrases)
-            ttsSpeak()
+            speakNextInQueue()
         }
 
         override fun changePlayback() {
@@ -77,11 +79,11 @@ interface TTSEngine : TTSControl {
                 isPaused = true
                 tts.stop()
             } else {
-                ttsSpeak()
+                speakNextInQueue()
             }
         }
 
-        private fun ttsSpeak() {
+        override fun speakNextInQueue() {
             wordsQueue.firstOrNull()?.let {
                 tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
             }
