@@ -31,4 +31,3 @@ interface TTSError {
 
     class ErrorSynthesis : Abstract(R.string.error_synthesis)
 }
-
