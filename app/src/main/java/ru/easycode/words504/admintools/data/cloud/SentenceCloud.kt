@@ -6,6 +6,13 @@ interface SentenceCloud {
 
     interface Mapper<T : Any> {
         fun map(ui: String, words: List<WordCloud>): T
+
+        class Ui(private val mapper: WordCloud.Mapper<String>) : Mapper<String> {
+            override fun map(ui: String, words: List<WordCloud>): String =
+                ui.ifEmpty {
+                    words.first().map(mapper)
+                }
+        }
     }
 
     fun <T : Any> map(mapper: Mapper<T>): T

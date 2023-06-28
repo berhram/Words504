@@ -1,8 +1,9 @@
 package ru.easycode.words504.admintools.data.cloud
 
 import com.google.gson.annotations.SerializedName
+import ru.easycode.words504.data.Empty
 
-interface LessonTextCloud {
+interface LessonTextCloud : Empty {
 
     interface Mapper<T : Any> {
         fun map(title: SentenceCloud, sentences: List<SentenceCloud>): T
@@ -18,5 +19,7 @@ interface LessonTextCloud {
     ) : LessonTextCloud {
 
         override fun <T : Any> map(mapper: Mapper<T>): T = mapper.map(title, sentences)
+
+        override fun isEmpty(): Boolean = sentences.isEmpty()
     }
 }

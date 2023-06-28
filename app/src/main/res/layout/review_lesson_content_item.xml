@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nameTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="@dimen/small"
+    android:background="@color/admin_review_content_item"
+    android:gravity="center_horizontal"
+    android:padding="@dimen/small"
+    android:textSize="22sp"
+    tools:text="Quote" />

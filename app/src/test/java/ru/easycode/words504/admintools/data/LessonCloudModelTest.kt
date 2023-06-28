@@ -9,9 +9,9 @@ import ru.easycode.words504.admintools.data.cloud.LessonCloud
 import ru.easycode.words504.admintools.data.cloud.LessonExerciseCloud
 import ru.easycode.words504.admintools.data.cloud.LessonQuoteCloud
 import ru.easycode.words504.admintools.data.cloud.LessonTextCloud
+import ru.easycode.words504.admintools.data.cloud.LessonWordCloud
 import ru.easycode.words504.admintools.data.cloud.SentenceCloud
 import ru.easycode.words504.admintools.data.cloud.WordCloud
-import ru.easycode.words504.admintools.data.cloud.WordToLearnCloud
 import ru.easycode.words504.data.cache.serialization.Serialization
 
 class LessonCloudModelTest {
@@ -158,7 +158,7 @@ class LessonCloudModelTest {
     )
 
     private fun expectedWordsToLearnCloud() = listOf(
-        WordToLearnCloud.Base(
+        LessonWordCloud.Base(
             id = "firstWord",
             definitions = listOf(
                 SentenceCloud.Base(
@@ -195,7 +195,7 @@ class LessonCloudModelTest {
                 )
             )
         ),
-        WordToLearnCloud.Base(
+        LessonWordCloud.Base(
             id = "secondWord",
             definitions = listOf(
                 SentenceCloud.Base(

@@ -1,7 +1,7 @@
 package ru.easycode.words504.admintools.presentation
 
 import android.os.Bundle
-import ru.easycode.words504.admintools.initial.presentation.AdminInitialScreen
+import ru.easycode.words504.admintools.lessonslist.presentation.AdminLessonsListScreen
 import ru.easycode.words504.databinding.ActivityAdminBinding
 import ru.easycode.words504.presentation.BaseActivity
 
@@ -15,9 +15,7 @@ class AdminActivity : BaseActivity<AdminActivityViewModel.Base>() {
             it.navigate(supportFragmentManager, binding.adminContainer.id)
         }
         if (savedInstanceState == null) {
-            viewModel.navigate(AdminInitialScreen)
+            viewModel.navigate(AdminLessonsListScreen)
         }
     }
-
-    override fun onBackPressed() = Unit
 }

@@ -6,6 +6,7 @@ import ru.easycode.words504.initial.domain.InitialInteractor
 import ru.easycode.words504.presentation.BaseViewModel
 import ru.easycode.words504.presentation.Communication
 import ru.easycode.words504.presentation.DispatchersList
+import ru.easycode.words504.presentation.Init
 import ru.easycode.words504.presentation.NavigationCommunication
 
 class InitialViewModel(
@@ -13,7 +14,7 @@ class InitialViewModel(
     private val communication: InitialCommunication,
     private val navigation: NavigationCommunication.Update,
     dispatchers: DispatchersList
-) : BaseViewModel(dispatchers), InitialInit, InitialRetry, Communication.Observe<InitialUiState> {
+) : BaseViewModel(dispatchers), Init, Retry, Communication.Observe<InitialUiState> {
 
     override fun init() {
         communication.map(InitialUiState.Loading)
@@ -32,10 +33,6 @@ class InitialViewModel(
     }
 }
 
-interface InitialInit {
-    fun init()
-}
-
-interface InitialRetry {
+interface Retry {
     fun retry()
 }

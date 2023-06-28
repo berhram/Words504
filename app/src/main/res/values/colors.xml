@@ -9,4 +9,9 @@
     <color name="primary_variant">#625B71</color>
     <color name="primary">#6750A4</color>
     <color name="progress_background">#4285F4</color>
+    <color name="admin_add_button">#FF1D89</color>
+    <color name="admin_state">#99000000</color>
+    <color name="admin_in_progress">#FBDB34</color>
+    <color name="admin_complete">#5DB075</color>
+    <color name="admin_review_content_item">#0A000000</color>
 </resources>
