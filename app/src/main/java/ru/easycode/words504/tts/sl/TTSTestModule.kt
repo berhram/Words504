@@ -7,8 +7,10 @@ import ru.easycode.words504.tts.MediaLevel
 import ru.easycode.words504.tts.presentation.TTSTestFragmentUiCommunication
 import ru.easycode.words504.tts.presentation.TTSTestFragmentViewModel
 
-class TTSTestModule(private val coreModule: CoreModule,
- private val context: Context) : Module<TTSTestFragmentViewModel.Base> {
+class TTSTestModule(
+    private val coreModule: CoreModule,
+    private val context: Context
+) : Module<TTSTestFragmentViewModel.Base> {
     override fun viewModel(): TTSTestFragmentViewModel.Base {
         return TTSTestFragmentViewModel.Base(
             ttsCommunication = coreModule.provideTTSCommunication(),

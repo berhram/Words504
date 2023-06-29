@@ -109,7 +109,6 @@ class TTSViewModelTest : BaseTest() {
         }
     }
 
-
     private interface FakeTTSCommunication : TTSCommunication.Observe {
 
         class Base : FakeTTSCommunication {
@@ -128,7 +127,6 @@ class TTSViewModelTest : BaseTest() {
 
     private interface FakeNavigationCommunication : NavigationCommunication.Mutable {
 
-
         class Base : FakeNavigationCommunication {
 
             override fun map(source: Screen) = Unit
@@ -136,6 +134,4 @@ class TTSViewModelTest : BaseTest() {
             override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) = Unit
         }
     }
-
-
 }
