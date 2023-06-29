@@ -14,25 +14,29 @@ interface TTSEngine : TTSControl {
 
     fun speak(phrases: List<String>)
 
-    fun speakNextInQueue()
-
     class Base(
         private val context: Context,
         private val observersStorage: ObserversStorage<TTSObserver>,
         private val controlObserversStorage: ObserversStorage<TTSControlObserver>,
-        private val errorFactory: TTSErrorsFactory
-    ) : TTSEngine {
+        private val errorFactory: TTSErrorsFactory,
+        private val queue: TTSQueue.Queue
+    ) : TTSEngine, TTSQueue.Callback {
 
         private lateinit var tts: TextToSpeech
 
-        private val wordsQueue: MutableList<String> = ArrayList()
         private var isPaused: Boolean = false
 
         override fun addObserver(observer: TTSObserver) {
             observersStorage.add(observer)
         }
 
+        override fun speak(data: String) {
+            tts.speak(data, TextToSpeech.QUEUE_FLUSH, null, data)
+
+        }
+
         override fun init(initCallback: TextToSpeech.OnInitListener) {
+            queue.init(this)
             tts = TextToSpeech(context, initCallback)
             tts.language = Locale.ENGLISH
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
@@ -50,9 +54,9 @@ interface TTSEngine : TTSControl {
                 }
 
                 override fun onDone(utteranceId: String) {
-                    wordsQueue.removeFirst()
+                    queue.done()
                     observersStorage.notify { it.finished(utteranceId) }
-                    speakNextInQueue()
+                    queue.processNext()
                 }
 
                 @Deprecated("Deprecated in Java", ReplaceWith("Unit"))
@@ -69,9 +73,9 @@ interface TTSEngine : TTSControl {
         override fun speak(phrases: List<String>) {
             isPaused = false
             tts.stop()
-            wordsQueue.clear()
-            wordsQueue.addAll(phrases)
-            speakNextInQueue()
+            queue.clear()
+            queue.addAll(phrases)
+            queue.processNext()
         }
 
         override fun changePlayback() {
@@ -79,13 +83,7 @@ interface TTSEngine : TTSControl {
                 isPaused = true
                 tts.stop()
             } else {
-                speakNextInQueue()
-            }
-        }
-
-        override fun speakNextInQueue() {
-            wordsQueue.firstOrNull()?.let {
-                tts.speak(it, TextToSpeech.QUEUE_FLUSH, null, it)
+                queue.processNext()
             }
         }
     }

@@ -1,67 +1,62 @@
 package ru.easycode.words504.tts.presentation
 
 import android.speech.tts.TextToSpeech
-import org.junit.Assert.assertEquals
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.Observer
 import org.junit.Before
 import org.junit.Test
 import ru.easycode.words504.BaseTest
-import ru.easycode.words504.presentation.ManageResources
-import ru.easycode.words504.tts.MediaLevel
+import ru.easycode.words504.presentation.NavigationCommunication
+import ru.easycode.words504.presentation.Screen
 import ru.easycode.words504.tts.data.TTSEngine
 import ru.easycode.words504.tts.data.TTSObserver
 
 class TTSViewModelTest : BaseTest() {
 
-    private lateinit var fakeCommunication: FakeCommunications
     private lateinit var viewModel: TTSViewModel
     private lateinit var fakeTTSEngine: FakeTTSEngine
-    private lateinit var fakeMediaLevel: FakeMediaLevel
-    private lateinit var fakeManageResource: FakeManageResource
+    private lateinit var fakeTTSControlCommunication: FakeTTSControlCommunication
+    private lateinit var fakeNavigationCommunication: FakeNavigationCommunication
+    private lateinit var fakeTTSCommunication: FakeTTSCommunication
 
     @Before
     fun setup() {
         fakeTTSEngine = FakeTTSEngine.Base(functionsCallsStack)
-        fakeCommunication = FakeCommunications.Base()
-        fakeManageResource = FakeManageResource.Base(functionsCallsStack, "test")
+        fakeTTSControlCommunication = FakeTTSControlCommunication.Base()
+        fakeTTSCommunication = FakeTTSCommunication.Base()
+        fakeNavigationCommunication = FakeNavigationCommunication.Base()
     }
 
     @Test
-    fun success() {
-        fakeMediaLevel = FakeMediaLevel.Base(functionsCallsStack, false)
+    fun speak() {
         viewModel = TTSViewModel.Base(
             dispatchers = TestDispatchersList(),
             ttsEngine = fakeTTSEngine,
-            resultCommunication = fakeCommunication,
-            mediaLevel = fakeMediaLevel,
-            manageResources = fakeManageResource
+            ttsCommunication = fakeTTSCommunication,
+            ttsControlCommunication = fakeTTSControlCommunication,
+            navigationCommunication = fakeNavigationCommunication
         )
         viewModel.init { }
-        viewModel.speak(listOf("Lalala"))
+        viewModel.speak(listOf("Lala", "Jaja"))
         fakeTTSEngine.assertInitCalled()
-        fakeMediaLevel.assertIsLowLevelCalled()
-        fakeManageResource.assertStringCalled()
         fakeTTSEngine.assertSpeakCalled()
-        fakeCommunication.assertState(TTSState.Finished("test: Lalala"))
-        functionsCallsStack.checkStack(4)
+        functionsCallsStack.checkStack(2)
     }
 
     @Test
-    fun `low volume`() {
-        fakeMediaLevel = FakeMediaLevel.Base(functionsCallsStack, true)
+    fun changePlayback() {
         viewModel = TTSViewModel.Base(
             dispatchers = TestDispatchersList(),
             ttsEngine = fakeTTSEngine,
-            resultCommunication = fakeCommunication,
-            mediaLevel = fakeMediaLevel,
-            manageResources = fakeManageResource
+            ttsCommunication = fakeTTSCommunication,
+            ttsControlCommunication = fakeTTSControlCommunication,
+            navigationCommunication = fakeNavigationCommunication
         )
         viewModel.init { }
-        viewModel.speak(listOf("Lalala"))
+        viewModel.changePlayback()
         fakeTTSEngine.assertInitCalled()
-        fakeMediaLevel.assertIsLowLevelCalled()
-        fakeManageResource.assertStringCalled()
-        fakeCommunication.assertState(TTSState.Message("test"))
-        functionsCallsStack.checkStack(3)
+        fakeTTSEngine.assertChangePlaybackCalled()
+        functionsCallsStack.checkStack(2)
     }
 
     private interface FakeTTSEngine : TTSEngine {
@@ -70,23 +65,31 @@ class TTSViewModelTest : BaseTest() {
 
         fun assertSpeakCalled()
 
+        fun assertChangePlaybackCalled()
+
         class Base(
+
             private val functionsCallsStack: FunctionsCallsStack
         ) : FakeTTSEngine {
-
-            private val observers: MutableList<TTSObserver> = mutableListOf()
 
             override fun init(initCallback: TextToSpeech.OnInitListener) {
                 functionsCallsStack.put(INIT_CALLED)
             }
 
             override fun addObserver(observer: TTSObserver) {
-                observers.add(observer)
+                functionsCallsStack.put(ADD_OBSERVER_CALLED)
+            }
+
+            override fun changePlayback() {
+                functionsCallsStack.put(CHANGE_PLAYBACK_CALLED)
             }
 
             override fun speak(phrases: List<String>) {
-                phrases.forEach { phrase -> observers.forEach { it.finished(phrase) } }
                 functionsCallsStack.put(SPEAK_CALLED)
+            }
+
+            override fun assertChangePlaybackCalled() {
+                functionsCallsStack.checkCalled(CHANGE_PLAYBACK_CALLED)
             }
 
             override fun assertInitCalled() {
@@ -98,78 +101,41 @@ class TTSViewModelTest : BaseTest() {
             }
 
             companion object {
-
+                private const val ADD_OBSERVER_CALLED = "add observer called"
+                private const val CHANGE_PLAYBACK_CALLED = "changed playback called"
                 private const val INIT_CALLED = "init called"
                 private const val SPEAK_CALLED = "speak called"
             }
         }
     }
 
-    private interface FakeCommunications : TTSStateCommunication {
 
-        fun assertState(state: TTSState)
+    private interface FakeTTSCommunication : TTSCommunication.Observe {
 
-        class Base : FakeCommunications {
+        class Base : FakeTTSCommunication {
 
-            private var savedState: TTSState? = null
-
-            override fun map(source: TTSState) {
-                savedState = source
-            }
-
-            override fun assertState(state: TTSState) {
-                assertEquals(state, savedState)
-            }
+            override fun observe(owner: LifecycleOwner, observer: Observer<List<String>>) = Unit
         }
     }
 
-    private interface FakeMediaLevel : MediaLevel {
+    private interface FakeTTSControlCommunication : TTSControlCommunication.Observe {
 
-        fun assertIsLowLevelCalled()
+        class Base : FakeTTSControlCommunication {
 
-        class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val isLowLevel: Boolean
-        ) : FakeMediaLevel {
-
-            override fun isLowLevel(): Boolean {
-                functionsCallsStack.put(IS_LOW_LEVEL_CALLED)
-                return isLowLevel
-            }
-
-            override fun assertIsLowLevelCalled() {
-                functionsCallsStack.checkCalled(IS_LOW_LEVEL_CALLED)
-            }
-
-            companion object {
-
-                private const val IS_LOW_LEVEL_CALLED = "is low level called"
-            }
+            override fun observe(owner: LifecycleOwner, observer: Observer<Unit>) = Unit
         }
     }
 
-    private interface FakeManageResource : ManageResources {
+    private interface FakeNavigationCommunication : NavigationCommunication.Mutable {
 
-        fun assertStringCalled()
 
-        class Base(
-            private val functionsCallsStack: FunctionsCallsStack,
-            private val message: String
-        ) : FakeManageResource {
+        class Base : FakeNavigationCommunication {
 
-            override fun assertStringCalled() {
-                functionsCallsStack.checkCalled(STRING_CALLED)
-            }
+            override fun map(source: Screen) = Unit
 
-            override fun string(id: Int): String {
-                functionsCallsStack.put(STRING_CALLED)
-                return message
-            }
-
-            companion object {
-
-                private const val STRING_CALLED = "string called"
-            }
+            override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) = Unit
         }
     }
+
+
 }

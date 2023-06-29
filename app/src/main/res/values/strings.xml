@@ -9,7 +9,7 @@
     <string name="progress_right_start_symbol">א</string>
     <string name="welcome">Welcome</string>
     <string name="try_again">Try again</string>
-    <string name="error">Something went wrong</string>
+    <string name="error">Error</string>
     <string name="stt">STT</string>
     <string name="tts">TTS</string>
     <string name="write_here">Write here</string>

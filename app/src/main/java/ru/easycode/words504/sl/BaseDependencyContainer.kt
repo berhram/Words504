@@ -28,7 +28,7 @@ class BaseDependencyContainer(
         TestSTTViewModel::class.java -> STTModule(context, core)
         InitialViewModel::class.java -> InitialModule(core)
         TTSViewModel.Base::class.java -> TTSModule(core, context)
-        TTSTestFragmentViewModel.Base::class.java -> TTSTestModule(core)
+        TTSTestFragmentViewModel.Base::class.java -> TTSTestModule(core, context)
         else -> error.module(clazz)
     }
 }
