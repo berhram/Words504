@@ -32,7 +32,6 @@ interface TTSEngine : TTSControl {
 
         override fun speak(data: String) {
             tts.speak(data, TextToSpeech.QUEUE_FLUSH, null, data)
-
         }
 
         override fun init(initCallback: TextToSpeech.OnInitListener) {

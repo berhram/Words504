@@ -29,7 +29,8 @@ interface TTSTestFragmentViewModel : TTSObserver, TTSControl, TTSControlObserver
         private val uiStateCommunication: Communication.Mutable<TTSTestFragmentUIState>,
         private val manageResources: ManageResources,
         private val mediaLevel: MediaLevel
-    ) : BaseViewModel(dispatchers), TTSTestFragmentViewModel,
+    ) : BaseViewModel(dispatchers),
+        TTSTestFragmentViewModel,
         Communication.Observe<TTSTestFragmentUIState> {
 
         init {

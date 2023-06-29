@@ -22,7 +22,7 @@ interface TTSQueue {
         class Base : Queue {
 
             private val queue: MutableList<String> = ArrayList()
-            lateinit var callback: Callback
+            private lateinit var callback: Callback
 
             override fun done() {
                 queue.removeFirst()
