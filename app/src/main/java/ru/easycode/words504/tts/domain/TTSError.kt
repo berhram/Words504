@@ -30,4 +30,6 @@ interface TTSError {
     class ErrorService : Abstract(R.string.error_service)
 
     class ErrorSynthesis : Abstract(R.string.error_synthesis)
+
+    class ErrorInit : Abstract(R.string.error_init)
 }

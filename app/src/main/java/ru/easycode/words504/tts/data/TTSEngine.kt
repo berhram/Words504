@@ -3,8 +3,9 @@ package ru.easycode.words504.tts.data
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
-import java.util.Locale
+import ru.easycode.words504.tts.domain.TTSError
 import ru.easycode.words504.tts.domain.TTSErrorsFactory
+import java.util.Locale
 
 interface TTSEngine : TTSControl {
 
@@ -36,7 +37,11 @@ interface TTSEngine : TTSControl {
 
         override fun init() {
             queue.init(this)
-            tts = TextToSpeech(context) {}
+            tts = TextToSpeech(context) { status ->
+                if (status == TextToSpeech.ERROR) {
+                    observersStorage.notify { it.error(TTSError.ErrorInit()) }
+                }
+            }
             tts.language = Locale.ENGLISH
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStop(utteranceId: String?, interrupted: Boolean) {
