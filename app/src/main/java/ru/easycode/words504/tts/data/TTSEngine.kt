@@ -3,9 +3,9 @@ package ru.easycode.words504.tts.data
 import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import java.util.Locale
 import ru.easycode.words504.tts.domain.TTSError
 import ru.easycode.words504.tts.domain.TTSErrorsFactory
-import java.util.Locale
 
 interface TTSEngine : TTSControl {
 
