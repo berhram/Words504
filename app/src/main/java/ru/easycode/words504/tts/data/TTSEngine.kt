@@ -8,7 +8,7 @@ import ru.easycode.words504.tts.domain.TTSErrorsFactory
 
 interface TTSEngine : TTSControl {
 
-    fun init(initCallback: TextToSpeech.OnInitListener)
+    fun init()
 
     fun addObserver(observer: TTSObserver)
 
@@ -34,9 +34,9 @@ interface TTSEngine : TTSControl {
             tts.speak(data, TextToSpeech.QUEUE_FLUSH, null, data)
         }
 
-        override fun init(initCallback: TextToSpeech.OnInitListener) {
+        override fun init() {
             queue.init(this)
-            tts = TextToSpeech(context, initCallback)
+            tts = TextToSpeech(context) {}
             tts.language = Locale.ENGLISH
             tts.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
                 override fun onStop(utteranceId: String?, interrupted: Boolean) {

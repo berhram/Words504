@@ -16,7 +16,7 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
         if (savedInstanceState == null) {
             viewModel.navigate(TTSTestScreen)
         }
-        viewModel.init {}
+        viewModel.init()
 
         viewModel.observe(this) {
             it.navigate(supportFragmentManager, binding.ttsContainer.id)

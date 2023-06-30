@@ -1,6 +1,5 @@
 package ru.easycode.words504.tts.presentation
 
-import android.speech.tts.TextToSpeech.OnInitListener
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import ru.easycode.words504.presentation.BaseViewModel
@@ -14,7 +13,7 @@ import ru.easycode.words504.tts.data.TTSEngine
 
 interface TTSViewModel : Communication.Observe<Screen>, Navigate, TTSControl {
 
-    fun init(onInitListener: OnInitListener)
+    fun init()
 
     fun speak(phrases: List<String>)
 
@@ -50,8 +49,8 @@ interface TTSViewModel : Communication.Observe<Screen>, Navigate, TTSControl {
             ttsControlCommunication.observe(owner, observer)
         }
 
-        override fun init(onInitListener: OnInitListener) {
-            ttsEngine.init(onInitListener)
+        override fun init() {
+            ttsEngine.init()
         }
 
         override fun observe(owner: LifecycleOwner, observer: Observer<Screen>) =

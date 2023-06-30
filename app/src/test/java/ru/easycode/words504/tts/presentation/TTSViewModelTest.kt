@@ -1,6 +1,5 @@
 package ru.easycode.words504.tts.presentation
 
-import android.speech.tts.TextToSpeech
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import org.junit.Before
@@ -36,7 +35,7 @@ class TTSViewModelTest : BaseTest() {
             ttsControlCommunication = fakeTTSControlCommunication,
             navigationCommunication = fakeNavigationCommunication
         )
-        viewModel.init { }
+        viewModel.init()
         viewModel.speak(listOf("Lala", "Jaja"))
         fakeTTSEngine.assertInitCalled()
         fakeTTSEngine.assertSpeakCalled()
@@ -52,7 +51,7 @@ class TTSViewModelTest : BaseTest() {
             ttsControlCommunication = fakeTTSControlCommunication,
             navigationCommunication = fakeNavigationCommunication
         )
-        viewModel.init { }
+        viewModel.init()
         viewModel.switchPlayAndPause()
         fakeTTSEngine.assertInitCalled()
         fakeTTSEngine.assertSwitchPlayAndPauseCalled()
@@ -72,7 +71,7 @@ class TTSViewModelTest : BaseTest() {
             private val functionsCallsStack: FunctionsCallsStack
         ) : FakeTTSEngine {
 
-            override fun init(initCallback: TextToSpeech.OnInitListener) {
+            override fun init() {
                 functionsCallsStack.put(INIT_CALLED)
             }
 
