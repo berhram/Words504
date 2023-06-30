@@ -18,7 +18,7 @@ jobs:
           repository: berhram/oop-solid-rules
           latest: true
       - name: ktlint
-        uses: ScaCap/action-ktlint@v1.6
+        uses: ScaCap/action-ktlint@v1.7.1
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
