@@ -44,7 +44,7 @@ class TTSViewModelTest : BaseTest() {
     }
 
     @Test
-    fun changePlayback() {
+    fun `switch play and pause`() {
         viewModel = TTSViewModel.Base(
             dispatchers = TestDispatchersList(),
             ttsEngine = fakeTTSEngine,
@@ -53,9 +53,9 @@ class TTSViewModelTest : BaseTest() {
             navigationCommunication = fakeNavigationCommunication
         )
         viewModel.init { }
-        viewModel.changePlayback()
+        viewModel.switchPlayAndPause()
         fakeTTSEngine.assertInitCalled()
-        fakeTTSEngine.assertChangePlaybackCalled()
+        fakeTTSEngine.assertSwitchPlayAndPauseCalled()
         functionsCallsStack.checkStack(2)
     }
 
@@ -65,7 +65,7 @@ class TTSViewModelTest : BaseTest() {
 
         fun assertSpeakCalled()
 
-        fun assertChangePlaybackCalled()
+        fun assertSwitchPlayAndPauseCalled()
 
         class Base(
 
@@ -80,7 +80,7 @@ class TTSViewModelTest : BaseTest() {
                 functionsCallsStack.put(ADD_OBSERVER_CALLED)
             }
 
-            override fun changePlayback() {
+            override fun switchPlayAndPause() {
                 functionsCallsStack.put(CHANGE_PLAYBACK_CALLED)
             }
 
@@ -88,7 +88,7 @@ class TTSViewModelTest : BaseTest() {
                 functionsCallsStack.put(SPEAK_CALLED)
             }
 
-            override fun assertChangePlaybackCalled() {
+            override fun assertSwitchPlayAndPauseCalled() {
                 functionsCallsStack.checkCalled(CHANGE_PLAYBACK_CALLED)
             }
 

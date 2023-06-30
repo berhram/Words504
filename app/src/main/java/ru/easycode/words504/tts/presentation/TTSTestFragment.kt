@@ -26,7 +26,7 @@ class TTSTestFragment : BaseFragment<TTSTestFragmentViewModel.Base, FragmentTtsT
                 logTextView.text = ""
             }
             controlButton.setOnClickListener {
-                viewModel.changePlayback()
+                viewModel.switchPlayAndPause()
             }
         }
         viewModel.observe(this) {

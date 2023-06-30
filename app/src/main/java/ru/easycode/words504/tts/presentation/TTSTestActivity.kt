@@ -25,7 +25,7 @@ class TTSTestActivity : BaseActivity<TTSViewModel.Base>() {
             viewModel.speak(it)
         }
         viewModel.observeTTSControl(this) {
-            viewModel.changePlayback()
+            viewModel.switchPlayAndPause()
         }
     }
 }

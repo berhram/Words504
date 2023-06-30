@@ -77,12 +77,12 @@ interface TTSEngine : TTSControl {
             queue.processNext()
         }
 
-        override fun changePlayback() {
-            if (!isPaused) {
+        override fun switchPlayAndPause() {
+            if (isPaused) {
+                queue.processNext()
+            } else {
                 isPaused = true
                 tts.stop()
-            } else {
-                queue.processNext()
             }
         }
     }

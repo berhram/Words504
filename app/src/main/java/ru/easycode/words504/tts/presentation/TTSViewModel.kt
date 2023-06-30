@@ -9,15 +9,14 @@ import ru.easycode.words504.presentation.DispatchersList
 import ru.easycode.words504.presentation.Navigate
 import ru.easycode.words504.presentation.NavigationCommunication
 import ru.easycode.words504.presentation.Screen
+import ru.easycode.words504.tts.data.TTSControl
 import ru.easycode.words504.tts.data.TTSEngine
 
-interface TTSViewModel : Communication.Observe<Screen>, Navigate {
+interface TTSViewModel : Communication.Observe<Screen>, Navigate, TTSControl {
 
     fun init(onInitListener: OnInitListener)
 
     fun speak(phrases: List<String>)
-
-    fun changePlayback()
 
     fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>)
 
@@ -39,8 +38,8 @@ interface TTSViewModel : Communication.Observe<Screen>, Navigate {
             ttsEngine.speak(phrases)
         }
 
-        override fun changePlayback() {
-            ttsEngine.changePlayback()
+        override fun switchPlayAndPause() {
+            ttsEngine.switchPlayAndPause()
         }
 
         override fun observeTts(owner: LifecycleOwner, observer: Observer<List<String>>) {
