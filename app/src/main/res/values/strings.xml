@@ -9,8 +9,24 @@
     <string name="progress_right_start_symbol">א</string>
     <string name="welcome">Welcome</string>
     <string name="try_again">Try again</string>
-    <string name="error">Something went wrong</string>
+    <string name="error">Error</string>
     <string name="stt">STT</string>
+    <string name="tts">TTS</string>
+    <string name="write_here">Write here</string>
+    <string name="turn_up_volume">Please turn the volume up</string>
+    <string name="speak_as_one">Speak as one sentence</string>
+    <string name="finished">Finished</string>
+    <string name="tts_test_text">Many studies about language learning ask the question: What makes a good language learner? There are some things that good language learners do and some things they don\'t do. Here are some of the most useful suggestions from studies.</string>
+    <string name="stop">Stop</string>
+    <string name="play">Play</string>
+    <string name="pause">Pause</string>
+    <string name="resume">Resume</string>
+    <string name="error_synthesis">Synthesis error</string>
+    <string name="error_service">Service error</string>
+    <string name="error_output">Output error</string>
+    <string name="error_voice">Not installed yet voice data error</string>
+    <string name="error_invalid_request">Invalid request error</string>
+    <string name="clear_log">clear log</string>
     <string name="in_progress">In progress</string>
     <string name="complete">Complete</string>
     <string name="share_json_lesson">Share JSON Lesson</string>
@@ -19,4 +35,5 @@
     <string name="lesson_text">Text</string>
     <string name="lesson_exercise">Exercise</string>
     <string name="admin_lessons">Lessons list</string>
+    <string name="error_init">Initialization error</string>
 </resources>
