@@ -67,7 +67,7 @@ class LessonExerciseToLessonPreviewMapperTest {
             )
         )
         val expected =
-            ExercisePreview.Base("FILL_BLANK", listOf("First question", "Second question"))
+            ExercisePreview("FILL_BLANK", listOf("First question", "Second question"))
         val actual = exerciseCloud.map(mapper)
         assertEquals(expected, actual)
     }

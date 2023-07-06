@@ -61,7 +61,7 @@ class LessonWordsCloudToWordPreviewMapperTest {
                 examples = emptyList()
             )
         )
-        val expected = WordsPreview.Base(listOf("first", "second", "third"))
+        val expected = WordsPreview(listOf("first", "second", "third"))
         val actual = LessonWordsCloudToWordPreviewMapper.Base(LessonWordCloudToUi()).map(cloudList)
         assertEquals(expected, actual)
     }
