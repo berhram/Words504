@@ -32,7 +32,7 @@ class LessonQuoteCloudToPreviewMapperTest {
             author = "Ekaterina"
         )
         val mapper = LessonQuoteCloudToPreviewMapper(SentenceCloud.Mapper.Ui(WordCloud.Mapper.Ui))
-        val expected = QuotePreview.Base(
+        val expected = QuotePreview(
             quote = "Quote first sentence. Quote second sentence.",
             author = "Ekaterina"
         )

@@ -11,7 +11,7 @@ interface LessonWordsCloudToWordPreviewMapper<T : Any> {
         private val mapper: LessonWordCloud.Mapper<String>
     ) : LessonWordsCloudToWordPreviewMapper<WordsPreview> {
         override fun map(words: List<LessonWordCloud>): WordsPreview =
-            WordsPreview.Base(words.map { (it.map(mapper)) })
+            WordsPreview(words.map { (it.map(mapper)) })
     }
 }
 

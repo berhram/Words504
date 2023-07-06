@@ -54,7 +54,7 @@ class LessonTextCloudToPreviewMapperTest {
         )
 
         val mapper = LessonTextCloudToPreviewMapper(SentenceCloud.Mapper.Ui(WordCloud.Mapper.Ui))
-        val expected = TextPreview.Base(
+        val expected = TextPreview(
             title = "Text title",
             text = "First sentence. Second sentence."
         )

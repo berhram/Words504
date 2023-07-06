@@ -6,10 +6,10 @@ import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.T
 
 class LessonTextCloudToPreviewMapper(
     private val mapper: SentenceCloud.Mapper<String>
-) : LessonTextCloud.Mapper<TextPreview.Base> {
-    override fun map(title: SentenceCloud, sentences: List<SentenceCloud>): TextPreview.Base {
+) : LessonTextCloud.Mapper<TextPreview> {
+    override fun map(title: SentenceCloud, sentences: List<SentenceCloud>): TextPreview {
         val textString = sentences.joinToString(" ") { it.map(mapper) }
         val titleString = title.map(mapper)
-        return TextPreview.Base(title = titleString, text = textString)
+        return TextPreview(title = titleString, text = textString)
     }
 }
