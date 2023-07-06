@@ -13,10 +13,10 @@ import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.W
 import ru.easycode.words504.presentation.ManageResources
 
 class LessonCloudToContentUiMapper(
-    private val quoteMapper: LessonQuoteCloud.Mapper<QuotePreview.Base>,
+    private val quoteMapper: LessonQuoteCloud.Mapper<QuotePreview>,
     private val wordsMapper: LessonWordsCloudToWordPreviewMapper<WordsPreview>,
-    private val textMapper: LessonTextCloud.Mapper<TextPreview.Base>,
-    private val exerciseMapper: LessonExerciseCloud.Mapper<ExercisePreview.Base>,
+    private val textMapper: LessonTextCloud.Mapper<TextPreview>,
+    private val exerciseMapper: LessonExerciseCloud.Mapper<ExercisePreview>,
     private val manageResources: ManageResources
 ) :
     LessonCloud.Mapper<List<ReviewLessonContentUi>> {

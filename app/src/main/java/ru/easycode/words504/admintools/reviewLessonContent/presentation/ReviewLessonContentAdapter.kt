@@ -49,7 +49,10 @@ class ReviewLessonContentViewHolder(
 ) : GenericViewHolder<ReviewLessonContentUi>(binding.root) {
 
     override fun bind(item: ReviewLessonContentUi) {
-        binding.nameTextView.text = item.id()
+        with(binding) {
+            typeContentTextView.text = item.id()
+            contentReviewTextView.text = item.content()
+        }
         itemView.setOnClickListener { clickListener.click(item) }
     }
 }

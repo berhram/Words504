@@ -7,10 +7,10 @@ import ru.easycode.words504.admintools.data.cloud.SentenceCloud
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.ExercisePreview
 
 class LessonExerciseToLessonPreviewMapper(private val mapper: ExerciseItemCloud.Mapper<String>) :
-    LessonExerciseCloud.Mapper<ExercisePreview.Base> {
-    override fun map(type: ExerciseType, items: List<ExerciseItemCloud>): ExercisePreview.Base {
+    LessonExerciseCloud.Mapper<ExercisePreview> {
+    override fun map(type: ExerciseType, items: List<ExerciseItemCloud>): ExercisePreview {
         val questions = items.map { it.map(mapper) }
-        return ExercisePreview.Base(type.name, questions)
+        return ExercisePreview(type.name, questions)
     }
 }
 

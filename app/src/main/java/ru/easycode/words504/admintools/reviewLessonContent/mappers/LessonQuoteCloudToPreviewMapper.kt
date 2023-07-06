@@ -6,9 +6,9 @@ import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.Q
 
 class LessonQuoteCloudToPreviewMapper(
     private val mapper: SentenceCloud.Mapper<String>
-) : LessonQuoteCloud.Mapper<QuotePreview.Base> {
-    override fun map(value: List<SentenceCloud>, author: String): QuotePreview.Base {
+) : LessonQuoteCloud.Mapper<QuotePreview> {
+    override fun map(value: List<SentenceCloud>, author: String): QuotePreview {
         val quoteSentences = value.map { it.map(mapper) }
-        return QuotePreview.Base(quoteSentences.joinToString(" "), author)
+        return QuotePreview(quoteSentences.joinToString(" "), author)
     }
 }

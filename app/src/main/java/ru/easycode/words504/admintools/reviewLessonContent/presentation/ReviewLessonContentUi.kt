@@ -6,6 +6,7 @@ import ru.easycode.words504.admintools.lessonquote.presentation.AdminLessonQuote
 import ru.easycode.words504.admintools.lessontext.presentation.AdminLessonTextScreen
 import ru.easycode.words504.admintools.lessonwords.presentation.AdminLessonWordsScreen
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.ExercisePreview
+import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.Preview
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.QuotePreview
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.TextPreview
 import ru.easycode.words504.admintools.reviewLessonContent.presentation.models.WordsPreview
@@ -17,10 +18,12 @@ interface ReviewLessonContentUi {
 
     fun id(): String
     fun map(navigation: NavigationCommunication.Update)
+    fun content(): String
 
     abstract class Abstract(
         private val manageResources: ManageResources,
-        private val screen: Screen
+        private val screen: Screen,
+        private val preview: Preview
     ) : ReviewLessonContentUi {
         protected abstract val resId: Int
 
@@ -29,33 +32,35 @@ interface ReviewLessonContentUi {
         override fun map(navigation: NavigationCommunication.Update) {
             navigation.map(screen)
         }
+
+        override fun content(): String = preview.content()
     }
 
     data class Quote(
         private val manageResources: ManageResources,
         private val preview: QuotePreview
-    ) : Abstract(manageResources, AdminLessonQuoteScreen) {
+    ) : Abstract(manageResources, AdminLessonQuoteScreen, preview) {
         override val resId = R.string.lesson_quote
     }
 
     data class Words(
         private val manageResources: ManageResources,
         private val preview: WordsPreview
-    ) : Abstract(manageResources, AdminLessonWordsScreen) {
+    ) : Abstract(manageResources, AdminLessonWordsScreen, preview) {
         override val resId = R.string.lesson_words
     }
 
     data class Text(
         private val manageResources: ManageResources,
         private val preview: TextPreview
-    ) : Abstract(manageResources, AdminLessonTextScreen) {
+    ) : Abstract(manageResources, AdminLessonTextScreen, preview) {
         override val resId = R.string.lesson_text
     }
 
     data class Exercise(
         private val manageResources: ManageResources,
         private val preview: ExercisePreview
-    ) : Abstract(manageResources, AdminLessonExerciseScreen) {
+    ) : Abstract(manageResources, AdminLessonExerciseScreen, preview) {
         override val resId = R.string.lesson_exercise
         override fun id(): String = manageResources.string(resId)
     }
