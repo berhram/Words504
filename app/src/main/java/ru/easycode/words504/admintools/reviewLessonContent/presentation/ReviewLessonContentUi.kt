@@ -40,28 +40,28 @@ interface ReviewLessonContentUi {
         private val manageResources: ManageResources,
         private val preview: QuotePreview
     ) : Abstract(manageResources, AdminLessonQuoteScreen, preview) {
-        override val resId = R.string.lesson_quote
+        override val resId = R.string.quote
     }
 
     data class Words(
         private val manageResources: ManageResources,
         private val preview: WordsPreview
     ) : Abstract(manageResources, AdminLessonWordsScreen, preview) {
-        override val resId = R.string.lesson_words
+        override val resId = R.string.words
     }
 
     data class Text(
         private val manageResources: ManageResources,
         private val preview: TextPreview
     ) : Abstract(manageResources, AdminLessonTextScreen, preview) {
-        override val resId = R.string.lesson_text
+        override val resId = R.string.text
     }
 
     data class Exercise(
         private val manageResources: ManageResources,
         private val preview: ExercisePreview
     ) : Abstract(manageResources, AdminLessonExerciseScreen, preview) {
-        override val resId = R.string.lesson_exercise
+        override val resId = R.string.exercise
         override fun id(): String = manageResources.string(resId)
     }
 }

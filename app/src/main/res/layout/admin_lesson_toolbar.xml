@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/screenTitleTextView"
+            style="@style/AdminTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="Lesson" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/upButton"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_back_black_24"
+            tools:ignore="ContentDescription" />
+    </androidx.appcompat.widget.Toolbar>
+</merge>
