@@ -30,7 +30,7 @@ interface ChooseLanguageViewModel : ChooseLanguage {
             val userChoice = if (saveAndRestore.isEmpty()) {
                 repository.userChoice()
             } else {
-                saveAndRestore.restore()
+                saveAndRestore.restore().also { repository.saveUserChoice(it) }
             }
             communication.map(
                 if (userChoice.isEmpty()) {
